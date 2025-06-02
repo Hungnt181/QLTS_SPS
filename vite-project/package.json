@@ -15,6 +15,7 @@
     "@fluentui/react-icons": "^2.0.300",
     "@fluentui/react-nav-preview": "^0.13.8",
     "axios": "^1.9.0",
+    "babel-plugin-react-compiler": "^0.0.0-experimental-a550a97-20250529",
     "json-server": "^1.0.0-beta.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

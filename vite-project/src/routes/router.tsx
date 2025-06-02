@@ -1,75 +1,75 @@
-import {createBrowserRouter} from "react-router-dom";
-import ListPages from "../pages/listPage/page.tsx";
+import {createBrowserRouter, Navigate} from "react-router-dom";
 import AssetDashboard from "../pages/listPage/dashboard/dashboard.tsx";
 import AssetList from "../pages/listPage/list/list.tsx";
 import AddNewAsset from "../layouts/FormAdd/formAddNewAs.tsx";
+import AssetDetail from "../pages/assetDetail/assetDetail.tsx";
+import EmptyPage from "../pages/emptyPage/page.tsx";
+import HomePage from "../pages/homePage/HomePage.tsx";
+import ListPages from "../pages/listPage/page.tsx";
 
 const router = createBrowserRouter([
     {
-        path: '/',
-        element: <ListPages/>
-    },
-
-    {
-        path: '/:AssetID',
-        element: <ListPages/>,
+        path: "/",
+        element: <HomePage/>,
         children: [
             {
-                path: 'dasboard',
-                element: <AssetDashboard/>,
+                index: true,
+                element: <Navigate to="/taisan/list" replace/>,
             },
             {
-                path: 'list',
-                element: <AssetList/>,
+                path: "taisan",
+                element: <ListPages/>,
                 children: [
                     {
-                        path:'w-create',
-                        element: <AddNewAsset/>,
-                    }
+                        index: true,
+                        element: <AssetList/>,
+                    },
+                    {
+                        path: 'dasboard',
+                        element: <AssetDashboard/>,
+                    },
+                    {
+                        path: 'list',
+                        element: <AssetList/>,
+                        children: [
+                            {
+                                path: 'w-create',
+                                element: <AddNewAsset/>,
+                            },
+                        ]
+                    },
+                    {
+                        path: 'list/detail/:maTaiSan',
+                        element: <AssetDetail/>,
+                    },
                 ]
-            }
+            },
+            {
+                path: "tongquan",
+                element: <EmptyPage/>,
+            },
+            {
+                path: "quytrinh",
+                element: <EmptyPage/>,
+            },
+            {
+                path: "congviec",
+                element: <EmptyPage/>,
+            },
+            {
+                path: "dashboard",
+                element: <EmptyPage/>,
+            },
+            {
+                path: "flow",
+                element: <EmptyPage/>,
+            },
+            {
+                path: "work",
+                element: <EmptyPage/>,
+            },
         ]
-    },
-    // {
-    //     path: '/tongquan/:AssetID',
-    //     element: <ListPages/>,
-    // },
-    // {
-    //     path: '/quytrình/:AssetID',
-    //     element: <ListPages/>,
-    // },{
-    //     path: '/congviec/:AssetID',
-    //     element: <ListPages/>,
-    // },
-    // {
-    //     path: '/taisan/:AssetID',
-    //     element: <ListPages/>,
-    //     children :  [
-    //         {
-    //             path: 'dasboard1',
-    //             element: <AssetDashboard/>,
-    //         },
-    //         {
-    //             path: 'dasboard2',
-    //             element: <ListPages/>,
-    //         },
-    //         {
-    //             path: 'dasboard3',
-    //             element: <ListPages/>,
-    //         },
-    //     ]
-    // },
-    // {
-    //     path: '/tongquan1/:AssetID',
-    //     element: <ListPages/>,
-    // },
-    // {
-    //     path: '/quytrình1/:AssetID',
-    //     element: <ListPages/>,
-    // },{
-    //     path: '/congviec1/:AssetID',
-    //     element: <ListPages/>,
-    // },
+    }
 
 
 ])
