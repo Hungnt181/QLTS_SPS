@@ -19,10 +19,12 @@ import {ChevronLeft16Regular} from "@fluentui/react-icons";
 import {useState} from "react";
 
 const AddNewAsset = () => {
+    // call api lấy data
+
     const style = AddNewAssetStyle()
     const nav = useNavigate()
     const [openItems, setOpenItems] = useState(["1"]);
-    const handleToggle: AccordionToggleEventHandler<string> = (event, data) => {
+    const handleToggle: AccordionToggleEventHandler<string> = (_event, data) => {
         setOpenItems(data.openItems);
     };
     return (

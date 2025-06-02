@@ -5,98 +5,95 @@ import {
     DataBarVerticalAscending24Regular, DocumentBulletListMultiple24Filled,
     DocumentBulletListMultiple24Regular, WebAsset24Filled, WebAsset24Regular
 } from "@fluentui/react-icons";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import {mergeClasses} from "@fluentui/react-components";
 import {useState} from "react";
 
 const AppBar = () => {
     const style = appBarStyle()
     const nav = useNavigate()
-    const {AssetID} = useParams()
-    const [activeItem, setActiveItem] = useState<string | null>(AssetID || null);
+
     const [hoveredItem, setHoveredItem] = useState<string | null>(null);
     const menu = [
         {
             icon: [<DataBarVerticalAscending24Regular/>, <DataBarVerticalAscending24Filled/>],
             title: "Tổng quan",
-            url: "tongquan",
+            url: "/tongquan",
             action: () => {
-                setActiveItem("tongquan");
                 nav("/tongquan")
             },
         },
         {
             icon: [<ArrowClockwise24Regular/>, <ArrowClockwise24Filled/>],
             title: "Quy trình",
-            url: "quytrinh",
+            url: "/quytrinh",
             action: () => {
-                setActiveItem("quytrinh");
                 nav("/quytrinh")
             },
         },
         {
             icon: [<DocumentBulletListMultiple24Regular/>, <DocumentBulletListMultiple24Filled/>],
             title: "Công việc",
-            url: "congviec",
+            url: "/congviec",
             action: () => {
-                setActiveItem("congviec");
                 nav("/congviec")
             },
         },
         {
-            icon: [<WebAsset24Regular/>,<WebAsset24Filled/>],
+            icon: [<WebAsset24Regular/>, <WebAsset24Filled/>],
             title: "Tài sản",
-            url: "taisan",
+            url: "/taisan",
             action: () => {
-                setActiveItem("taisan");
                 nav("/taisan")
             },
         },
         {
             icon: [<DataBarVerticalAscending24Regular/>, <DataBarVerticalAscending24Filled/>],
             title: "Tổng quan",
-            url: "tongquan1",
+            url: "/dashboard",
             action: () => {
-                setActiveItem("tongquan1");
-                nav("/tongquan1")
+                nav("/dashboard")
             },
         },
         {
             icon: [<ArrowClockwise24Regular/>, <ArrowClockwise24Filled/>],
             title: "Quy trình",
-            url: "quytrinh1",
+            url: "/flow",
             action: () => {
-                setActiveItem("quytrinh1");
-                nav("/quytrinh1")
+                nav("/flow")
             },
         },
         {
             icon: [<DocumentBulletListMultiple24Regular/>, <DocumentBulletListMultiple24Filled/>],
             title: "Công việc",
-            url: "congviec1",
+            url: "/work",
             action: () => {
-                setActiveItem("congviec1");
-                nav("/congviec1")
+                nav("/work")
             },
         }
     ]
     return (
         <div className={style.appBar}>
-            {menu.map((item, index) => (
-                <div key={index}
-                     className={mergeClasses(style.appBarItem, item?.url == AssetID ? style.appBarItemActiveParent : '')}
-                     onClick={item?.action}
-                     onMouseEnter={() => setHoveredItem(item.url)}
-                     onMouseLeave={() => setHoveredItem(null)}
-                >
-                    <div className={mergeClasses(style.appBarItemIcon, item?.url == AssetID ? style.appBarItemActive : '')}>
-                        {hoveredItem === item.url || activeItem === item.url
-                            ? item.icon[1]
-                            : item.icon[0]}
+            {menu.map((item, index) => {
+                const isActive = location.pathname.startsWith(item.url);
+                return (
+                    <div key={index}
+                         className={mergeClasses(style.appBarItem, isActive ? style.appBarItemActiveParent : '')}
+                         onClick={item?.action}
+                         onMouseEnter={() => setHoveredItem(item.url)}
+                         onMouseLeave={() => setHoveredItem(null)}
+                    >
+                        <div
+                            className={mergeClasses(style.appBarItemIcon, isActive ? style.appBarItemActive : '')}>
+                            {hoveredItem === item.url || isActive
+                                ? item.icon[1]
+                                : item.icon[0]}
+                        </div>
+                        <div
+                            className={mergeClasses(style.appBarItemTitle, isActive ? style.appBarItemActive : '')}>{item.title}</div>
                     </div>
-                    <div  className={mergeClasses(style.appBarItemTitle, item?.url == AssetID ? style.appBarItemActive : '')}>{item.title}</div>
-                </div>
-            ))}
+                )
+            })}
         </div>
     );
 };

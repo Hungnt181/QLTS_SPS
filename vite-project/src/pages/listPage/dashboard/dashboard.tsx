@@ -1,7 +1,9 @@
+import assetDashboardStyle from "../../../styles/listPages/assetDashboard/assetDashboard.ts";
 
 const AssetDashboard = () => {
+    const style = assetDashboardStyle()
     return (
-        <div>AssetDashboard</div>
+        <div className={style.assetDashboard}>AssetDashboard</div>
     );
 };
 
