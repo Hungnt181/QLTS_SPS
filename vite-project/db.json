@@ -1,0 +1,73 @@
+{
+  "dataTable": [
+    {
+      "tenTaiSan": "Laptop Dell XPS 15",
+      "maTaiSan": "TS001",
+      "maQR": "QR001",
+      "nhomTaiSan": "Thiết bị CNTT",
+      "loaiTaiSan": "Laptop",
+      "diaDiem": "Văn phòng Hà Nội",
+      "boPhan": "Phòng IT",
+      "nguyenGia": 35000000,
+      "trangThai": "Đang sử dụng",
+      "nguoiQuanLy": "Nguyễn Văn A",
+      "nguoiSuDung": "Trần Thị B",
+      "ngayTiepNhan": "15-01-2025",
+      "hanBaoHanh": "15-01-2026",
+      "hanBaoDuong": "15-01-2026",
+      "tinhTrang": "Tốt"
+    },
+    {
+      "tenTaiSan": "Máy in Canon 2900",
+      "maTaiSan": "TS002",
+      "maQR": "QR002",
+      "nhomTaiSan": "Thiết bị văn phòng",
+      "loaiTaiSan": "Máy in",
+      "diaDiem": "Chi nhánh Đà Nẵng",
+      "boPhan": "Hành chính",
+      "nguyenGia": 2500000,
+      "trangThai": "Cưa sử dụng",
+      "nguoiQuanLy": "Lê Văn C",
+      "nguoiSuDung": "",
+      "ngayTiepNhan": "",
+      "hanBaoHanh": "20-08-2025",
+      "hanBaoDuong": "",
+      "tinhTrang": "Hỏng"
+    },
+    {
+      "tenTaiSan": "Máy chiếu Epson EB-X06",
+      "maTaiSan": "TS003",
+      "maQR": "QR003",
+      "nhomTaiSan": "Thiết bị trình chiếu",
+      "loaiTaiSan": "Máy chiếu",
+      "diaDiem": "Phòng họp HCM",
+      "boPhan": "Phòng Kinh doanh",
+      "nguyenGia": 12000000,
+      "trangThai": "Đang sử dụng",
+      "nguoiQuanLy": "Nguyễn Thị C",
+      "nguoiSuDung": "Lê Văn D",
+      "ngayTiepNhan": "10-03-2024",
+      "hanBaoHanh": "10-03-2026",
+      "hanBaoDuong": "10-03-2025",
+      "tinhTrang": "Tốt"
+    },
+    {
+      "tenTaiSan": "Máy tính để bàn HP ProDesk",
+      "maTaiSan": "TS004",
+      "maQR": "QR004",
+      "nhomTaiSan": "Thiết bị CNTT",
+      "loaiTaiSan": "PC",
+      "diaDiem": "Chi nhánh Cần Thơ",
+      "boPhan": "Phòng Kế toán",
+      "nguyenGia": 18000000,
+      "trangThai": "Chưa sử dụng",
+      "nguoiQuanLy": "Trần Văn E",
+      "nguoiSuDung": "Chưa phân công",
+      "ngayTiepNhan": "05-05-2025",
+      "hanBaoHanh": "05-05-2027",
+      "hanBaoDuong": "05-05-2026",
+      "tinhTrang": "Mới"
+    }
+  ]
+
+}

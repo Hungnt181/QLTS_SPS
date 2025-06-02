@@ -1,0 +1,232 @@
+import * as React from "react";
+import tableListStyle from "../../styles/tableList/tableList.ts";
+import dataTable from "../../fakeDataTable/dataTable.ts";
+import {
+    createTableColumn,
+    Table,
+    TableBody, TableCell,
+    type TableColumnDefinition,
+    TableHeader,
+    TableHeaderCell,
+    TableRow,
+    TableSelectionCell, useTableFeatures, useTableSelection
+} from "@fluentui/react-components";
+
+//type
+
+const TableList = () => {
+    const style = tableListStyle();
+    const dataFake = dataTable
+    const tableHeaderCell = [
+        'Tên tài sản', 'Mã tài sản', 'Mã QR', 'Nhóm tài sản', 'Loại tài sản',
+        'Địa điểm', 'Bộ phận', 'Nguyên giá', 'Trạng thái', 'Người quản lý',
+        'Người sử dụng', 'Ngày tiếp nhận', 'Hạn bảo hành', 'Hạn bảo dưỡng', 'Tình trạng'
+    ]
+    const items: Item[] = dataFake.map((data) => ({
+        tenTaiSan: data.tenTaiSan,
+        maTaiSan: data.maTaiSan,
+        maQR: data.maQR,
+        nhomTaiSan: data.nhomTaiSan,
+        loaiTaiSan: data.loaiTaiSan,
+        diaDiem: data.diaDiem,
+        boPhan: data.boPhan,
+        nguyenGia: data.nguyenGia,
+        trangThai: data.trangThai,
+        nguoiQuanLy: data.nguoiQuanLy,
+        nguoiSuDung: data.nguoiSuDung,
+        ngayTiepNhan: data.ngayTiepNhan,
+        hanBaoHanh: data.hanBaoHanh,
+        hanBaoDuong: data.hanBaoDuong,
+        tinhTrang: data.tinhTrang,
+    }));
+
+//
+
+    const columns: TableColumnDefinition<Item>[] = [
+        createTableColumn<Item>({
+            columnId: "tenTaiSan",
+        }),
+        createTableColumn<Item>({
+            columnId: "maTaiSan",
+        }),
+        createTableColumn<Item>({
+            columnId: "maQR",
+        }),
+        createTableColumn<Item>({
+            columnId: "nhomTaiSan",
+        }),
+        createTableColumn<Item>({
+            columnId: "loaiTaiSan",
+        }),
+        createTableColumn<Item>({
+            columnId: "diaDiem",
+        }),
+        createTableColumn<Item>({
+            columnId: "boPhan",
+        }),
+        createTableColumn<Item>({
+            columnId: "nguyenGia",
+        }),
+        createTableColumn<Item>({
+            columnId: "trangThai",
+        }),
+        createTableColumn<Item>({
+            columnId: "nguoiQuanLy",
+        }),
+        createTableColumn<Item>({
+            columnId: "nguoiSuDung",
+        }),
+        createTableColumn<Item>({
+            columnId: "ngayTiepNhan",
+        }), createTableColumn<Item>({
+            columnId: "hanBaoHanh",
+        }),
+        createTableColumn<Item>({
+            columnId: "hanBaoDuong",
+        }),
+        createTableColumn<Item>({
+            columnId: "tinhTrang",
+        }),
+
+    ];
+
+    const {
+        getRows,
+        selection: {
+            allRowsSelected,
+            someRowsSelected,
+            toggleAllRows,
+            toggleRow,
+            isRowSelected,
+        },
+    } = useTableFeatures(
+        {
+            columns,
+            items,
+        },
+        [
+            useTableSelection({
+                selectionMode: "multiselect",
+                defaultSelectedItems: new Set([]),
+            }),
+        ]
+    );
+
+    const rows = getRows((row) => {
+        const selected = isRowSelected(row.rowId);
+        return {
+            ...row,
+            onClick: (e: React.MouseEvent) => toggleRow(e, row.rowId),
+            onKeyDown: (e: React.KeyboardEvent) => {
+                if (e.key === " ") {
+                    e.preventDefault();
+                    toggleRow(e, row.rowId);
+                }
+            },
+            selected,
+            appearance: selected ? ("brand" as const) : ("none" as const),
+        };
+    });
+
+    const toggleAllKeydown = React.useCallback(
+        (e: React.KeyboardEvent<HTMLDivElement>) => {
+            if (e.key === " ") {
+                toggleAllRows(e);
+                e.preventDefault();
+            }
+        },
+        [toggleAllRows]
+    );
+    return (
+        <div className={style.tableList}>
+            <Table
+                aria-label="Table with subtle selection"
+                // style={{minWidth: "550px"}}
+                className={style.table}
+            >
+                <TableHeader>
+                    <TableRow>
+                        <TableSelectionCell
+                            checked={
+                                allRowsSelected ? true : someRowsSelected ? "mixed" : false
+                            }
+                            onClick={toggleAllRows}
+                            onKeyDown={toggleAllKeydown}
+                            checkboxIndicator={{"aria-label": "Select all rows "}}
+                        />
+                        {
+                            tableHeaderCell.map((item, index) => (
+                                <TableHeaderCell key={index}>{item}</TableHeaderCell>
+                            ))
+                        }
+
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {rows.map(({item, selected, onClick, onKeyDown, appearance}) => (
+                        <TableRow
+                            key={item.maTaiSan}
+                            onClick={onClick}
+                            onKeyDown={onKeyDown}
+                            aria-selected={selected}
+                            appearance={appearance}
+                        >
+                            <TableSelectionCell
+                                subtle
+                                checked={selected}
+                                checkboxIndicator={{"aria-label": "Select row"}}
+                            />
+                            <TableCell>
+                                {item?.tenTaiSan}
+                            </TableCell>
+                            <TableCell>
+                                {item?.maTaiSan}
+                            </TableCell>
+                            <TableCell>
+                                {item?.maQR}
+                            </TableCell>
+                            <TableCell>
+                                {item?.nhomTaiSan}
+                            </TableCell>
+                            <TableCell>
+                                {item?.loaiTaiSan}
+                            </TableCell>
+                            <TableCell>
+                                {item?.diaDiem}
+                            </TableCell>
+                            <TableCell>
+                                {item?.boPhan}
+                            </TableCell>
+                            <TableCell>
+                                {item?.nguyenGia}
+                            </TableCell>
+                            <TableCell>
+                                {item?.trangThai}
+                            </TableCell>
+                            <TableCell>
+                                {item?.nguoiQuanLy}
+                            </TableCell>
+                            <TableCell>
+                                {item?.nguoiSuDung}
+                            </TableCell>
+                            <TableCell>
+                                {item?.ngayTiepNhan}
+                            </TableCell>
+                            <TableCell>
+                                {item?.hanBaoHanh}
+                            </TableCell>
+                            <TableCell>
+                                {item?.hanBaoDuong}
+                            </TableCell>
+                            <TableCell>
+                                {item?.tinhTrang}
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </div>
+    );
+};
+
+export default TableList;
