@@ -4,7 +4,6 @@ import SubToolBar from "../../../layouts/subToolBar/subToolBar.tsx";
 import TableList from "../../../layouts/tableList/tableList.tsx";
 import FilterDraw from "../../../layouts/filterDraw/filterDraw.tsx";
 import {useState} from "react";
-import AddNewAsset from "../../../layouts/FormAdd/formAddNewAs.tsx";
 import {Outlet, useNavigate} from "react-router-dom";
 
 const AssetList = () => {
@@ -24,9 +23,7 @@ const AssetList = () => {
     const onOpenAdd = () => {
         nav("/taisan/list/w-create");
     }
-    // const closeAdd = () => {
-    //     setOpen(false);
-    // }
+
     return (
         <div className={style.assetList}>
             <ToolBar></ToolBar>

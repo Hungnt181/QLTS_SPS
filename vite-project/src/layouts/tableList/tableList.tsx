@@ -1,6 +1,5 @@
 import * as React from "react";
 import tableListStyle from "../../styles/tableList/tableList.ts";
-import dataTable from "../../fakeDataTable/dataTable.ts";
 import {
     createTableColumn,
     Table,
@@ -11,18 +10,47 @@ import {
     TableRow,
     TableSelectionCell, useTableFeatures, useTableSelection
 } from "@fluentui/react-components";
+import {useEffect, useState} from "react";
+import type {TypeTaiSan} from "../../types/table.ts";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
-//type
 
 const TableList = () => {
+    // call api lấy data
+    const [dataTable, setDatatable] = useState<TypeTaiSan[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    useEffect(() => {
+        (async () => {
+            try {
+                setIsLoading(true);
+                const response = await axios.get(`http://localhost:3000/dataTable`)
+                setDatatable(
+                    response.data.map((item: TypeTaiSan) => ({
+                        key: item.maTaiSan,
+                        ...item
+                    }))
+                )
+            } catch (error) {
+                console.log(error)
+            } finally {
+                setIsLoading(false);
+            }
+        })();
+    }, []);
+    //
     const style = tableListStyle();
-    const dataFake = dataTable
+    const nav = useNavigate()
+
+    //
     const tableHeaderCell = [
         'Tên tài sản', 'Mã tài sản', 'Mã QR', 'Nhóm tài sản', 'Loại tài sản',
         'Địa điểm', 'Bộ phận', 'Nguyên giá', 'Trạng thái', 'Người quản lý',
         'Người sử dụng', 'Ngày tiếp nhận', 'Hạn bảo hành', 'Hạn bảo dưỡng', 'Tình trạng'
     ]
-    const items: Item[] = dataFake.map((data) => ({
+
+
+    const items: Item[] = dataTable.map((data) => ({
         tenTaiSan: data.tenTaiSan,
         maTaiSan: data.maTaiSan,
         maQR: data.maQR,
@@ -138,93 +166,98 @@ const TableList = () => {
         [toggleAllRows]
     );
     return (
-        <div className={style.tableList}>
-            <Table
-                aria-label="Table with subtle selection"
-                // style={{minWidth: "550px"}}
-                className={style.table}
-            >
-                <TableHeader>
-                    <TableRow>
-                        <TableSelectionCell
-                            checked={
-                                allRowsSelected ? true : someRowsSelected ? "mixed" : false
-                            }
-                            onClick={toggleAllRows}
-                            onKeyDown={toggleAllKeydown}
-                            checkboxIndicator={{"aria-label": "Select all rows "}}
-                        />
-                        {
-                            tableHeaderCell.map((item, index) => (
-                                <TableHeaderCell key={index}>{item}</TableHeaderCell>
-                            ))
-                        }
 
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {rows.map(({item, selected, onClick, onKeyDown, appearance}) => (
-                        <TableRow
-                            key={item.maTaiSan}
-                            onClick={onClick}
-                            onKeyDown={onKeyDown}
-                            aria-selected={selected}
-                            appearance={appearance}
-                        >
+        <div className={style.tableList}>
+            <div>
+                {isLoading ? (<p>...Đang tải dữ liệu</p>) : (
+                    <Table
+                    aria-label="Table with subtle selection"
+                    // style={{minWidth: "550px"}}
+                    className={style.table}
+                >
+                    <TableHeader>
+                        <TableRow>
                             <TableSelectionCell
-                                subtle
-                                checked={selected}
-                                checkboxIndicator={{"aria-label": "Select row"}}
+                                checked={
+                                    allRowsSelected ? true : someRowsSelected ? "mixed" : false
+                                }
+                                onClick={toggleAllRows}
+                                onKeyDown={toggleAllKeydown}
+                                checkboxIndicator={{"aria-label": "Select all rows "}}
                             />
-                            <TableCell>
-                                {item?.tenTaiSan}
-                            </TableCell>
-                            <TableCell>
-                                {item?.maTaiSan}
-                            </TableCell>
-                            <TableCell>
-                                {item?.maQR}
-                            </TableCell>
-                            <TableCell>
-                                {item?.nhomTaiSan}
-                            </TableCell>
-                            <TableCell>
-                                {item?.loaiTaiSan}
-                            </TableCell>
-                            <TableCell>
-                                {item?.diaDiem}
-                            </TableCell>
-                            <TableCell>
-                                {item?.boPhan}
-                            </TableCell>
-                            <TableCell>
-                                {item?.nguyenGia}
-                            </TableCell>
-                            <TableCell>
-                                {item?.trangThai}
-                            </TableCell>
-                            <TableCell>
-                                {item?.nguoiQuanLy}
-                            </TableCell>
-                            <TableCell>
-                                {item?.nguoiSuDung}
-                            </TableCell>
-                            <TableCell>
-                                {item?.ngayTiepNhan}
-                            </TableCell>
-                            <TableCell>
-                                {item?.hanBaoHanh}
-                            </TableCell>
-                            <TableCell>
-                                {item?.hanBaoDuong}
-                            </TableCell>
-                            <TableCell>
-                                {item?.tinhTrang}
-                            </TableCell>
+                            {
+                                tableHeaderCell.map((item, index) => (
+                                    <TableHeaderCell key={index}>{item}</TableHeaderCell>
+                                ))
+                            }
+
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                    </TableHeader>
+                    <TableBody>
+                        {rows.map(({item, selected, onClick, onKeyDown, appearance}) => (
+                            <TableRow
+                                key={item.maTaiSan}
+                                onClick={onClick}
+                                onKeyDown={onKeyDown}
+                                aria-selected={selected}
+                                appearance={appearance}
+                            >
+                                <TableSelectionCell
+                                    subtle
+                                    checked={selected}
+                                    checkboxIndicator={{"aria-label": "Select row"}}
+                                />
+                                <TableCell onClick={() =>  nav(`detail/${item?.maTaiSan}`)}>
+                                    {item?.tenTaiSan}
+                                </TableCell>
+                                <TableCell>
+                                    {item?.maTaiSan}
+                                </TableCell>
+                                <TableCell>
+                                    {item?.maQR}
+                                </TableCell>
+                                <TableCell>
+                                    {item?.nhomTaiSan}
+                                </TableCell>
+                                <TableCell>
+                                    {item?.loaiTaiSan}
+                                </TableCell>
+                                <TableCell>
+                                    {item?.diaDiem}
+                                </TableCell>
+                                <TableCell>
+                                    {item?.boPhan}
+                                </TableCell>
+                                <TableCell>
+                                    {item?.nguyenGia}
+                                </TableCell>
+                                <TableCell>
+                                    {item?.trangThai}
+                                </TableCell>
+                                <TableCell>
+                                    {item?.nguoiQuanLy}
+                                </TableCell>
+                                <TableCell>
+                                    {item?.nguoiSuDung}
+                                </TableCell>
+                                <TableCell>
+                                    {item?.ngayTiepNhan}
+                                </TableCell>
+                                <TableCell>
+                                    {item?.hanBaoHanh}
+                                </TableCell>
+                                <TableCell>
+                                    {item?.hanBaoDuong}
+                                </TableCell>
+                                <TableCell>
+                                    {item?.tinhTrang}
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>)}
+            </div>
+
         </div>
     );
 };
