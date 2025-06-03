@@ -20,13 +20,17 @@ import {useState} from "react";
 
 const AddNewAsset = () => {
     // call api lấy data
-
     const style = AddNewAssetStyle()
     const nav = useNavigate()
     const [openItems, setOpenItems] = useState(["1"]);
     const handleToggle: AccordionToggleEventHandler<string> = (_event, data) => {
         setOpenItems(data.openItems);
     };
+    // Thêm mới item
+    const addNewItem = () => {
+        console.log("data", data)
+    }
+
     return (
         <div className={style.addnewAsset}>
             <Dialog open={true}>
@@ -40,8 +44,10 @@ const AddNewAsset = () => {
                                 multiple
                                 collapsible
                             >
-                                <AccordionItem value="1" >
-                                    <AccordionHeader  className={style.formSection}  expandIconPosition={"end"} size={"extra-large"}><h4 className={style.formSectionTitle}>Thông tin chung</h4>
+                                <AccordionItem value="1">
+                                    <AccordionHeader className={style.formSection} expandIconPosition={"end"}
+                                                     size={"extra-large"}><h4 className={style.formSectionTitle}>Thông
+                                        tin chung</h4>
                                     </AccordionHeader>
                                     <AccordionPanel className={style.formContent}>
                                         {/*//Thông tin chung*/}
@@ -128,6 +134,37 @@ const AddNewAsset = () => {
                                                     <option>Nguyễn Thị Biển</option>
                                                 </Select>
                                             </div>
+
+                                            <div className={style.formDiv}>
+                                                <Label size="medium" htmlFor={"nhomTaiSan"} className={style.formLabel}>
+                                                    Nhóm tài sản
+                                                </Label>
+                                                <Select id={"nhomTaiSan"} className={style.formInput}>
+                                                    <option>Công cụ dụng cụ</option>
+                                                    <option>Tài sản cố định hữu hình</option>
+                                                    <option>Tài sản cố định vô hình</option>
+                                                </Select>
+                                            </div>
+                                            <div className={style.formDiv}>
+                                                <Label size="medium" htmlFor={"trangThai"} className={style.formLabel}>
+                                                    Trạng thái
+                                                </Label>
+                                                <Select id={"trangThai"} className={style.formInput}>
+                                                    <option>Mới</option>
+                                                    <option>Cũ</option>
+                                                </Select>
+                                            </div>
+                                            <div className={style.formDiv}>
+                                                <Label size="medium" htmlFor={"tinhTrang"} className={style.formLabel}>
+                                                    Tình trạng
+                                                </Label>
+                                                <Select id={"tinhTrang"} className={style.formInput}>
+                                                    <option>Đang sử dụng</option>
+                                                    <option>Chưa sử dụng</option>
+                                                    <option>Đang bảo dưỡng</option>
+                                                    <option>Đang sửa chữa</option>
+                                                </Select>
+                                            </div>
                                             <div className={style.formDiv}>
                                                 <Field label="Ngày mua" className={style.formLabel}>
                                                     <DatePicker
@@ -148,9 +185,11 @@ const AddNewAsset = () => {
                                         </div>
                                     </AccordionPanel>
                                 </AccordionItem>
-                            {/**/}
+                                {/**/}
                                 <AccordionItem value="2" className={style.formAccordionItem}>
-                                    <AccordionHeader  className={style.formSection}  expandIconPosition={"end"} size={"extra-large"}><h4 className={style.formSectionTitle}>Bảo hành</h4>
+                                    <AccordionHeader className={style.formSection} expandIconPosition={"end"}
+                                                     size={"extra-large"}><h4 className={style.formSectionTitle}>Bảo
+                                        hành</h4>
                                     </AccordionHeader>
                                     <AccordionPanel className={style.formContent}>
                                         {/*//Thông tin chung*/}
@@ -189,42 +228,43 @@ const AddNewAsset = () => {
                                 </AccordionItem>
                                 {/**/}
                                 <AccordionItem value="3" className={style.formAccordionItem}>
-                                    <AccordionHeader  className={style.formSection}  expandIconPosition={"end"} size={"extra-large"}><h4 className={style.formSectionTitle}>Đã cấp phát</h4>
+                                    <AccordionHeader className={style.formSection} expandIconPosition={"end"}
+                                                     size={"extra-large"}>
+                                        <h4 className={style.formSectionTitle}>Đã cấp
+                                            phát</h4>
                                     </AccordionHeader>
                                     <AccordionPanel className={style.formContent}>
-                                        {/*//Thông tin chung*/}
+                                        {/*Đã cấp phát*/}
                                         <div>
-                                            <div className={style.formDivTow}>
-                                                <div className={style.formDiv}>
-                                                    <Field label="Ngày cấp phát" className={style.formLabel}>
-                                                        <DatePicker
-                                                            className={style.formInput}
-                                                            placeholder="Chọn ngày cấp phát"
-                                                            id={"ngayCapPhat"}
-                                                        />
-
-                                                    </Field>
-                                                </div>
-                                                <div className={style.formDiv}>
-                                                    <Label size="medium" required htmlFor={"soLuong"}
-                                                           className={style.formLabel}>
-                                                        Thời gian bảo hành
-                                                    </Label>
-                                                    <Input size="medium" id={"soLuong"} className={style.formInput}/>
-                                                </div>
-                                                <div className={style.formDiv}>
-                                                    <Label size="medium" required htmlFor={"donViTinh"}
-                                                           className={style.formLabel}>
-                                                        Đơn vị tính
-                                                    </Label>
-                                                    <Select id={"donViTinh"} className={style.formInput}>
-                                                        <option>Tháng</option>
-                                                        <option>Quý</option>
-                                                    </Select>
-                                                </div>
+                                            <div className={style.formDiv}>
+                                                <Field label="Ngày tiếp nhận" className={style.formLabel}>
+                                                    <DatePicker
+                                                        className={style.formInput}
+                                                        placeholder="Chọn ngày cấp phát / tiếp nhận"
+                                                        id={"ngayTiepNhan"}
+                                                    />
+                                                </Field>
                                             </div>
-
-
+                                            <div className={style.formDiv}>
+                                                <Label size="medium" htmlFor={"tinhTrang"} className={style.formLabel}>
+                                                    Người tiếp nhận
+                                                </Label>
+                                                <Select id={"tinhTrang"} className={style.formInput}>
+                                                    <option>Nguyễn Văn Anh</option>
+                                                    <option>Trần Văn Hoàn</option>
+                                                    <option> Lý Hoàng Nam</option>
+                                                    <option>Lê Hoàng Hiệp</option>
+                                                </Select>
+                                            </div>
+                                            <div className={style.formDiv}>
+                                                <Label size="medium" htmlFor={"tinhTrang"} className={style.formLabel}>
+                                                    Chức vụ
+                                                </Label>
+                                                <Select id={"tinhTrang"} className={style.formInput}>
+                                                    <option>Trưởng phòng</option>
+                                                    <option>Nhân viên</option>
+                                                </Select>
+                                            </div>
                                         </div>
                                     </AccordionPanel>
                                 </AccordionItem>
@@ -237,7 +277,7 @@ const AddNewAsset = () => {
                                     <Button icon={<ChevronLeft16Regular/>} className={style.closeBtn}
                                             appearance="secondary" onClick={() => nav("/taisan/list")}>Quay lại</Button>
                                 </DialogTrigger>
-                                <Button appearance="primary">Thêm mới</Button>
+                                <Button appearance="primary" onClick={() => addNewItem()}>Thêm mới</Button>
                             </div>
                         </DialogActions>
                     </DialogBody>

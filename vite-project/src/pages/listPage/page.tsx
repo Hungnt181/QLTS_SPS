@@ -15,7 +15,6 @@ const ListPages = () => {
                 <div>
                     <Outlet></Outlet>
                 </div>
-
             </div>
         </div>
     </>
