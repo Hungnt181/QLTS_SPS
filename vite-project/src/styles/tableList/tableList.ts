@@ -17,6 +17,12 @@ const tableListStyle = makeStyles({
         maxHeight:"95%"
     },
 
+    hoverNameItem: {
+        "&:hover" : {
+            cursor: "pointer",
+        }
+    }
+
 })
 
 export default tableListStyle;

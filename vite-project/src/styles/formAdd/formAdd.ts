@@ -36,6 +36,10 @@ const AddNewAssetStyle = makeStyles(({
         justifyContent: "space-between",
         flexDirection: "row-reverse",
         padding: "0",
+        "& button" : {
+            minHeight: "20px !important",
+            paddingLeft: "0px"
+        }
     },
 
     formContent: {
