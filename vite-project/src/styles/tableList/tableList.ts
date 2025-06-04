@@ -10,13 +10,22 @@ const tableListStyle = makeStyles({
         padding: "20px 0px 0px 0px",
         marginLeft: "20px"
     },
-
     table: {
         width: "100%",
         minWidth: "3000px",
         maxHeight:"95%"
     },
-
+    smallTable: {
+        width: "100%",
+        minWidth: "1113px",
+        maxHeight:"95%",
+    },
+    toolTip: {
+        maxWidth: "300px",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+    },
     hoverNameItem: {
         "&:hover" : {
             cursor: "pointer",

@@ -15,3 +15,10 @@ export interface TypeTaiSan {
     hanBaoDuong: string;
     tinhTrang: string;
 }
+
+export interface TypeGroupAsset {
+    id: string;
+    tenNhomTaiSan: string;
+    maNhomTaiSan: string;
+    moTa: string;
+}

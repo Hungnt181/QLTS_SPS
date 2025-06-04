@@ -13,31 +13,37 @@ import {
 import {useEffect, useState} from "react";
 import type {TypeTaiSan} from "../../types/table.ts";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import {QrCode24Regular} from "@fluentui/react-icons";
 
 
 const TableList = () => {
     // call api lấy data
     const [dataTable, setDatatable] = useState<TypeTaiSan[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const location = useLocation();
     useEffect(() => {
-        (async () => {
+        const fetchData = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get(`http://localhost:3000/dataTable`)
+                const response = await axios.get(`http://localhost:3000/dataTable`);
                 setDatatable(
                     response.data.map((item: TypeTaiSan) => ({
                         key: item.maTaiSan,
                         ...item
                     }))
-                )
+                );
             } catch (error) {
-                console.log(error)
+                console.log(error);
             } finally {
                 setIsLoading(false);
             }
-        })();
-    }, []);
+        };
+        fetchData();
+        if (location.state?.reload) {
+            fetchData();
+        }
+    }, [location.state?.reload]);
     //
     const style = tableListStyle();
     const nav = useNavigate()
@@ -171,91 +177,92 @@ const TableList = () => {
             <div>
                 {isLoading ? (<p>...Đang tải dữ liệu</p>) : (
                     <Table
-                    aria-label="Table with subtle selection"
-                    // style={{minWidth: "550px"}}
-                    className={style.table}
-                >
-                    <TableHeader>
-                        <TableRow>
-                            <TableSelectionCell
-                                checked={
-                                    allRowsSelected ? true : someRowsSelected ? "mixed" : false
-                                }
-                                onClick={toggleAllRows}
-                                onKeyDown={toggleAllKeydown}
-                                checkboxIndicator={{"aria-label": "Select all rows "}}
-                            />
-                            {
-                                tableHeaderCell.map((item, index) => (
-                                    <TableHeaderCell key={index}>{item}</TableHeaderCell>
-                                ))
-                            }
-
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {rows.map(({item, selected, onClick, onKeyDown, appearance}) => (
-                            <TableRow
-                                key={item.maTaiSan}
-                                onClick={onClick}
-                                onKeyDown={onKeyDown}
-                                aria-selected={selected}
-                                appearance={appearance}
-                            >
+                        aria-label="Table with subtle selection"
+                        // style={{minWidth: "550px"}}
+                        className={style.table}
+                    >
+                        <TableHeader>
+                            <TableRow>
                                 <TableSelectionCell
-                                    subtle
-                                    checked={selected}
-                                    checkboxIndicator={{"aria-label": "Select row"}}
+                                    checked={
+                                        allRowsSelected ? true : someRowsSelected ? "mixed" : false
+                                    }
+                                    onClick={toggleAllRows}
+                                    onKeyDown={toggleAllKeydown}
+                                    checkboxIndicator={{"aria-label": "Select all rows "}}
                                 />
-                                <TableCell className={style.hoverNameItem} onClick={() =>  nav(`detail/${item?.maTaiSan}`)}>
-                                    {item?.tenTaiSan}
-                                </TableCell>
-                                <TableCell>
-                                    {item?.maTaiSan}
-                                </TableCell>
-                                <TableCell>
-                                    {item?.maQR}
-                                </TableCell>
-                                <TableCell>
-                                    {item?.nhomTaiSan}
-                                </TableCell>
-                                <TableCell>
-                                    {item?.loaiTaiSan}
-                                </TableCell>
-                                <TableCell>
-                                    {item?.diaDiem}
-                                </TableCell>
-                                <TableCell>
-                                    {item?.boPhan}
-                                </TableCell>
-                                <TableCell>
-                                    {item?.nguyenGia}
-                                </TableCell>
-                                <TableCell>
-                                    {item?.trangThai}
-                                </TableCell>
-                                <TableCell>
-                                    {item?.nguoiQuanLy}
-                                </TableCell>
-                                <TableCell>
-                                    {item?.nguoiSuDung}
-                                </TableCell>
-                                <TableCell>
-                                    {item?.ngayTiepNhan}
-                                </TableCell>
-                                <TableCell>
-                                    {item?.hanBaoHanh}
-                                </TableCell>
-                                <TableCell>
-                                    {item?.hanBaoDuong}
-                                </TableCell>
-                                <TableCell>
-                                    {item?.tinhTrang}
-                                </TableCell>
+                                {
+                                    tableHeaderCell.map((item, index) => (
+                                        <TableHeaderCell key={index}>{item}</TableHeaderCell>
+                                    ))
+                                }
+
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>)}
+                        </TableHeader>
+                        <TableBody>
+                            {rows.map(({item, selected, onClick, onKeyDown, appearance}) => (
+                                <TableRow
+                                    key={item.maTaiSan}
+                                    onClick={onClick}
+                                    onKeyDown={onKeyDown}
+                                    aria-selected={selected}
+                                    appearance={appearance}
+                                >
+                                    <TableSelectionCell
+                                        subtle
+                                        checked={selected}
+                                        checkboxIndicator={{"aria-label": "Select row"}}
+                                    />
+                                    <TableCell className={style.hoverNameItem}
+                                               onClick={() => nav(`detail/${item?.maTaiSan}`)}>
+                                        {item?.tenTaiSan}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.maTaiSan}
+                                    </TableCell>
+                                    <TableCell>
+                                        <QrCode24Regular/>
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.nhomTaiSan}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.loaiTaiSan}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.diaDiem}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.boPhan}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.nguyenGia}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.trangThai}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.nguoiQuanLy}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.nguoiSuDung}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.ngayTiepNhan}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.hanBaoHanh}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.hanBaoDuong}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.tinhTrang}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>)}
             </div>
 
         </div>

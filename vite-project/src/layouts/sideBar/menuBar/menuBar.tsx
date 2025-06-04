@@ -53,7 +53,8 @@ type SplitNavItemNestedProps = {
 
 const MenuBar = ({tooltipProps}: MenuBar) => {
     const style = menuBarStyle()
-    const [selectedItem, setSelectedItem] = useState("2")
+
+    const [selectedItem, setSelectedItem] = useState("12")
     const nav = useNavigate()
 
     // Array of menu bar items
@@ -63,7 +64,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                 navItem: {
                     value: "1", icon: [<Grid20Regular/>, <Grid20Filled/>], children: "Tổng quan",
                     action: () => {
-                        nav("/taisan/dasboard");
+                        nav("/taisan/dashboard");
                         setSelectedItem("1")
                     }
                 },
@@ -79,7 +80,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                             value: "11", children: "Tài sản của tôi",
                             icon: [<DatabaseMultiple20Regular/>, <DatabaseMultiple20Filled/>],
                             action: () => {
-                                nav("/taisan/list");
+                                nav("/taisan/my-asset");
                                 setSelectedItem("11")
                             }
                         }
@@ -105,7 +106,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                     icon: [<History20Regular/>, <History20Filled/>],
                     children: "Bảo dưỡng",
                     action: () => {
-                        nav("/taisan/dasboard");
+                        nav("/taisan/maintenance");
                         setSelectedItem("3")
                     }
                 },
@@ -118,7 +119,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                     icon: [<BoxEdit20Regular/>, <BoxEdit20Filled/>],
                     children: "Sửa chữa",
                     action: () => {
-                        nav("/taisan/dasboard");
+                        nav("/taisan/fix");
                         setSelectedItem("4")
                     }
                 },
@@ -131,7 +132,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                     icon: [<Warning20Regular/>, <Warning20Filled/>],
                     children: "Mất-Hủy-Thanh lý",
                     action: () => {
-                        nav("/taisan/dasboard");
+                        nav("/taisan/liquidation");
                         setSelectedItem("5")
                     }
                 },
@@ -144,7 +145,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                     icon: [<DocumentEdit20Regular/>, <DocumentEdit20Filled/>],
                     children: "Kiểm kê",
                     action: () => {
-                        nav("/taisan/dasboard");
+                        nav("/taisan/inventory");
                         setSelectedItem("6")
                     }
                 },
@@ -160,7 +161,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                             value: "8", children: "Master Data",
                             icon: [<DatabaseMultiple20Regular/>, <DatabaseMultiple20Filled/>],
                             action: () => {
-                                nav("/taisan/dasboard");
+                                nav("/taisan/settings/master-data");
                                 setSelectedItem("8")
                             }
                         }
@@ -171,7 +172,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                             children: "Cấu hình bểu mẫu",
                             icon: [<DocumentData20Regular/>, <DocumentData20Filled/>],
                             action: () => {
-                                nav("/taisan/dasboard");
+                                nav("/taisan/settings/form-config");
                                 setSelectedItem("9")
                             }
                         }
@@ -182,7 +183,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                             children: "Thông tin nâng cao",
                             icon: [<Clipboard3Day20Regular/>, <Clipboard3Day20Filled/>],
                             action: () => {
-                                nav("/taisan/dasboard");
+                                nav("/taisan/settings/advanced-info");
                                 setSelectedItem("10")
                             }
                         }
@@ -215,14 +216,14 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
             <div className={style.menuBarContent}>
                 <Nav
                     defaultSelectedValue={selectedItem}
-                    defaultSelectedCategoryValue=""
+                    defaultSelectedCategoryValue="2"
                 >
                     {splitNavItemNestedProps.map((item: SplitNavItemNestedProps, index) =>
                         item?.splitNavItem?.navCategory ? (
                             <NavCategory value={ item?.splitNavItem?.navCategory?.value} >
                                 <NavCategoryItem icon={
                                     item?.splitNavItem?.navCategoryItem?.icon[0]
-                                }>
+                                }  >
                                     { item?.splitNavItem?.navCategoryItem?.children}
                                 </NavCategoryItem>
 

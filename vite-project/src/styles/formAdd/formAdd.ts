@@ -36,7 +36,7 @@ const AddNewAssetStyle = makeStyles(({
         justifyContent: "space-between",
         flexDirection: "row-reverse",
         padding: "0",
-        "& button" : {
+        "& button": {
             minHeight: "20px !important",
             paddingLeft: "0px"
         }
@@ -80,3 +80,18 @@ const AddNewAssetStyle = makeStyles(({
 
 }))
 export default AddNewAssetStyle;
+
+// Css form master Data
+const FormAddMasterDataStyle = makeStyles(({
+    formAddSettingMaster: {
+        minHeight: "600px",
+        height: "60vh"
+    },
+    formAddSettingWitdh: {
+        width: "600px"
+    },
+    textArea : {
+        height: "200px"
+    }
+}))
+export {FormAddMasterDataStyle}
