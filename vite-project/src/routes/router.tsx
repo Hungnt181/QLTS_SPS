@@ -6,6 +6,11 @@ import AssetDetail from "../pages/assetDetail/assetDetail.tsx";
 import EmptyPage from "../pages/emptyPage/page.tsx";
 import HomePage from "../pages/homePage/HomePage.tsx";
 import ListPages from "../pages/listPage/page.tsx";
+import MasterData from "../pages/listPage/settings/MasterData.tsx";
+import TableTypeAsset from "../layouts/tableList/tableTypeAsset.tsx";
+import TableGroupAsset from "../layouts/tableList/tableGroupAsset.tsx";
+import AddNewGroupAs from "../layouts/FormAdd/formAddNewgroupAs.tsx";
+import MyLisstAsset from "../pages/listPage/list/MyListAsset.tsx";
 
 const router = createBrowserRouter([
     {
@@ -24,10 +29,32 @@ const router = createBrowserRouter([
                         index: true,
                         element: <AssetList/>,
                     },
+                    // Dashboard
                     {
-                        path: 'dasboard',
+                        path: 'dashboard',
                         element: <AssetDashboard/>,
                     },
+                    // maintenance
+                    {
+                        path: 'maintenance',
+                        element: <AssetDashboard/>,
+                    },
+                    // fix
+                    {
+                        path: 'fix',
+                        element: <AssetDashboard/>,
+                    },
+                    // liquidation
+                    {
+                        path: 'liquidation',
+                        element: <AssetDashboard/>,
+                    },
+                    // inventory
+                    {
+                        path: 'inventory',
+                        element: <AssetDashboard/>,
+                    },
+                    //// List Asset
                     {
                         path: 'list',
                         element: <AssetList/>,
@@ -39,9 +66,49 @@ const router = createBrowserRouter([
                         ]
                     },
                     {
+                        path: 'my-asset',
+                        element: <MyLisstAsset/>,
+                    },
+                    {
                         path: 'list/detail/:maTaiSan',
                         element: <AssetDetail/>,
                     },
+                    {
+                        path: 'settings/master-data',
+                        element: <MasterData/>,
+                        children: [
+                            {
+                                index: true,
+                                element: <Navigate to="/taisan/settings/master-data/group" replace/>,
+                            },
+                            {
+                                path: 'group',
+                                element: <TableGroupAsset/>,
+                                children: [
+                                    {
+                                        path: 'w-create',
+                                        element: <AddNewGroupAs/>,
+                                    },
+                                ]
+                            },
+                            {
+                                path: 'type',
+                                element: <TableTypeAsset/>,
+                            },
+                            {
+                                path: 'status',
+                                element: <TableTypeAsset/>,
+                            },
+                            {
+                                path: 'state',
+                                element: <TableTypeAsset/>,
+                            }
+                        ]
+                    },
+                    {
+                        path: 'settings/form-config',
+                        element: <EmptyPage/>,
+                    }
                 ]
             },
             {
