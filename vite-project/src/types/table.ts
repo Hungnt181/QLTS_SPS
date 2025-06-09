@@ -1,4 +1,5 @@
 export interface TypeTaiSan {
+    id: string;
     tenTaiSan: string;
     maTaiSan: string;
     maQR: string;
