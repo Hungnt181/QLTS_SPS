@@ -1,6 +1,6 @@
 const AssetDetail = () => {
     return (
-        <div>AssetDetail</div>
+        <div>Code vào đây nhé</div>
     );
 };
 
