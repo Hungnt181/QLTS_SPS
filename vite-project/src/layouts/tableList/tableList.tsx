@@ -58,7 +58,8 @@ const TableList = () => {
     ]
 
 
-    const items: Item[] = dataTable.map((data) => ({
+    const items: Item[] = dataTable.map((data: TypeTaiSan) => ({
+        id: data.id,
         tenTaiSan: data.tenTaiSan,
         maTaiSan: data.maTaiSan,
         maQR: data.maQR,
@@ -216,7 +217,7 @@ const TableList = () => {
                                         checkboxIndicator={{"aria-label": "Select row"}}
                                     />
                                     <TableCell className={style.hoverNameItem}
-                                               onClick={() => nav(`detail/${item?.id}`)}>
+                                               onClick={() => nav(`/taisan/list/detail/${item?.id}`)}>
                                         {item?.tenTaiSan}
                                     </TableCell>
                                     <TableCell>
