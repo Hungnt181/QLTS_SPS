@@ -12,7 +12,7 @@ import {
 } from "@fluentui/react-components";
 import {useEffect, useState} from "react";
 import type {TypeTaiSan} from "../../types/table.ts";
-import axios from "axios";
+// import axios from "axios";
 import {useLocation, useNavigate} from "react-router-dom";
 import {QrCode24Regular} from "@fluentui/react-icons";
 
@@ -26,9 +26,11 @@ const TableList = () => {
         const fetchData = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get(`http://localhost:3000/dataTable`);
+                // const response = await axios.get(`http://localhost:3000/formConfig`);
+                const data = localStorage.getItem('data');
+                const allData = data ? JSON.parse(data) : [];
                 setDatatable(
-                    response.data.map((item: TypeTaiSan) => ({
+                    allData.dataTable.map((item: TypeTaiSan) => ({
                         key: item.maTaiSan,
                         ...item
                     }))

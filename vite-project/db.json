@@ -92,5 +92,179 @@
       "maNhomTaiSan": "TSCDVH",
       "moTa": ""
     }
+  ],
+  "formConfig": [
+    {
+      "id": "ttc",
+      "name": "Thông tin chung",
+      "fields": [
+        {
+          "label": "Tên tài sản",
+          "type": "text",
+          "name": "tenTaiSan"
+        },
+        {
+          "label": "Mã tài sản",
+          "type": "text",
+          "name": "maTaiSan"
+        },
+        {
+          "label": "Mã QR",
+          "type": "text",
+          "name": "maQR"
+        },
+        {
+          "label": "Số lượng",
+          "type": "number",
+          "name": "soLuong"
+        },
+        {
+          "label": "Đơn vị tính",
+          "type": "text",
+          "name": "donViTinh"
+        },
+        {
+          "label": "Nhóm tài sản",
+          "type": "lookup",
+          "name": "nhomTaiSan"
+        },
+        {
+          "label": "Loại tài sản",
+          "type": "lookup",
+          "name": "loaiTaiSan"
+        },
+        {
+          "label": "Địa điểm",
+          "type": "lookup",
+          "name": "diaDiem"
+        },
+        {
+          "label": "Bộ phận",
+          "type": "text",
+          "name": "boPhan"
+        },
+        {
+          "label": "Nguyên giá",
+          "type": "number",
+          "name": "nguyenGia"
+        },
+        {
+          "label": "Người quản lý",
+          "type": "text",
+          "name": "nguoiQuanLy"
+        },
+        {
+          "label": "Trạng thái",
+          "type": "lookup",
+          "name": "trangThai"
+        },
+        {
+          "label": "Tình trạng",
+          "type": "lookup",
+          "name": "tinhTrang"
+        },
+        {
+          "label": "Ngày mua",
+          "type": "date",
+          "name": "ngayMua"
+        }
+      ],
+      "description": "Chứa các trường thông tin chung của tài sản"
+    },
+    {
+      "id": "bh",
+      "name": "Bảo hành",
+      "fields": [
+        {
+          "label": "Thời gian bảo hành",
+          "type": "date",
+          "name": "thoiGianBaoHanh"
+        },
+        {
+          "label": "Đơn vị tính",
+          "type": "lookup",
+          "name": "donViTinh2"
+        },
+        {
+          "label": "Hạn bảo hành",
+          "type": "date",
+          "name": "hanBaoHanh"
+        }
+      ],
+      "description": "Chứa các trường thông tin bảo hành"
+    },
+    {
+      "id": "dcp",
+      "name": "Đã cấp phát",
+      "fields": [
+        {
+          "label": "Ngày tiếp nhận",
+          "type": "date",
+          "name": "ngayTiepNhan"
+        },
+        {
+          "label": "Ngời tiếp nhân",
+          "type": "lookup",
+          "name": "nguoiSuDung"
+        },
+        {
+          "label": "Chức vụ",
+          "type": "lookup",
+          "name": "chucVu"
+        }
+      ],
+      "description": "Chứa các trường thông tin của việc đã cấp phát tài sản"
+    },
+    {
+      "id": "ttnc",
+      "name": "Thông tin nâng cao",
+      "fields": [
+        {
+          "label": "Danh mục tài sản",
+          "type": "look",
+          "name": "danhMucTaiSan",
+          "options": [
+            {
+              "label": "Máy tính để bàn ",
+              "_id": "danhMuc1",
+              "_fields": [
+                {
+                  "_label": "Năm sản xuất",
+                  "_type": "text",
+                  "_name": "namSanXuat"
+                },
+                {
+                  "_label": "Hãng sản xuất",
+                  "_type": "text",
+                  "_name": "hangSanXuat"
+                },
+                {
+                  "_label": "Thông số Ram",
+                  "_type": "text",
+                  "_name": "ram"
+                }
+              ]
+            },
+            {
+              "label": "Tivi",
+              "_id": "danhMuc2",
+              "_fields": [
+                {
+                  "_label": "Năm sản xuất",
+                  "_type": "text",
+                  "_name": "namSanXuat"
+                },
+                {
+                  "_label": "Kích cỡ",
+                  "_type": "text",
+                  "_name": "kichCo"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "description": "Chứa các trường nng cao dễ dàng tìm kiếm và phân loại tài sản chi tiết"
+    }
   ]
 }

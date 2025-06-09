@@ -8,33 +8,29 @@ import {
     TableHeader,
     TableHeaderCell,
     TableRow,
-    TableSelectionCell, Tooltip, useTableFeatures, useTableSelection
+    TableSelectionCell, Tooltip, type TooltipProps, useTableFeatures, useTableSelection
 } from "@fluentui/react-components";
 import {useEffect, useState} from "react";
-import type {TypeGroupAsset} from "../../types/table.ts";
-import axios from "axios";
-import {Outlet, useLocation, useNavigate} from "react-router-dom";
-import type { TooltipProps } from "@fluentui/react-components";
+import type {FormConfigItem} from "../../types/table.ts";
+import { useNavigate} from "react-router-dom";
 
 type TableGroupAssetProps = {
     tooltipProps?: TooltipProps;
 }
-const TableGroupAsset = ({tooltipProps} : TableGroupAssetProps) => {
+const TableListFormConfig = ({tooltipProps} : TableGroupAssetProps) => {
     // call api lấy data
-    const [groupAsset, setGroupAsset] = useState<TypeGroupAsset[]>([])
+    const [dataFormConfig, setDataFormConfig] = useState<FormConfigItem[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const location = useLocation();
-
     useEffect(() => {
-        const fetchData = async () => {
+       ( async () => {
             try {
                 setIsLoading(true);
-                // const response = await axios.get(`http://localhost:3000/nhomTaiSan`);
+                // const response = await axios.get(`http://localhost:3000/formConfig`);
                 const data = localStorage.getItem('data');
                 const allData = data ? JSON.parse(data) : [];
-                setGroupAsset(
-                    allData.nhomTaiSan.map((item: TypeGroupAsset) => ({
-                        key: item.maNhomTaiSan,
+                setDataFormConfig(
+                    allData.formConfig.map((item: FormConfigItem) => ({
+                        key: item.id,
                         ...item
                     }))
                 );
@@ -43,40 +39,32 @@ const TableGroupAsset = ({tooltipProps} : TableGroupAssetProps) => {
             } finally {
                 setIsLoading(false);
             }
-        };
-        fetchData();
-        if (location.state?.reload) {
-            fetchData();
-        }
-    }, [location.state?.reload]);
+        })();
+    }, []);
     //
     const style = tableListStyle();
     const nav = useNavigate()
 
     //
     const tableHeaderCell = [
-        'Tên nhóm tài sản', 'Mã nhóm tài sản', 'Mô tả',
+        'Tên biểu mẫu', 'Mô tả'
     ]
 
 
-    const items: Item[] = groupAsset.map((data : TypeGroupAsset) => ({
+    const items: Item[] = dataFormConfig.map((data) => ({
         id: data.id,
-        tenNhomTaiSan: data.tenNhomTaiSan,
-        maNhomTaiSan: data.maNhomTaiSan,
-        moTa: data.moTa,
+        name: data.name,
+        description: data.description,
     }));
 
 //
 
     const columns: TableColumnDefinition<Item>[] = [
         createTableColumn<Item>({
-            columnId: "tenNhomTaiSan",
+            columnId: "name",
         }),
         createTableColumn<Item>({
-            columnId: "maNhomTaiSan",
-        }),
-        createTableColumn<Item>({
-            columnId: "moTa",
+            columnId: "description",
         }),
     ];
 
@@ -158,7 +146,7 @@ const TableGroupAsset = ({tooltipProps} : TableGroupAssetProps) => {
                         <TableBody>
                             {rows.map(({item, selected, onClick, onKeyDown, appearance}) => (
                                 <TableRow
-                                    key={item.maNhomTaiSan}
+                                    key={item.id}
                                     onClick={onClick}
                                     onKeyDown={onKeyDown}
                                     aria-selected={selected}
@@ -169,31 +157,23 @@ const TableGroupAsset = ({tooltipProps} : TableGroupAssetProps) => {
                                         checked={selected}
                                         checkboxIndicator={{"aria-label": "Select row"}}
                                     />
-                                    <TableCell className={style.hoverNameItem} onClick={() =>  nav(`detail/${item?.id}`)}>
-                                        {item?.tenNhomTaiSan}
+                                    <TableCell className={style.hoverNameItem}
+                                               onClick={() => nav(`/taisan/settings/form-config/detail/${item?.id}`)}>
+                                        {item?.name}
                                     </TableCell>
-                                    <TableCell>
-                                        {item?.maNhomTaiSan}
-                                    </TableCell>
-                                    <Tooltip content={item?.moTa || null}  {...tooltipProps}>
+                                    <Tooltip content={item?.description || null}  {...tooltipProps}>
                                         <TableCell className={style.toolTip}>
-                                            {item?.moTa}
+                                            {item?.description}
                                         </TableCell>
                                     </Tooltip>
-
-
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>)}
             </div>
 
-            <div>
-                <Outlet></Outlet>
-            </div>
-
         </div>
     );
 };
 
-export default TableGroupAsset;
+export default TableListFormConfig;
