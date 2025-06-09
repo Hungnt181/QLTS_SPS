@@ -5,10 +5,17 @@ import MenuBar from "../../layouts/sideBar/menuBar/menuBar.tsx";
 
 const ListPages = () => {
     const style = listPageStyle()
-    return (
-        <div className={style.body}>
-            <MenuBar></MenuBar>
-            <Outlet></Outlet>
+    return <>
+        <div>
+            {/*body*/}
+            <div className={style.body}>
+                <div>
+                    <MenuBar></MenuBar>
+                </div>
+                <div>
+                    <Outlet></Outlet>
+                </div>
+            </div>
         </div>
     )
 

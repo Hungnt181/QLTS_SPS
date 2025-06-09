@@ -19,6 +19,9 @@ const subToolBarStyle = makeStyles({
         height: "100%",
         width: "50%",
     },
+    marginLeft: {
+        marginLeft: "12px",
+    },
     //
     subToolBarEnd: {
         display: "flex",
@@ -31,6 +34,13 @@ const subToolBarStyle = makeStyles({
     subToolBarEndBtnNoBorder: {
         border: "none",
         marginLeft: "10px",
+    },
+
+    inPutSearch: {
+        width : "250px"
+    } ,
+    SearchBox: {
+        width: "100%",
     }
 
 })

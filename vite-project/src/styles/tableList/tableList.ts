@@ -5,7 +5,6 @@ const tableListStyle = makeStyles({
         width: '100%',
         height: 'calc(100% - 108px)',
     },
-
     table: {
     },
 
@@ -24,6 +23,22 @@ const tableListStyle = makeStyles({
         minWidth: 'calc(100vh - 0px)',
         maxWidth: 'calc(100vh - 0px)',
     },
+    smallTable: {
+        width: "100%",
+        minWidth: "1113px",
+        maxHeight:"95%",
+    },
+    toolTip: {
+        maxWidth: "300px",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+    },
+    hoverNameItem: {
+        "&:hover" : {
+            cursor: "pointer",
+        }
+    }
 
 })
 
