@@ -220,7 +220,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                 >
                     {splitNavItemNestedProps.map((item: SplitNavItemNestedProps, index) =>
                         item?.splitNavItem?.navCategory ? (
-                            <NavCategory value={ item?.splitNavItem?.navCategory?.value} >
+                            <NavCategory value={ item?.splitNavItem?.navCategory?.value} key={ item?.splitNavItem?.navCategory?.value}>
                                 <NavCategoryItem icon={
                                     item?.splitNavItem?.navCategoryItem?.icon[0]
                                 }  >
@@ -241,7 +241,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                             </NavCategory>
                         ) : (
                             <NavItem
-                                key={index}
+                                key={item?.splitNavItem?.navItem?.value}
                                 href={item?.splitNavItem?.navItem?.href}
                                 icon={
                                     selectedItem == item?.splitNavItem?.navItem?.value

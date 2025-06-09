@@ -11,6 +11,9 @@ import TableTypeAsset from "../layouts/tableList/tableTypeAsset.tsx";
 import TableGroupAsset from "../layouts/tableList/tableGroupAsset.tsx";
 import AddNewGroupAs from "../layouts/FormAdd/formAddNewgroupAs.tsx";
 import MyLisstAsset from "../pages/listPage/list/MyListAsset.tsx";
+import FormConfig from "../pages/listPage/settings/FormConfig.tsx";
+import TableListFormConfig from "../layouts/tableList/tableListFormConfig.tsx";
+import FormConfigDetail from "../pages/listPage/settings/Detail/FormConfigDetail.tsx";
 
 const router = createBrowserRouter([
     {
@@ -73,6 +76,9 @@ const router = createBrowserRouter([
                         path: 'list/detail/:maTaiSan',
                         element: <AssetDetail/>,
                     },
+
+                    // Settings
+                    // Settings Master Data
                     {
                         path: 'settings/master-data',
                         element: <MasterData/>,
@@ -105,12 +111,31 @@ const router = createBrowserRouter([
                             }
                         ]
                     },
+                    // Settings Form Config
                     {
                         path: 'settings/form-config',
-                        element: <EmptyPage/>,
+                        element: <FormConfig/>,
+                        children: [
+                            {
+                                index: true,
+                                element: <Navigate to="/taisan/settings/form-config/list" replace/>,
+                            },
+                            {
+                                path: 'list',
+                                element: <TableListFormConfig/>,
+                            },
+
+                        ]
                     }
                 ]
             },
+            //deatail formConfigtaif sản
+            {
+                path: 'taisan/settings/form-config/detail/:id',
+                element: <FormConfigDetail/>,
+            },
+
+
             {
                 path: "tongquan",
                 element: <EmptyPage/>,

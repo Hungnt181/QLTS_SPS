@@ -36,16 +36,26 @@ const AddNewGroupAs = () => {
     // Thêm mới item
     const addNewItem = async () => {
         // Gọi API để thêm mới nhóm tài sản
-        try {
-             const response = await  axios.post(`http://localhost:3000/nhomTaiSan`, formData)
-             if (response.status === 200 || response.status === 201) {
-                 alert(`Thêm mới thành công.`);
-                 nav("/taisan/settings/master-data/group", { state: { reload: true } })
-             }
-        }
-        catch (error) {
-            console.log("Error adding new group asset:", error);
-        }
+        // try {
+        //      const response = await  axios.post(`http://localhost:3000/nhomTaiSan`, formData)
+        //      if (response.status === 200 || response.status === 201) {
+        //          alert(`Thêm mới thành công.`);
+        //          nav("/taisan/settings/master-data/group", { state: { reload: true } })
+        //      }
+        // }
+        // catch (error) {
+        //     console.log("Error adding new group asset:", error);
+        // }
+        // Thêm mới bằng localStorage
+        const data = localStorage.getItem('data');
+        const allData = data ? JSON.parse(data) : { nhomTaiSan: [] };
+        allData.nhomTaiSan.push({
+            id: formData.maNhomTaiSan,
+            ...formData
+        });
+        localStorage.setItem('data', JSON.stringify(allData));
+        alert(`Thêm mới thành công.`);
+        nav("/taisan/settings/master-data/group", { state: { reload: true } })
     }
     return (
         <div className={style.addnewAsset}>
