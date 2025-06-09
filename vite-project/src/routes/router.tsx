@@ -72,11 +72,6 @@ const router = createBrowserRouter([
                         path: 'my-asset',
                         element: <MyLisstAsset/>,
                     },
-                    {
-                        path: 'list/detail/:maTaiSan',
-                        element: <AssetDetail/>,
-                    },
-
                     // Settings
                     // Settings Master Data
                     {
@@ -131,10 +126,14 @@ const router = createBrowserRouter([
             },
             //deatail formConfigtaif sản
             {
+                path: 'taisan/list/detail/:id',
+                element: <AssetDetail/>,
+            },
+            //deatail formConfigtaif sản
+            {
                 path: 'taisan/settings/form-config/detail/:id',
                 element: <FormConfigDetail/>,
             },
-
 
             {
                 path: "tongquan",
