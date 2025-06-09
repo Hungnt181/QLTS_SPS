@@ -6,8 +6,8 @@ const SideBar = () => {
     const style = siderBarStyle()
     return (
         <div className={style.siderBar}>
-            <div><AppBar /></div>
-            <div><MenuBar /></div>
+            <AppBar />
+            <MenuBar />
         </div>
     );
 };

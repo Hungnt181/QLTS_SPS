@@ -6,18 +6,13 @@ import AppBar from "../../layouts/sideBar/appBar/appBar.tsx";
 const HomePage = () => {
     const style = listPageStyle()
     return <>
-        <div>
+        <div style={{width:'100%',height:'100%'}}>
             <Header/>
             {/*body*/}
             <div className={style.body}>
-                <div>
                     {/*    sideBar*/}
                     <AppBar></AppBar>
-                </div>
-                <div>
                     <Outlet></Outlet>
-                </div>
-
             </div>
         </div>
     </>

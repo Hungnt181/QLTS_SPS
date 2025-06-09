@@ -2,10 +2,11 @@ import {makeStyles, tokens} from "@fluentui/react-components";
 
 const toolBarStyle = makeStyles({
     toolbar: {
+        boxSizing:'border-box',
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        width: "calc(100% - 40px)",
+        width: "100%",
         height: "58px",
         padding: " 0 20px",
         borderBottom: `1px solid ${tokens.colorNeutralStroke2}`,

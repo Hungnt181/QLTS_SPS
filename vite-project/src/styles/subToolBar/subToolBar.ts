@@ -2,7 +2,8 @@ import {makeStyles, tokens} from "@fluentui/react-components";
 
 const subToolBarStyle = makeStyles({
     subToolBar: {
-        width: "calc(100% - 40px)",
+        boxSizing:'border-box',
+        width: "100%",
         height: "48px",
         padding: "0 20px",
         display: "flex",

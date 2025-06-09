@@ -4,6 +4,7 @@ var mainColor = tokens.colorBrandBackgroundHover
 const menuBarStyle = makeStyles({
     menuBar: {
         width: "320px",
+        minWidth: "320px",
         height: "100%",
         backgroundColor: tokens.colorNeutralCardBackgroundPressed,
         boxShadow: "inset -4px 0 4px -4px rgba(0, 0, 0, 0.2)",
@@ -43,8 +44,8 @@ const menuBarStyle = makeStyles({
 
     // MenuBar Item
     menuBarContent: {
-        width: "calc(100% - 20px)",
-        height: "calc(100% - 58px)",
+        width: "calc(100% - 0)",
+        height: "calc(100% - 0)",
         padding: " 0 10px"
     },
     menuBarItem : {

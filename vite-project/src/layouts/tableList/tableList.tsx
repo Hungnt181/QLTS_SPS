@@ -51,6 +51,7 @@ const TableList = () => {
 
 
     const items: Item[] = dataTable.map((data) => ({
+        id:data.id,
         tenTaiSan: data.tenTaiSan,
         maTaiSan: data.maTaiSan,
         maQR: data.maQR,
@@ -168,15 +169,14 @@ const TableList = () => {
     return (
 
         <div className={style.tableList}>
-            <div>
                 {isLoading ? (<p>...Đang tải dữ liệu</p>) : (
+                    <div className={style.tableScrollContainer}>
                     <Table
                     aria-label="Table with subtle selection"
-                    // style={{minWidth: "550px"}}
                     className={style.table}
                 >
-                    <TableHeader>
-                        <TableRow>
+                    <TableHeader style={{position:'sticky', top: '0', backgroundColor: '#fff',zIndex:1}}>
+                        <TableRow className={style.tableRow}>
                             <TableSelectionCell
                                 checked={
                                     allRowsSelected ? true : someRowsSelected ? "mixed" : false
@@ -187,7 +187,7 @@ const TableList = () => {
                             />
                             {
                                 tableHeaderCell.map((item, index) => (
-                                    <TableHeaderCell key={index}>{item}</TableHeaderCell>
+                                    <TableHeaderCell key={index} className={style.tableHeaderCell}>{item}</TableHeaderCell>
                                 ))
                             }
 
@@ -201,13 +201,14 @@ const TableList = () => {
                                 onKeyDown={onKeyDown}
                                 aria-selected={selected}
                                 appearance={appearance}
+                                className={style.tableRow}
                             >
                                 <TableSelectionCell
                                     subtle
                                     checked={selected}
                                     checkboxIndicator={{"aria-label": "Select row"}}
                                 />
-                                <TableCell onClick={() =>  nav(`detail/${item?.maTaiSan}`)}>
+                                <TableCell onClick={() =>  nav(`detail/${item?.id}`)}>
                                     {item?.tenTaiSan}
                                 </TableCell>
                                 <TableCell>
@@ -255,9 +256,9 @@ const TableList = () => {
                             </TableRow>
                         ))}
                     </TableBody>
-                </Table>)}
-            </div>
-
+                </Table>
+                </div>
+                )}
         </div>
     );
 };

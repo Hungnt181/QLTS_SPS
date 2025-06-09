@@ -39,7 +39,7 @@ const router = createBrowserRouter([
                         ]
                     },
                     {
-                        path: 'list/detail/:maTaiSan',
+                        path: 'list/detail/:id',
                         element: <AssetDetail/>,
                     },
                 ]

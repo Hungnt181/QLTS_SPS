@@ -5,7 +5,7 @@ const appBarStyle = makeStyles({
     // AppBar styles
     appBar: {
         width: "68px",
-        height: "calc(100vh - 48px)",
+        height: "100%",
         backgroundColor: tokens.colorNeutralBackground2Hover,
         boxShadow: "inset -4px 0 4px -4px rgba(0, 0, 0, 0.2)",
         "::after": {

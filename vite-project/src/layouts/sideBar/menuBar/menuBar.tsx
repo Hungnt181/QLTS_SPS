@@ -145,7 +145,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
         },
     ];
     return (
-        <div className={style.menuBar}>
+         <div className={style.menuBar}>
             {/*Header*/}
             <div className={style.menuBarHeader}>
                 <div className={style.menuBarHeaderTitle}>
