@@ -3,23 +3,23 @@ import {Image, Tab, TabList} from "@fluentui/react-components";
 import logo from "../../assets/Images/logo.png"
 import type {TabListProps} from "@fluentui/react-components";
 
-type ToolBarTab = {
-    tabListProps?: TabListProps
+
+type TabToolBar = {
+    value: string;
+    url: string;
+    label: string;
+    icon?: React.ReactNode;
+    action?: () => void;
 }
-const ToolBar = ({tabListProps}: ToolBarTab) => {
+type ToolBarTab = {
+    tabListProps?: TabListProps;
+    titleToolBar?: React.MutableRefObject<TabToolBar[]>;
+}
+
+const ToolBar = ({tabListProps,titleToolBar}: ToolBarTab, ) => {
     const style = toolBarStyle()
-    const tabToolBar = [
-        {
-            value: "danhsach",
-            url: "#",
-            label: "Danh sách"
-        },
-        // {
-        //     value: "nhomTS",
-        //     url: "#",
-        //     label: "Nhóm tài sản"
-        // }
-    ]
+    const tabToolBar = titleToolBar?.current || [];
+
     return (
         <div className={style.toolbar}>
             <div className={style.toolbarStart}>
@@ -34,12 +34,17 @@ const ToolBar = ({tabListProps}: ToolBarTab) => {
                     Tài sản
                 </h3>
                 <div className={style.tabList}>
-                    <TabList {...tabListProps} className={style.tabListItem} defaultSelectedValue={"danhsach"}>
-                        {tabToolBar.map((item, index) =>
-                            (
-                                <Tab value={item?.value} key={index}>{item?.label}</Tab>
+                    <TabList {...tabListProps} className={style.tabListItem} defaultSelectedValue={tabToolBar[0]?.value}>
+                        {tabToolBar.map((item:TabToolBar) => {
+                            return (
+                                <Tab value={item?.value} key={item?.value}
+                                    onClick={item?.action}
+                                >{item?.label}
+                                    {item?.icon ? ( <div>
+                                        {item?.icon}
+                                    </div>) : ""}</Tab>
                             )
-                        )}
+                        })}
                     </TabList>
                 </div>
             </div>
