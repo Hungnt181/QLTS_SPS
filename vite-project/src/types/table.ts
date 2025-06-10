@@ -19,7 +19,7 @@ export interface TypeTaiSan {
 
 export interface TypeGroupAsset {
     id: string;
-    tenNhomTaiSan: string;
+    tenNhomTaiSan: string; 
     maNhomTaiSan: string;
     moTa: string;
 }
