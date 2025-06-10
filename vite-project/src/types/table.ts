@@ -26,6 +26,7 @@ export interface TypeGroupAsset {
 
 // Interface cho field trong form thường
 export interface Field {
+    idField: string;
     label: string;
     type: string;
     name: string;
@@ -33,6 +34,7 @@ export interface Field {
 
 // Interface cho các _fields trong danh mục tài sản nâng cao
 export interface NestedField {
+    _ID: string;
     _label: string;
     _type: string;
     _name: string;
@@ -42,6 +44,9 @@ export interface NestedField {
 export interface AssetCategoryOption {
     label: string;
     _id: string;
+    _loaiTaiSan: string;
+    _nhomTaiSan: string;
+    _moTa: string;
     _fields: NestedField[];
 }
 

@@ -11,17 +11,21 @@ import {
 } from "@fluentui/react-components";
 import {AddCircle20Regular, Checkmark20Regular, ChevronLeft24Regular, Dismiss20Regular} from "@fluentui/react-icons";
 import {useNavigate, useParams} from "react-router-dom";
-import type {AssetCategoryOption, Field, FormConfigItem} from "../../../../types/table.ts";
+import type {AssetCategoryOption, FormConfigItem, NestedField} from "../../../../types/table.ts";
 import {useState} from "react";
 
-const FormConfigDetail = (props: Partial<DropdownProps>) => {
+const FormAdvancedInfoDetail = (props: Partial<DropdownProps>) => {
     const style = formConfigDetailStyle();
     const nav = useNavigate();
     // lấy id từ param
-    const {id} = useParams();
+    const {_id} = useParams();
     const data = localStorage.getItem('data');
     const allData = data ? JSON.parse(data) : [];
+    const selectedFormId = "ttnc";
+    const advancedData = allData.formConfig.find((form: FormConfigItem)
+
     const formConfigData = allData.formConfig
+    console.log('formConfigData', formConfigData);
     const fieldTypes: string[] = [
         'text',
         'Dòng văn bản đơn',
@@ -34,13 +38,12 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
     // Tạo 1 item filed mới
 
     // State để hiển thị thông báo lỗi
-    const [errorMessage, setErrorMessage] = useState<string>("");
     // State cho trường đang được thêm mới
-    const [newField, setNewField] = useState<Field | null>(null);
+    const [newField, setNewField] = useState<NestedField | null>(null);
     // Hàm lấy name tự động theo label
-    const generateFieldName = (label: string): string => {
+    const generateFieldName = (_label: string): string => {
         // 1. Bỏ dấu tiếng Việt
-        const noDiacritics = label.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const noDiacritics = _label.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
         // 2. Tách từ, loại bỏ khoảng trắng thừa
         const words = noDiacritics.trim().split(/\s+/);
@@ -60,21 +63,18 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
     // Hàm thêm trường mới
     const handleAddNewField = () => {
         // Kiểm tra xem có trường mới nào chưa hoàn thành không
-        if (newField && (!newField.label || newField.label.trim() === '')) {
-            setErrorMessage("Vui lòng nhập tên cho trường hiện tại trước khi thêm trường mới!");
+        if (newField && (!newField._label || newField._label.trim() === '')) {
             return;
         }
 
         // Tạo trường mới
-        const newFieldData: Field = {
-            idField: `field_${Date.now()}`,
-            label: "",
-            type: "text",
-            name: "",
+        const newFieldData: NestedField = {
+            _ID: `field_${Date.now()}`,
+            _label: "",
+            _type: "text",
+            _name: "",
         };
-
         setNewField(newFieldData);
-        setErrorMessage("");
     };
     // Hàm xử lý thay đổi label của trường mới
     const handleNewFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,8 +82,8 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
         if (newField) {
             setNewField({
                 ...newField,
-                label: newLabel,
-                name: generateFieldName(newLabel),
+                _label: newLabel,
+                _name: generateFieldName(newLabel),
             });
         }
     };
@@ -92,7 +92,7 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
         if (newField) {
             setNewField({
                 ...newField,
-                type: selectedOption,
+                _type: selectedOption,
             });
         }
     };
@@ -103,9 +103,9 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
         console.log('formData', newField);
         console.log('allData', allData.formConfig);
         // Kiểm tra xem có trường mới nào chưa hoàn thành không
-        if (newField != null && newField.label.trim() !== '') {
+        if (newField != null && newField._label.trim() !== '') {
             const formData = newField
-            const selectedFormId = "ttc";
+            const selectedFormId = "ttnc";
             const formConfigData = allData.formConfig.find((form: FormConfigItem) => form.id === selectedFormId);
 
             if (!formConfigData) {
@@ -118,7 +118,7 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
                 formConfigData.fields = [];
             }
 
-            if (newField && newField.label.trim() !== '' && newField.name.trim() !== '') {
+            if (newField && newField._label.trim() !== '' && newField._name.trim() !== '') {
                 formConfigData.fields.push(formData);
                 localStorage.setItem("data", JSON.stringify(allData));
                 alert("Thêm mới thành công.");
@@ -138,8 +138,8 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
             <div className={style.toolBar}>
                 <div className={style.toolBarStart}>
                     <Button className={style.toolBarStartBtn} icon={<ChevronLeft24Regular/>}
-                            onClick={() => nav('/taisan/settings/form-config/list')}>
-                        <h4 className={style.toolBarH4}>Cấu hình biểu mẫu</h4>
+                            onClick={() => nav('/taisan/settings/advanced-info')}>
+                        <h4 className={style.toolBarH4}>Cấu hình thông tin nâng cao</h4>
                     </Button>
                 </div>
                 <div className={style.toolBarEnd}>
@@ -151,7 +151,7 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
             {/*Content*/}
             <div className={style.content}>
                 {formConfigData.map((item: FormConfigItem) =>
-                    item.id === id ? (
+                    item.id === "ttnc" ? (
                         <Card className={style.contentCard} key={item.id}>
                             <div className={style.contentCardHeader}>
                                 <Label className={style.contentCardHeaderWidth}>
@@ -257,4 +257,4 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
     </>
 };
 
-export default FormConfigDetail;
+export default FormAdvancedInfoDetail;

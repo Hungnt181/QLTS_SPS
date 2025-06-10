@@ -14,6 +14,8 @@ import MyLisstAsset from "../pages/listPage/list/MyListAsset.tsx";
 import FormConfig from "../pages/listPage/settings/FormConfig.tsx";
 import TableListFormConfig from "../layouts/tableList/tableListFormConfig.tsx";
 import FormConfigDetail from "../pages/listPage/settings/Detail/FormConfigDetail.tsx";
+import AdvancedInfo from "../pages/listPage/settings/AdvancedInfo.tsx";
+import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 
 const router = createBrowserRouter([
     {
@@ -95,6 +97,12 @@ const router = createBrowserRouter([
                             {
                                 path: 'type',
                                 element: <TableTypeAsset/>,
+                                children: [
+                                    {
+                                        path: 'w-create',
+                                        element: <AddNewGroupAs/>,
+                                    },
+                                ]
                             },
                             {
                                 path: 'status',
@@ -121,10 +129,15 @@ const router = createBrowserRouter([
                             },
 
                         ]
+                    },
+                    // Settings Form advanced-info
+                    {
+                        path: 'settings/advanced-info',
+                        element: <AdvancedInfo/>
                     }
                 ]
             },
-            //deatail formConfigtaif sản
+            //deatail list tài sản
             {
                 path: 'taisan/list/detail/:id',
                 element: <AssetDetail/>,
@@ -134,6 +147,13 @@ const router = createBrowserRouter([
                 path: 'taisan/settings/form-config/detail/:id',
                 element: <FormConfigDetail/>,
             },
+            // deatail formConfig ttnc tài sản
+            {
+                path: 'taisan/settings/advanced-info/detail/:_id',
+                element: <FormAdvancedInfoDetail/>,
+            },
+
+
 
             {
                 path: "tongquan",

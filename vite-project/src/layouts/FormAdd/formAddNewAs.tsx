@@ -17,7 +17,6 @@ import AddNewAssetStyle from "../../styles/formAdd/formAdd.ts";
 import {useNavigate} from "react-router-dom";
 import {ChevronLeft16Regular} from "@fluentui/react-icons";
 import {useState} from "react";
-import axios from "axios";
 
 const AddNewAsset = () => {
     // call api lấy data
@@ -51,19 +50,6 @@ const AddNewAsset = () => {
     });
     // Thêm mới item
     const addNewItem = async () => {
-        // console.log("formData", formData);
-        // Gọi API để thêm mới nhóm tài sản
-        // try {
-        //     const response = await  axios.post(`http://localhost:3000/dataTable`, formData)
-        //     if (response.status === 200 || response.status === 201) {
-        //         alert(`Thêm mới thành công.`);
-        //         nav("/taisan/list", { state: { reload: true } })
-        //     }
-        // }
-        // catch (error) {
-        //     console.log("Error adding new group asset:", error);
-        // }
-
         // Thêm mới bằng localStorage
         const data = localStorage.getItem('data');
         const allData = data ? JSON.parse(data) : { dataTable: [] };

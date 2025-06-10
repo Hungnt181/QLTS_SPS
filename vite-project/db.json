@@ -227,18 +227,24 @@
             {
               "label": "Máy tính để bàn ",
               "_id": "danhMuc1",
+              "_loaiTaiSan": "Máy móc thiết bị",
+              "_nhomTaiSan": "Công cụ, dụng cụ",
+              "_moTa": "Tập hợp các thiết bị máy tính để bàn",
               "_fields": [
                 {
+                  "_ID" : "mtdb1",
                   "_label": "Năm sản xuất",
                   "_type": "text",
                   "_name": "namSanXuat"
                 },
                 {
+                    "_ID" : "mtdb2",
                   "_label": "Hãng sản xuất",
                   "_type": "text",
                   "_name": "hangSanXuat"
                 },
                 {
+                    "_ID" : "mtdb3",
                   "_label": "Thông số Ram",
                   "_type": "text",
                   "_name": "ram"
@@ -248,13 +254,18 @@
             {
               "label": "Tivi",
               "_id": "danhMuc2",
+              "_loaiTaiSan": "Máy móc thiết bị",
+              "_nhomTaiSan": "Công cụ, dụng cụ",
+              "_moTa": "Tập hợp các thiết bị tivi",
               "_fields": [
                 {
+                    "_ID" : "tivi1",
                   "_label": "Năm sản xuất",
                   "_type": "text",
                   "_name": "namSanXuat"
                 },
                 {
+                    "_ID" : "tivi2",
                   "_label": "Kích cỡ",
                   "_type": "text",
                   "_name": "kichCo"
