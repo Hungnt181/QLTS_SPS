@@ -1,5 +1,6 @@
-import {makeStyles} from "@fluentui/react-components";
+import {makeStyles, tokens} from "@fluentui/react-components";
 
+var mainColor =  tokens.colorCompoundBrandForeground1
 const formConfigDetailStyle = makeStyles(({
     formConfigDetailStyle: {
         width: "calc(100vw - 68px)",
@@ -73,7 +74,7 @@ const formConfigDetailStyle = makeStyles(({
     // contentCardBody
     contentCardBody: {
         width: "100%",
-        padding: "0px 20px",
+        paddingBottom: "12px",
     },
     rowContentCardBody: {
         width: "100%",
@@ -83,13 +84,31 @@ const formConfigDetailStyle = makeStyles(({
         alignItems: "center",
     },
     divInput :{
-        width: "calc(50% - 10px)",
+        width: "calc(50% - 20px)",
         margin: "0 auto",
     },
     divDropdown :{
         width: "100%",
         margin: "0",
-    }
+    },
+    // Content Card Footer
+    contentCardFooter: {
+        width: "100%",
+        height: "40px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    contentCardFooterLine: {
+        width: "45%",
+        height: "10%",
+        borderBottom: `2px solid ${mainColor}`,
+    },
+    contentCardFooterBtn: {
+        color : mainColor,
+        backgroundColor: "none",
+    },
+
 
 
 }))

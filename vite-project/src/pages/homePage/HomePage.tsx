@@ -1,298 +1,311 @@
 import listPageStyle from "../../styles/listPages/listPage.ts";
 import Header from "../../layouts/header/header.tsx";
-import {Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import AppBar from "../../layouts/sideBar/appBar/appBar.tsx";
 
 const HomePage = () => {
-    const style = listPageStyle()
-    // lưu data vào localStroage
-    const data = {
-  "dataTable": [
-    {
-      "tenTaiSan": "Laptop Dell XPS 15",
-      "maTaiSan": "TS001",
-      "maQR": "QR001",
-      "nhomTaiSan": "Thiết bị CNTT",
-      "loaiTaiSan": "Laptop",
-      "diaDiem": "Văn phòng Hà Nội",
-      "boPhan": "Phòng IT",
-      "nguyenGia": 35000000,
-      "trangThai": "Đang sử dụng",
-      "nguoiQuanLy": "Nguyễn Văn A",
-      "nguoiSuDung": "Trần Thị B",
-      "ngayTiepNhan": "15-01-2025",
-      "hanBaoHanh": "15-01-2026",
-      "hanBaoDuong": "15-01-2026",
-      "tinhTrang": "Tốt",
-      "id": "6cc0"
-    },
-    {
-      "tenTaiSan": "Máy in Canon 2900",
-      "maTaiSan": "TS002",
-      "maQR": "QR002",
-      "nhomTaiSan": "Thiết bị văn phòng",
-      "loaiTaiSan": "Máy in",
-      "diaDiem": "Chi nhánh Đà Nẵng",
-      "boPhan": "Hành chính",
-      "nguyenGia": 2500000,
-      "trangThai": "Cưa sử dụng",
-      "nguoiQuanLy": "Lê Văn C",
-      "nguoiSuDung": "",
-      "ngayTiepNhan": "",
-      "hanBaoHanh": "20-08-2025",
-      "hanBaoDuong": "",
-      "tinhTrang": "Hỏng",
-      "id": "ce98"
-    },
-    {
-      "tenTaiSan": "Máy chiếu Epson EB-X06",
-      "maTaiSan": "TS003",
-      "maQR": "QR003",
-      "nhomTaiSan": "Thiết bị trình chiếu",
-      "loaiTaiSan": "Máy chiếu",
-      "diaDiem": "Phòng họp HCM",
-      "boPhan": "Phòng Kinh doanh",
-      "nguyenGia": 12000000,
-      "trangThai": "Đang sử dụng",
-      "nguoiQuanLy": "Nguyễn Thị C",
-      "nguoiSuDung": "Lê Văn D",
-      "ngayTiepNhan": "10-03-2024",
-      "hanBaoHanh": "10-03-2026",
-      "hanBaoDuong": "10-03-2025",
-      "tinhTrang": "Tốt",
-      "id": "ea0c"
-    },
-    {
-      "tenTaiSan": "Máy tính để bàn HP ProDesk",
-      "maTaiSan": "TS004",
-      "maQR": "QR004",
-      "nhomTaiSan": "Thiết bị CNTT",
-      "loaiTaiSan": "PC",
-      "diaDiem": "Chi nhánh Cần Thơ",
-      "boPhan": "Phòng Kế toán",
-      "nguyenGia": 18000000,
-      "trangThai": "Chưa sử dụng",
-      "nguoiQuanLy": "Trần Văn E",
-      "nguoiSuDung": "Chưa phân công",
-      "ngayTiepNhan": "05-05-2025",
-      "hanBaoHanh": "05-05-2027",
-      "hanBaoDuong": "05-05-2026",
-      "tinhTrang": "Mới",
-      "id": "1c6e"
-    }
-  ],
-  "nhomTaiSan": [
-    {
-      "id": "NTS001",
-      "tenNhomTaiSan": "Công cụ, dụng cụ",
-      "maNhomTaiSan": "CCDC",
-      "moTa": "Các tài sản sản có giá trị dưới 30 triệu đồng"
-    },
-    {
-      "id": "NTS002",
-      "tenNhomTaiSan": "Tài sản cố định hữu hình",
-      "maNhomTaiSan": "TSCDHH",
-      "moTa": "Các tài sản sản có giá trị trên 30 triệu đồng"
-    },
-    {
-      "id": "NTS003",
-      "tenNhomTaiSan": "Tài sản cố định vô hình",
-      "maNhomTaiSan": "TSCDVH",
-      "moTa": ""
-    }
-  ],
-  "formConfig": [
-    {
-      "id": "ttc",
-      "name": "Thông tin chung",
-      "fields": [
-        {
-          "label": "Tên tài sản",
-          "type": "text",
-          "name": "tenTaiSan"
-        },
-        {
-          "label": "Mã tài sản",
-          "type": "text",
-          "name": "maTaiSan"
-        },
-        {
-          "label": "Mã QR",
-          "type": "text",
-          "name": "maQR"
-        },
-        {
-          "label": "Số lượng",
-          "type": "number",
-          "name": "soLuong"
-        },
-        {
-          "label": "Đơn vị tính",
-          "type": "text",
-          "name": "donViTinh"
-        },
-        {
-          "label": "Nhóm tài sản",
-          "type": "lookup",
-          "name": "nhomTaiSan"
-        },
-        {
-          "label": "Loại tài sản",
-          "type": "lookup",
-          "name": "loaiTaiSan"
-        },
-        {
-          "label": "Địa điểm",
-          "type": "lookup",
-          "name": "diaDiem"
-        },
-        {
-          "label": "Bộ phận",
-          "type": "text",
-          "name": "boPhan"
-        },
-        {
-          "label": "Nguyên giá",
-          "type": "number",
-          "name": "nguyenGia"
-        },
-        {
-          "label": "Người quản lý",
-          "type": "text",
-          "name": "nguoiQuanLy"
-        },
-        {
-          "label": "Trạng thái",
-          "type": "lookup",
-          "name": "trangThai"
-        },
-        {
-          "label": "Tình trạng",
-          "type": "lookup",
-          "name": "tinhTrang"
-        },
-        {
-          "label": "Ngày mua",
-          "type": "date",
-          "name": "ngayMua"
-        }
-      ],
-      "description": "Chứa các trường thông tin chung của tài sản"
-    },
-    {
-      "id": "bh",
-      "name": "Bảo hành",
-      "fields": [
-        {
-          "label": "Thời gian bảo hành",
-          "type": "date",
-          "name": "thoiGianBaoHanh"
-        },
-        {
-          "label": "Đơn vị tính",
-          "type": "lookup",
-          "name": "donViTinh2"
-        },
-        {
-          "label": "Hạn bảo hành",
-          "type": "date",
-          "name": "hanBaoHanh"
-        }
-      ],
-      "description": "Chứa các trường thông tin bảo hành"
-    },
-    {
-      "id": "dcp",
-      "name": "Đã cấp phát",
-      "fields": [
-        {
-          "label": "Ngày tiếp nhận",
-          "type": "date",
-          "name": "ngayTiepNhan"
-        },
-        {
-          "label": "Ngời tiếp nhân",
-          "type": "lookup",
-          "name": "nguoiSuDung"
-        },
-        {
-          "label": "Chức vụ",
-          "type": "lookup",
-          "name": "chucVu"
-        }
-      ],
-      "description": "Chứa các trường thông tin của việc đã cấp phát tài sản"
-    },
-    {
-      "id": "ttnc",
-      "name": "Thông tin nâng cao",
-      "fields": [
-        {
-          "label": "Danh mục tài sản",
-          "type": "look",
-          "name": "danhMucTaiSan",
-          "options": [
-            {
-              "label": "Máy tính để bàn ",
-              "_id": "danhMuc1",
-              "_fields": [
-                {
-                  "_label": "Năm sản xuất",
-                  "_type": "text",
-                  "_name": "namSanXuat"
-                },
-                {
-                  "_label": "Hãng sản xuất",
-                  "_type": "text",
-                  "_name": "hangSanXuat"
-                },
-                {
-                  "_label": "Thông số Ram",
-                  "_type": "text",
-                  "_name": "ram"
-                }
-              ]
-            },
-            {
-              "label": "Tivi",
-              "_id": "danhMuc2",
-              "_fields": [
-                {
-                  "_label": "Năm sản xuất",
-                  "_type": "text",
-                  "_name": "namSanXuat"
-                },
-                {
-                  "_label": "Kích cỡ",
-                  "_type": "text",
-                  "_name": "kichCo"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "description": "Chứa các trường nng cao dễ dàng tìm kiếm và phân loại tài sản chi tiết"
-    }
-  ]
-}
-    localStorage.setItem('data', JSON.stringify(data))
-    return <>
-        <div>
-            <Header/>
-            {/*body*/}
-            <div className={style.body}>
-                <div>
-                    {/*    sideBar*/}
-                    <AppBar></AppBar>
-                </div>
-                <div>
-                    <Outlet></Outlet>
-                </div>
-
-            </div>
+  const style = listPageStyle();
+  // lưu data vào localStroage
+  const data = {
+    dataTable: [
+      {
+        tenTaiSan: "Laptop Dell XPS 15",
+        maTaiSan: "TS001",
+        maQR: "QR001",
+        nhomTaiSan: "Thiết bị CNTT",
+        loaiTaiSan: "Laptop",
+        diaDiem: "Văn phòng Hà Nội",
+        boPhan: "Phòng IT",
+        nguyenGia: 35000000,
+        trangThai: "Đang sử dụng",
+        nguoiQuanLy: "Nguyễn Văn A",
+        nguoiSuDung: "Trần Thị B",
+        ngayTiepNhan: "15-01-2025",
+        hanBaoHanh: "15-01-2026",
+        hanBaoDuong: "15-01-2026",
+        tinhTrang: "Tốt",
+        id: "6cc0",
+      },
+      {
+        tenTaiSan: "Máy in Canon 2900",
+        maTaiSan: "TS002",
+        maQR: "QR002",
+        nhomTaiSan: "Thiết bị văn phòng",
+        loaiTaiSan: "Máy in",
+        diaDiem: "Chi nhánh Đà Nẵng",
+        boPhan: "Hành chính",
+        nguyenGia: 2500000,
+        trangThai: "Cưa sử dụng",
+        nguoiQuanLy: "Lê Văn C",
+        nguoiSuDung: "",
+        ngayTiepNhan: "",
+        hanBaoHanh: "20-08-2025",
+        hanBaoDuong: "",
+        tinhTrang: "Hỏng",
+        id: "ce98",
+      },
+      {
+        tenTaiSan: "Máy chiếu Epson EB-X06",
+        maTaiSan: "TS003",
+        maQR: "QR003",
+        nhomTaiSan: "Thiết bị trình chiếu",
+        loaiTaiSan: "Máy chiếu",
+        diaDiem: "Phòng họp HCM",
+        boPhan: "Phòng Kinh doanh",
+        nguyenGia: 12000000,
+        trangThai: "Đang sử dụng",
+        nguoiQuanLy: "Nguyễn Thị C",
+        nguoiSuDung: "Lê Văn D",
+        ngayTiepNhan: "10-03-2024",
+        hanBaoHanh: "10-03-2026",
+        hanBaoDuong: "10-03-2025",
+        tinhTrang: "Tốt",
+        id: "ea0c",
+      },
+      {
+        tenTaiSan: "Máy tính để bàn HP ProDesk",
+        maTaiSan: "TS004",
+        maQR: "QR004",
+        nhomTaiSan: "Thiết bị CNTT",
+        loaiTaiSan: "PC",
+        diaDiem: "Chi nhánh Cần Thơ",
+        boPhan: "Phòng Kế toán",
+        nguyenGia: 18000000,
+        trangThai: "Chưa sử dụng",
+        nguoiQuanLy: "Trần Văn E",
+        nguoiSuDung: "Chưa phân công",
+        ngayTiepNhan: "05-05-2025",
+        hanBaoHanh: "05-05-2027",
+        hanBaoDuong: "05-05-2026",
+        tinhTrang: "Mới",
+        id: "1c6e",
+      },
+    ],
+    nhomTaiSan: [
+      {
+        id: "NTS001",
+        tenNhomTaiSan: "Công cụ, dụng cụ",
+        maNhomTaiSan: "CCDC",
+        moTa: "Các tài sản sản có giá trị dưới 30 triệu đồng",
+      },
+      {
+        id: "NTS002",
+        tenNhomTaiSan: "Tài sản cố định hữu hình",
+        maNhomTaiSan: "TSCDHH",
+        moTa: "Các tài sản sản có giá trị trên 30 triệu đồng",
+      },
+      {
+        id: "NTS003",
+        tenNhomTaiSan: "Tài sản cố định vô hình",
+        maNhomTaiSan: "TSCDVH",
+        moTa: "",
+      },
+    ],
+    formConfig: [
+      {
+        id: "ttc",
+        name: "Thông tin chung",
+        fields: [
+          {
+            label: "Tên tài sản",
+            type: "text",
+            name: "tenTaiSan",
+          },
+          {
+            label: "Mã tài sản",
+            type: "text",
+            name: "maTaiSan",
+          },
+          {
+            label: "Mã QR",
+            type: "text",
+            name: "maQR",
+          },
+          {
+            label: "Số lượng",
+            type: "number",
+            name: "soLuong",
+          },
+          {
+            label: "Đơn vị tính",
+            type: "text",
+            name: "donViTinh",
+          },
+          {
+            label: "Nhóm tài sản",
+            type: "lookup",
+            name: "nhomTaiSan",
+          },
+          {
+            label: "Loại tài sản",
+            type: "lookup",
+            name: "loaiTaiSan",
+          },
+          {
+            label: "Địa điểm",
+            type: "lookup",
+            name: "diaDiem",
+          },
+          {
+            label: "Bộ phận",
+            type: "text",
+            name: "boPhan",
+          },
+          {
+            label: "Nguyên giá",
+            type: "number",
+            name: "nguyenGia",
+          },
+          {
+            label: "Người quản lý",
+            type: "text",
+            name: "nguoiQuanLy",
+          },
+          {
+            label: "Trạng thái",
+            type: "lookup",
+            name: "trangThai",
+          },
+          {
+            label: "Tình trạng",
+            type: "lookup",
+            name: "tinhTrang",
+          },
+          {
+            label: "Ngày mua",
+            type: "date",
+            name: "ngayMua",
+          },
+        ],
+        description: "Chứa các trường thông tin chung của tài sản",
+      },
+      {
+        id: "bh",
+        name: "Bảo hành",
+        fields: [
+          {
+            label: "Thời gian bảo hành",
+            type: "date",
+            name: "thoiGianBaoHanh",
+          },
+          {
+            label: "Đơn vị tính",
+            type: "lookup",
+            name: "donViTinh2",
+          },
+          {
+            label: "Hạn bảo hành",
+            type: "date",
+            name: "hanBaoHanh",
+          },
+        ],
+        description: "Chứa các trường thông tin bảo hành",
+      },
+      {
+        id: "dcp",
+        name: "Đã cấp phát",
+        fields: [
+          {
+            label: "Ngày tiếp nhận",
+            type: "date",
+            name: "ngayTiepNhan",
+          },
+          {
+            label: "Ngời tiếp nhân",
+            type: "lookup",
+            name: "nguoiSuDung",
+          },
+          {
+            label: "Chức vụ",
+            type: "lookup",
+            name: "chucVu",
+          },
+        ],
+        description: "Chứa các trường thông tin của việc đã cấp phát tài sản",
+      },
+      {
+        id: "ttnc",
+        name: "Thông tin nâng cao",
+        fields: [
+          {
+            label: "Danh mục tài sản",
+            type: "look",
+            name: "danhMucTaiSan",
+            options: [
+              {
+                label: "Máy tính để bàn ",
+                _id: "danhMuc1",
+                _loaiTaiSan: "Máy móc thiết bị",
+                _nhomTaiSan: "Công cụ, dụng cụ",
+                _moTa: "Tập hợp các thiết bị máy tính để bàn",
+                _fields: [
+                  {
+                    _ID: "mtdb1",
+                    _label: "Năm sản xuất",
+                    _type: "text",
+                    _name: "namSanXuat",
+                  },
+                  {
+                    _ID: "mtdb2",
+                    _label: "Hãng sản xuất",
+                    _type: "text",
+                    _name: "hangSanXuat",
+                  },
+                  {
+                    _ID: "mtdb3",
+                    _label: "Thông số Ram",
+                    _type: "text",
+                    _name: "ram",
+                  },
+                ],
+              },
+              {
+                label: "Tivi",
+                _id: "danhMuc2",
+                _loaiTaiSan: "Máy móc thiết bị",
+                _nhomTaiSan: "Công cụ, dụng cụ",
+                _moTa: "Tập hợp các thiết bị tivi",
+                _fields: [
+                  {
+                    _ID: "tivi1",
+                    _label: "Năm sản xuất",
+                    _type: "text",
+                    _name: "namSanXuat",
+                  },
+                  {
+                    _ID: "tivi2",
+                    _label: "Kích cỡ",
+                    _type: "text",
+                    _name: "kichCo",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        description:
+          "Chứa các trường nng cao dễ dàng tìm kiếm và phân loại tài sản chi tiết",
+      },
+    ],
+  };
+  localStorage.setItem("data", JSON.stringify(data));
+  return (
+    <>
+      <div>
+        <Header />
+        {/*body*/}
+        <div className={style.body}>
+          <div>
+            {/*    sideBar*/}
+            <AppBar></AppBar>
+          </div>
+          <div>
+            <Outlet></Outlet>
+          </div>
         </div>
+      </div>
     </>
+  );
 };
 
 export default HomePage;

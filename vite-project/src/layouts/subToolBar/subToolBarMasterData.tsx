@@ -18,7 +18,7 @@ const SubToolBarMasterData = ({onOpenAdd, searchProps= {}}:
             <div className={style.subToolBarStart}>
                 <div>
                     <Button appearance="primary" icon={<Add20Regular/>} onClick={onOpenAdd}>
-                        Thêm tài sản
+                        Thêm mới
                     </Button>
                     <Button appearance="subtle" icon={<Delete20Regular/>} className={style.marginLeft}>
                         Xóa
