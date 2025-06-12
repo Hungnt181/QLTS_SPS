@@ -24,6 +24,26 @@ export interface TypeGroupAsset {
     moTa: string;
 }
 
+export interface TypeAsset {
+    id: string;
+    tenLoaiTaiSan: string; 
+    maLoaiTaiSan: string;
+    tenNhomTaiSan: string;
+    moTa: string;
+}
+
+export interface StatusList {
+  tenTinhTrang: string;
+  mauSac: string;
+  moTa: string;
+}
+
+export interface StateList {
+  tenTrangThai: string;
+  mauSac: string;
+  moTa: string;
+}
+
 // Interface cho field trong form thường
 export interface Field {
     idField: string;
