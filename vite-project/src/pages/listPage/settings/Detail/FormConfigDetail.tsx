@@ -11,7 +11,7 @@ import {
 } from "@fluentui/react-components";
 import {AddCircle20Regular, Checkmark20Regular, ChevronLeft24Regular, Dismiss20Regular} from "@fluentui/react-icons";
 import {useNavigate, useParams} from "react-router-dom";
-import type {AssetCategoryOption, Field, FormConfigItem} from "../../../../types/table.ts";
+import type {Field, FormConfigItem} from "../../../../types/table.ts";
 import {useState} from "react";
 
 const FormConfigDetail = (props: Partial<DropdownProps>) => {
@@ -33,18 +33,14 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
 
     // Tạo 1 item filed mới
 
-    // State để hiển thị thông báo lỗi
-    const [errorMessage, setErrorMessage] = useState<string>("");
     // State cho trường đang được thêm mới
     const [newField, setNewField] = useState<Field | null>(null);
     // Hàm lấy name tự động theo label
     const generateFieldName = (label: string): string => {
         // 1. Bỏ dấu tiếng Việt
         const noDiacritics = label.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
         // 2. Tách từ, loại bỏ khoảng trắng thừa
         const words = noDiacritics.trim().split(/\s+/);
-
         // 3. Chuyển thành camelCase
         const camelCased = words
             .map((word, index) =>
@@ -61,8 +57,25 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
     const handleAddNewField = () => {
         // Kiểm tra xem có trường mới nào chưa hoàn thành không
         if (newField && (!newField.label || newField.label.trim() === '')) {
-            setErrorMessage("Vui lòng nhập tên cho trường hiện tại trước khi thêm trường mới!");
             return;
+        } else {
+            // Nếu có trường mới đã hoàn thành, thêm nó vào danh sách
+            const formData = newField
+            const formConfigData = allData.formConfig.find((form: FormConfigItem) => form.id === id);
+
+            if (!formConfigData) {
+                alert("Không tìm thấy form để thêm trường.");
+                return;
+            }
+
+            if (!Array.isArray(formConfigData.fields)) {
+                formConfigData.fields = [];
+            }
+
+            if (newField && newField.label.trim() !== '' && newField.name.trim() !== '') {
+                formConfigData.fields.push(formData);
+                localStorage.setItem("data", JSON.stringify(allData));
+            }
         }
 
         // Tạo trường mới
@@ -74,7 +87,6 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
         };
 
         setNewField(newFieldData);
-        setErrorMessage("");
     };
     // Hàm xử lý thay đổi label của trường mới
     const handleNewFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,8 +112,6 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
     // Hàm lưu form data mới vào db
 
     const handleSaveFormData = () => {
-        console.log('formData', newField);
-        console.log('allData', allData.formConfig);
         // Kiểm tra xem có trường mới nào chưa hoàn thành không
         if (newField != null && newField.label.trim() !== '') {
             const formData = newField
@@ -113,7 +123,6 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
                 return;
             }
 
-
             if (!Array.isArray(formConfigData.fields)) {
                 formConfigData.fields = [];
             }
@@ -122,7 +131,8 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
                 formConfigData.fields.push(formData);
                 localStorage.setItem("data", JSON.stringify(allData));
                 alert("Thêm mới thành công.");
-                nav("/taisan/settings/form-config", { state: { reload: true } }) }
+                nav("/taisan/settings/form-config", {state: {reload: true}})
+            }
         } else {
             // Lưu dữ liệu vào localStorage
             localStorage.setItem('data', JSON.stringify(allData));
@@ -143,7 +153,8 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
                     </Button>
                 </div>
                 <div className={style.toolBarEnd}>
-                    <Button className={style.toolBarEndBtn} icon={<Dismiss20Regular/>}>Hủy</Button>
+                    <Button onClick={() => nav('/taisan/settings/form-config/list')} className={style.toolBarEndBtn}
+                            icon={<Dismiss20Regular/>}>Hủy</Button>
                     <Button onClick={handleSaveFormData} appearance="primary" icon={<Checkmark20Regular/>}>Cập nhật cấu
                         hình</Button>
                 </div>
@@ -170,6 +181,7 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
                                 {
                                     item.fields.map((field) => {
                                         if ("idField" in field) {
+                                            console.log('field', field);
                                             return (
                                                 <CardPreview key={field.idField} className={style.contentCardBody}>
                                                     <div className={style.rowContentCardBody}>

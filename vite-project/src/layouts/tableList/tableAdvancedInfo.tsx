@@ -12,7 +12,7 @@ import {
 } from "@fluentui/react-components";
 import {useEffect, useState} from "react";
 import type {AssetCategoryOption, FormConfigItem} from "../../types/table.ts";
-import { useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 type TableGroupAssetProps = {
     tooltipProps?: TooltipProps;
@@ -21,6 +21,7 @@ const TableAdvancedInfo = ({tooltipProps} : TableGroupAssetProps) => {
     // call api lấy data
     const [dataFormConfig, setDataFormConfig] = useState<AssetCategoryOption[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const location = useLocation();
     useEffect(() => {
         ( async () => {
             try {
@@ -29,7 +30,6 @@ const TableAdvancedInfo = ({tooltipProps} : TableGroupAssetProps) => {
                 const data = localStorage.getItem('data');
                 const allData = data ? JSON.parse(data) : [];
                 const selectedFormId = "ttnc";
-
                 const advancedData = allData.formConfig.find((form: FormConfigItem) => form.id === selectedFormId);
                 setDataFormConfig(
                     advancedData.fields[0].options.map((item: AssetCategoryOption) => ({
@@ -43,7 +43,7 @@ const TableAdvancedInfo = ({tooltipProps} : TableGroupAssetProps) => {
                 setIsLoading(false);
             }
         })();
-    }, []);
+    }, [location.state?.reload]);
     //
     const style = tableListStyle();
     const nav = useNavigate()

@@ -99,71 +99,85 @@
       "name": "Thông tin chung",
       "fields": [
         {
+          "idField": "ttc1",
           "label": "Tên tài sản",
           "type": "text",
           "name": "tenTaiSan"
         },
         {
+            "idField": "ttc2",
           "label": "Mã tài sản",
           "type": "text",
           "name": "maTaiSan"
         },
         {
+           "idField": "ttc3",
           "label": "Mã QR",
           "type": "text",
           "name": "maQR"
         },
         {
+          "idField": "ttc4",
           "label": "Số lượng",
           "type": "number",
           "name": "soLuong"
         },
         {
+            "idField": "ttc5",
           "label": "Đơn vị tính",
           "type": "text",
           "name": "donViTinh"
         },
         {
+            "idField": "ttc6",
           "label": "Nhóm tài sản",
           "type": "lookup",
           "name": "nhomTaiSan"
         },
         {
+            "idField": "ttc7",
           "label": "Loại tài sản",
           "type": "lookup",
           "name": "loaiTaiSan"
         },
         {
+            "idField": "ttc8",
           "label": "Địa điểm",
           "type": "lookup",
           "name": "diaDiem"
         },
         {
+            "idField": "ttc9",
           "label": "Bộ phận",
           "type": "text",
           "name": "boPhan"
         },
         {
+            "idField": "ttc10",
           "label": "Nguyên giá",
           "type": "number",
           "name": "nguyenGia"
         },
         {
+            "idField": "ttc11",
           "label": "Người quản lý",
           "type": "text",
           "name": "nguoiQuanLy"
         },
         {
+            "idField": "ttc12",
           "label": "Trạng thái",
           "type": "lookup",
           "name": "trangThai"
         },
         {
+            "idField": "ttc13",
           "label": "Tình trạng",
           "type": "lookup",
           "name": "tinhTrang"
         },
         {
+            "idField": "ttc14",
           "label": "Ngày mua",
           "type": "date",
           "name": "ngayMua"
@@ -176,16 +190,19 @@
       "name": "Bảo hành",
       "fields": [
         {
+          "idField": "bh1",
           "label": "Thời gian bảo hành",
           "type": "date",
           "name": "thoiGianBaoHanh"
         },
         {
+            "idField": "bh2",
           "label": "Đơn vị tính",
           "type": "lookup",
           "name": "donViTinh2"
         },
         {
+            "idField": "bh3",
           "label": "Hạn bảo hành",
           "type": "date",
           "name": "hanBaoHanh"
@@ -198,16 +215,19 @@
       "name": "Đã cấp phát",
       "fields": [
         {
+            "idField": "dcp1",
           "label": "Ngày tiếp nhận",
           "type": "date",
           "name": "ngayTiepNhan"
         },
         {
+            "idField": "dcp2",
           "label": "Ngời tiếp nhân",
           "type": "lookup",
           "name": "nguoiSuDung"
         },
         {
+          "idField": "dcp3",
           "label": "Chức vụ",
           "type": "lookup",
           "name": "chucVu"
