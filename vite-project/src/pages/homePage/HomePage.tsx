@@ -510,6 +510,12 @@ const HomePage = () => {
           },
           { idField: "ttc3", label: "Mã QR", type: "text", name: "maQR" },
           {
+            idField: "ttc3",
+            label: "Mã QR",
+            type: "text",
+            name: "maQR",
+          },
+          {
             idField: "ttc4",
             label: "Số lượng",
             type: "number",
@@ -540,6 +546,12 @@ const HomePage = () => {
             name: "diaDiem",
           },
           { idField: "ttc9", label: "Bộ phận", type: "text", name: "boPhan" },
+          {
+            idField: "ttc9",
+            label: "Bộ phận",
+            type: "text",
+            name: "boPhan",
+          },
           {
             idField: "ttc10",
             label: "Nguyên giá",
@@ -614,6 +626,7 @@ const HomePage = () => {
             type: "lookup",
             name: "nguoiSuDung",
           },
+
           {
             idField: "dcp3",
             label: "Chức vụ",
