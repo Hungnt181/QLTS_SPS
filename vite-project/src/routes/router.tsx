@@ -10,13 +10,20 @@ import MasterData from "../pages/listPage/settings/MasterData.tsx";
 import TableTypeAsset from "../layouts/tableList/tableTypeAsset.tsx";
 import TableGroupAsset from "../layouts/tableList/tableGroupAsset.tsx";
 import AddNewGroupAs from "../layouts/FormAdd/formAddNewgroupAs.tsx";
+import AddNewTypeAs from "../layouts/FormAdd/formAddNewTypeAs.tsx"
+import TableStatus from "../layouts/tableList/tableStatus.tsx";
+import AddNewStatus from "../layouts/FormAdd/formAddNewStatus.tsx";
+import TableState from "../layouts/tableList/tableState.tsx";
+import AddNewState from "../layouts/FormAdd/formAddNewState.tsx";
 import MyLisstAsset from "../pages/listPage/list/MyListAsset.tsx";
 import FormConfig from "../pages/listPage/settings/FormConfig.tsx";
 import TableListFormConfig from "../layouts/tableList/tableListFormConfig.tsx";
 import FormConfigDetail from "../pages/listPage/settings/Detail/FormConfigDetail.tsx";
 import AdvancedInfo from "../pages/listPage/settings/AdvancedInfo.tsx";
+
 import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 import AddNewAdvancedInfo from "../layouts/FormAdd/formAddNewAdvancedInfo.tsx";
+
 // import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 
 const router = createBrowserRouter([
@@ -100,21 +107,39 @@ const router = createBrowserRouter([
               },
               {
                 path: "type",
-                element: <TableTypeAsset />,
+                element: (
+                    <TableTypeAsset />
+                ),
                 children: [
                   {
                     path: "w-create",
-                    element: <AddNewGroupAs />,
+                    element: <AddNewTypeAs />,
                   },
                 ],
               },
               {
                 path: "status",
-                element: <TableTypeAsset />,
+                element: (
+                  <TableStatus />
+                ),
+                children: [
+                  {
+                    path: "w-create",
+                    element: <AddNewStatus />,
+                  },
+                ],
               },
               {
                 path: "state",
-                element: <TableTypeAsset />,
+                element:( 
+                <TableState />
+                ),
+                children: [
+                  {
+                    path: "w-create",
+                    element: <AddNewState />
+                  },
+                ],
               },
             ],
           },
@@ -189,7 +214,13 @@ const router = createBrowserRouter([
         element: <EmptyPage />,
       },
     ],
+    
   },
+  {
+    
+    path: "/",
+    element: <HomePage />,
+  }
 ]);
 
 export default router;

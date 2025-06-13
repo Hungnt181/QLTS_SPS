@@ -28,8 +28,9 @@ const assetDetailStyle = makeStyles(({
 
     actionBar: { 
         display: "flex",
+        margin: "0",
         justifyContent: "space-between",
-        padding: "2px 8px 2px 24px",
+        padding: "0px 8px 0 5px",
         borderBottom: "1px solid #C7C7C7",
         alignItems: "center",
         width: "100%",
@@ -48,8 +49,9 @@ const assetDetailStyle = makeStyles(({
 
     title: {
         display: "flex",
+        alignContent: "center",
         padding: "2px",
-        gap: "12px",
+        gap: "6px",
         alignItems: "center",
         margin: "2px 42px 2px 2px",
     },
@@ -62,13 +64,21 @@ const assetDetailStyle = makeStyles(({
     },
 
     buttonIcon: {
+        display: "flex",
+        width: "auto",
+        height: "auto",
         fill: "#424242",
-        width: "24px",
-        height: "24px",
-        fontSize: "24px",
         border: "none",
         backgroundColor: "#fff",
+        marginTop: "2px",
         cursor: "pointer",
+        boxSizing: "border-box"
+    },
+
+    titleIcon: {
+        width: "32px",
+        height: "32px",
+        display: "inline-block"
     },
 
     actionButton: {
@@ -79,7 +89,7 @@ const assetDetailStyle = makeStyles(({
     },
 
     icon: {
-        margin: "0 4px 0 8px",
+        margin: "4px 4px 0 8px",
         fontSize: "16px",
     },
 
@@ -99,6 +109,10 @@ const assetDetailStyle = makeStyles(({
         gap: "8px",
         border: "none",
         backgroundColor: "#fff",
+    },
+
+    iconButton: {
+        marginTop: "4px"
     },
 
     rightActionButton: {
@@ -141,13 +155,18 @@ const assetDetailStyle = makeStyles(({
 
     h2: {
         height: "32px",
-        lineHeight: "28px",
         padding: "0 12px",
         marginBottom: "4px",
         display: "flex",
         alignItems: "center",
-        fontSize: "20px",
         fontStyle: "normal",
+    },
+
+    contentContainerTitle: {
+        fontSize: "20px",
+        fontWeight: "600",
+        lineHeight: "28px"
+
     },
 
     detail: {
@@ -218,7 +237,8 @@ const assetDetailStyle = makeStyles(({
     historyHeader: {
         width: "100%",
         display: "flex",
-        padding: "10px 12px",
+        alignContent: "center",
+        padding: "12px 12px 8px 12px",
         alignItems: "center",
         borderLeft: "1px solid #C7C7C7",
     },
@@ -226,9 +246,10 @@ const assetDetailStyle = makeStyles(({
     historyTitle: {
         height: "32px",
         fontWeight: 600,
-        lineHeight: "22px",
+        lineHeight: "24px",
         display: "flex",
         alignItems: "center",
+        fontSize: "16px",
         gap: "8px"
     },
 

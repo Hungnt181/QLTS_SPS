@@ -42,6 +42,14 @@ const AddNewAssetStyle = makeStyles(({
         }
     },
 
+    dropdown: {
+        display: "grid",
+        width: "100%",
+        gridTemplateRows: "repeat(1fr)",
+        justifyItems: "start",
+        gap: "2px",
+    },
+
     formContent: {
         margin: "0",
     },
