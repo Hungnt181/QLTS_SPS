@@ -11,72 +11,59 @@ import {
 import React, { useState, useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import tableListStyle from "../../styles/tableList/tableList.ts";
-import type { TypeAsset } from "../../types/table.ts"
 import type { TooltipProps } from "@fluentui/react-components";
+import type { StatusList } from "../../types/table.ts";
 
 
-type TableTypeAssetProps = {
-    tooltipProps?: TooltipProps;
+type TableStatusProps = {
+    tooltipProps?: TooltipProps
 }
 
-const TableTypeAsset = ({tooltipProps} : TableTypeAssetProps) => {
-    const [typeAsset, setTypeAsset] = useState<TypeAsset[]>([])
+const TableStatus = ({tooltipProps} : TableStatusProps) => {
+    const [status, setStatus] = useState([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const location = useLocation()
-    
-    useEffect (() => {
 
+    useEffect (() => {
         const fetchData = async () => {
             try {
                 setIsLoading(true)
                 const data = localStorage.getItem('data')
                 const allData = data ? JSON.parse(data) : []
                 // console.log("lỗi", allData)
-                setTypeAsset(
-                    allData.typeAsset.map((item: TypeAsset) => ({
-                        key: item.tenLoaiTaiSan,
-                        ...item
-                    }))
-                )
-                console.log({typeAsset});
-                
+                setStatus(allData.statusList)                
             } catch (error) {
-                console.log("Lỗi khi lấy dữ liệu",error)
+                console.log("lỗi khi lấy dữ liệu", error)
             } finally {
                 setIsLoading(false)
+            }
         }
-    }
-    fetchData()
-    if (location.state?.reload) {
         fetchData()
-    }               
+        if (location.state?.reload) {
+            fetchData()
+        }
     }, [location.state?.reload])
 
     const style = tableListStyle()
     const nav = useNavigate()
 
     const tableHeaderCell = [
-        'Tên loại tài sản', 'Mã loại tài sản', 'Nhóm tài sản', 'Mô tả',
+        'Tên tình trạng', 'Mô tả',
     ]
 
-    const items: Item[] = (typeAsset ?? []).map((data: TypeAsset) => ({
-        id: data.id,
-        tenLoaiTaiSan: data.tenLoaiTaiSan,
-        maLoaiTaiSan: data.maLoaiTaiSan,
-        tenNhomTaiSan: data.tenNhomTaiSan,
+    const items: Item[] = (status ?? []).map((data: StatusList) => ({
+        tenTinhTrang: data.tenTinhTrang,
+        mauSac: data.mauSac,
         moTa: data.moTa,
     }))
 
     const columns: TableColumnDefinition<Item>[] = [
         createTableColumn<Item> ({
-            columnId: "tenLoaiTaiSan",
+            columnId: "tenTinhTrang",
         }),
-        createTableColumn<Item> ({
-            columnId: "maLoaiTaiSan",
-        }),
-        createTableColumn<Item> ({
-            columnId: "tenNhomTaiSan",
-        }),
+        // createTableColumn<Item> ({
+        //     columnId: "mauSac",
+        // }),
         createTableColumn<Item> ({
             columnId: "moTa",
         }),
@@ -85,11 +72,11 @@ const TableTypeAsset = ({tooltipProps} : TableTypeAssetProps) => {
     const {
         getRows,
         selection: {
-            allRowsSelected,
-            someRowsSelected,
-            toggleAllRows,
-            toggleRow,
-            isRowSelected,
+        allRowsSelected,
+        someRowsSelected,
+        toggleAllRows,
+        toggleRow,
+        isRowSelected,
         },
     } = useTableFeatures (
         {
@@ -111,8 +98,8 @@ const TableTypeAsset = ({tooltipProps} : TableTypeAssetProps) => {
             onClick: (e: React.MouseEvent) => toggleRow(e, row.rowId),
             onKeyDown: (e: React.KeyboardEvent) => {
                 if (e.key === "") {
+                    toggleAllRows(e)
                     e.preventDefault()
-                    toggleRow(e, row.rowId)
                 }
             },
             selected,
@@ -122,30 +109,27 @@ const TableTypeAsset = ({tooltipProps} : TableTypeAssetProps) => {
 
     const toggleAllKeydown = React.useCallback(
         (e: React.KeyboardEvent<HTMLDivElement>) => {
-            if (e.key === " ") {
-                toggleAllRows(e);
-                e.preventDefault();
+            if(e.key === "") {
+                toggleAllRows(e)
+                e.preventDefault()
             }
         },
         [toggleAllRows]
     )
+    
 
-    return (
+    return(
         <div>
             <div>
                 {isLoading ? (<p>Đang tải dữ liệu...</p>) : (
-                    <Table
-                        aria-label="Table with subtle selection"
-                    >
+                    <Table aria-label="Table with subtle selection">
                         <TableHeader>
                             <TableRow>
-                                <TableSelectionCell 
-                                    checked ={
-                                        allRowsSelected ? true : someRowsSelected ? "mixed" : false
-                                    }
+                                <TableSelectionCell
+                                    checked={allRowsSelected ? true : someRowsSelected ? "mixed" : false}
                                     onClick={toggleAllRows}
                                     onKeyDown={toggleAllKeydown}
-                                    checkboxIndicator={{"aria-label": "Selected all rows"}}
+                                    checkboxIndicator={{"aria-label": "Chọn tất cả"}}
                                 />
                                 {
                                     tableHeaderCell.map((item, index) => (
@@ -156,29 +140,26 @@ const TableTypeAsset = ({tooltipProps} : TableTypeAssetProps) => {
                         </TableHeader>
 
                         <TableBody>
-                            {rows.map (({item, selected, onClick, onKeyDown, appearence}) =>(
+                            {rows.map (({item, selected, onClick, onKeyDown, appearence}) => (
                                 <TableRow
-                                    key={item.id}
+                                    key={item.tenTinhTrang}
                                     onClick={onClick}
                                     onKeyDown={onKeyDown}
                                     aria-selected={selected}
                                     appearance={appearence}
                                 >
-                                    <TableSelectionCell
+                                    <TableSelectionCell 
                                         subtle
                                         checked={selected}
-                                        checkboxIndicator={{"aria-label": "Seclect row"}}
+                                        checkboxIndicator={{"aria-label": "Chọn"}}
                                     />
-                                    <TableCell onClick={() => nav(`detail/${item?.id}`)}>
-                                        {item?.tenLoaiTaiSan}
+                                    <TableCell onClick={() => nav(`detail/$(item?.tenTinhTrang)`)}>
+                                        {item?.tenTinhTrang}
                                     </TableCell>
-                                    <TableCell>
-                                        {item?.maLoaiTaiSan}
-                                    </TableCell>
-                                    <TableCell>
-                                        {item?.tenNhomTaiSan}
-                                    </TableCell>
-                                    <Tooltip content={item?.moTa || ""} {...tooltipProps}>
+                                    {/* <TableCell>
+                                        {item?.mauSac}
+                                    </TableCell> */}
+                                    <Tooltip content={item?.moTa || ""} {...tooltipProps} relationship="label">
                                         <TableCell>
                                             {item?.moTa}
                                         </TableCell>
@@ -194,7 +175,6 @@ const TableTypeAsset = ({tooltipProps} : TableTypeAssetProps) => {
                 <Outlet></Outlet>
             </div>
         </div>
-    );
-};
-
-export default TableTypeAsset;
+    )
+}
+export default TableStatus;

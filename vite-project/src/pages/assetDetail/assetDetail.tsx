@@ -106,7 +106,7 @@ const AssetDetail = () => {
                 <div className={style.leftActionBar}>
                     <div className={style.title}>
                         <button className={style.buttonIcon} onClick = {() => navigate(-1)}>
-                            <DismissSquare24Regular />
+                            <DismissSquare24Regular className={style.titleIcon}/>
                         </button>
                         <Text variant="xLarge" className={style.actionBarTitle}>Chi tiết tài sản</Text>
                     </div>
@@ -137,16 +137,16 @@ const AssetDetail = () => {
 
                     <div className={style.rightActionButton}>
                         <button className={style.button}>
-                            <Print20Regular />
+                            <Print20Regular className={style.iconButton} />
                         </button>
                         <button className={style.button}>
-                            <ArrowCounterclockwise20Regular />
+                            <ArrowCounterclockwise20Regular className={style.iconButton}/>
                         </button>
                         <button className={style.button}>
-                            <History20Regular />
+                            <History20Regular className={style.iconButton}/>
                         </button>
                         <button className={style.button}>
-                            <Comment20Regular />
+                            <Comment20Regular className={style.iconButton}/>
                         </button>
                     </div>
                 </div>
@@ -155,7 +155,7 @@ const AssetDetail = () => {
             <div className={style.contentContainer}>
                 <div className={style.general}>
                     <div className={style.h2}>
-                        <h2>Thông tin chung</h2>
+                        <h2 className={style.contentContainerTitle}>Thông tin chung</h2>
                     </div>
                     <div className={style.detail}>
                         <div className={style.itemBlock}>
@@ -294,7 +294,7 @@ const AssetDetail = () => {
 
                 <div className={style.user}>
                     <div className={style.h2}>
-                        <h2>Thông tin người tiếp nhận</h2>
+                        <h2 className={style.contentContainerTitle}>Thông tin người tiếp nhận</h2>
                     </div>
                     <div className={style.detail}>
                         <div className={style.itemBlock}>

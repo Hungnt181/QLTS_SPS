@@ -1,0 +1,109 @@
+import {
+    Accordion,
+    AccordionHeader,
+    AccordionItem,
+    AccordionPanel,
+    Button,
+    Dialog, DialogActions,
+    DialogBody,
+    DialogContent,
+    DialogSurface,
+    DialogTitle,
+    DialogTrigger, Field, Input, Label, Textarea
+} from "@fluentui/react-components";
+import type {AccordionToggleEventHandler} from '@fluentui/react-components';
+import AddNewAssetStyle, {FormAddMasterDataStyle} from "../../styles/formAdd/formAdd.ts";
+import {useNavigate} from "react-router-dom";
+import {ChevronLeft16Regular} from "@fluentui/react-icons";
+import {useState} from "react";
+import axios from "axios";
+import type { StatusList } from "../../types/table.ts";
+
+const AddNewStatus = () => {
+    const style = AddNewAssetStyle()
+    const style1 = FormAddMasterDataStyle()
+    const nav = useNavigate()
+    const [openItems, setOpenItems] = useState(["1"])
+    const handleToggle: AccordionToggleEventHandler<string> = (_event, data) => {
+        setOpenItems(data.openItems)
+    }
+
+    const [formData, setFormData] = useState({
+        tenTinhTrang: "",
+        // mauSac: "",
+        moTa: "",
+    })
+
+    const addNewItem = async () => {
+        const data = localStorage.getItem('data')
+        const allData = data ? JSON.parse(data) : {statusList : []}
+        allData.statusList.push({
+            id: formData.tenTinhTrang,
+            ...formData
+        })
+        localStorage.setItem('data', JSON.stringify(allData))
+        alert("Thêm mới thành công")
+        nav ("/taisan/settings/master-data/status", {state: { reload: true}})
+    }
+
+    return (
+        <div className={style.addnewAsset}>
+            <Dialog open={true}>
+                <DialogSurface className={style1.formAddSettingWitdh}>
+                    <DialogBody className={style1.formAddSettingMaster}>
+                        <DialogTitle>Thêm mới tình trạng</DialogTitle>
+                        <DialogContent>
+                            <Accordion openItems={openItems} onToggle={handleToggle} multiple collapsible>
+                                <AccordionItem value="1">
+                                    <AccordionHeader className={style.formSection} expandIconPosition={"end"}
+                                    size={"extra-large"}>
+                                        <h4>Thông tin chung</h4>
+                                    </AccordionHeader>
+
+                                    <AccordionPanel className={style.formContent}>
+                                        <div>
+                                            <div className={style.formDiv}>
+                                                <Label size="medium" required htmlFor={"tenTinhTrang"}>
+                                                    Tên tình trạng
+                                                </Label>
+                                                <Input size="medium" name={"tenTinhTrang"} id={"tenTinhTrang"} className={style.formInput} placeholder="Hỏng"
+                                                    onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}
+                                                />
+                                            </div>
+                                            {/* <div className={style.formDiv}>
+                                                <Label size="medium" required htmlFor={"mauSac"} className={style.formLabel}>
+                                                    Màu sắc hiển thị
+                                                </Label>
+                                                <Input size="medium" id={"mauSac"} name={"mauSac"} className={style.formInput}
+                                                    onChange={(e) => setFormData ({...formData, [e.target.name]: e.target.value})}
+                                                />
+                                            </div> */}
+                                            <div className={style.formDiv}>
+                                                <Field size="medium" label="Mô tả">
+                                                    <Textarea className={style1.textArea} name={"moTa"} placeholder="Thông tin mô tả tình trạng"
+                                                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}
+                                                    />
+                                                </Field>
+                                            </div>
+                                        </div>
+                                    </AccordionPanel>
+                                </AccordionItem>
+                            </Accordion>
+                        </DialogContent>
+
+                        <DialogActions className={style.Formbutton}>
+                            <div className={style.Formbutton}>
+                                <DialogTrigger disableButtonEnhancement>
+                                    <Button icon={<ChevronLeft16Regular/>} className={style.closeBtn}
+                                            appearance="secondary" onClick={() => nav("/taisan/settings/master-data/status")}>Quay lại</Button>
+                                </DialogTrigger>
+                                <Button appearance="primary" onClick={() => addNewItem()}>Thêm mới</Button>
+                            </div>
+                        </DialogActions>
+                    </DialogBody>
+                </DialogSurface>
+            </Dialog>
+        </div>
+    )
+}
+export default AddNewStatus
