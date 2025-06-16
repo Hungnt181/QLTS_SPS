@@ -325,7 +325,7 @@ const myDashboardStyles = makeStyles({
     worksItem: {
         display: 'flex',
         width: '100%',
-        height: '48px',
+        height: '56px',
         alignItems: 'center',
         // justifyContent: 'space-between',
         gap: '8px',
@@ -343,6 +343,7 @@ const myDashboardStyles = makeStyles({
     },
     worksItemContent: {
         width: 'calc(100% - 60px)',
+        height: '100%',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -352,8 +353,15 @@ const myDashboardStyles = makeStyles({
         lineHeight: '20px',
         color: tokens.colorNeutralForeground1,
         margin: '0',
-        maxWidth: '80%',
-        
+    },
+    itemContentCategory: {
+        fontSize: '14px',
+        lineHeight: '20px',
+        color: tokens.colorNeutralForeground3,
+        marginTop: '8px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
     },
 
 

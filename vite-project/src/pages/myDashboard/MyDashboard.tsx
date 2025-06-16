@@ -6,13 +6,10 @@ import {
     Calendar24Regular,
     CalendarToday20Regular,
     CheckmarkCircle16Filled,
-    CheckmarkCircle16Regular,
     CircleHalfFill16Filled,
-    CircleHalfFill16Regular,
     Clock12Regular,
     DataHistogram24Filled,
     Desktop20Regular, DismissCircle16Filled,
-    DismissCircle16Regular,
     DocumentData20Regular,
     Filter20Regular,
     Grid20Regular,
@@ -485,20 +482,20 @@ const MyDashBoard = () => {
                                                         <div className={style.itemContentTitle}>
                                                             {task.title}
                                                         </div>
-                                                        <div>
+                                                        <div className={style.itemContentCategory}>
                                                             <span>
 
                                                             {
                                                                 task.category === "Công việc" ? (
-                                                                    <TaskListSquareLtr20Regular/>
+                                                                    <TaskListSquareLtr20Regular className={style.icon}/>
                                                                 ) : task.category === "Quy trình" ? (
-                                                                    <ArrowSyncCheckmark20Regular/>
+                                                                    <ArrowSyncCheckmark20Regular className={style.icon}/>
                                                                 ) : task.category === "Dự án" ? (
-                                                                    <Desktop20Regular/>
+                                                                    <Desktop20Regular className={style.icon}/>
                                                                 ) : task.category === "Văn bản" ? (
-                                                                    <DocumentData20Regular/>
+                                                                    <DocumentData20Regular className={style.icon}/>
                                                                 ) : task.category === "Văn bản" ? (
-                                                                    <DocumentData20Regular/>
+                                                                    <DocumentData20Regular className={style.icon}/>
                                                                 ) : null
                                                             }
                                                             </span>
