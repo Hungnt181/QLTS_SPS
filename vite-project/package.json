@@ -17,10 +17,13 @@
     "@fluentui/react-nav-preview": "^0.13.8",
     "axios": "^1.9.0",
     "babel-plugin-react-compiler": "^0.0.0-experimental-a550a97-20250529",
+    "chart.js": "^4.4.9",
     "json-server": "^1.0.0-beta.3",
     "react": "^18.3.1",
+    "react-chartjs-2": "^5.3.0",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.6.0"
+    "react-router-dom": "^7.6.0",
+    "recharts": "^2.15.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

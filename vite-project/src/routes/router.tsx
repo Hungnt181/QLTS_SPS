@@ -17,6 +17,7 @@ import TableState from "../layouts/tableList/tableState.tsx";
 import AddNewState from "../layouts/FormAdd/formAddNewState.tsx";
 import MyLisstAsset from "../pages/listPage/list/MyListAsset.tsx";
 import FormConfig from "../pages/listPage/settings/FormConfig.tsx";
+import Dashboard from "../layouts/dashboard/dashboard.tsx";
 import TableListFormConfig from "../layouts/tableList/tableListFormConfig.tsx";
 import FormConfigDetail from "../pages/listPage/settings/Detail/FormConfigDetail.tsx";
 import AdvancedInfo from "../pages/listPage/settings/AdvancedInfo.tsx";
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
           // Dashboard
           {
             path: "dashboard",
-            element: <AssetDashboard />,
+            element: <Dashboard />,
           },
           // maintenance
           {

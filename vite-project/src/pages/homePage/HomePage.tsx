@@ -510,14 +510,12 @@ const HomePage = () => {
           },
           { idField: "ttc3", label: "Mã QR", type: "text", name: "maQR" },
           {
-
             idField: "ttc3",
             label: "Mã QR",
             type: "text",
             name: "maQR",
           },
           {
-
             idField: "ttc4",
             label: "Số lượng",
             type: "number",
@@ -549,14 +547,12 @@ const HomePage = () => {
           },
           { idField: "ttc9", label: "Bộ phận", type: "text", name: "boPhan" },
           {
-
             idField: "ttc9",
             label: "Bộ phận",
             type: "text",
             name: "boPhan",
           },
           {
-
             idField: "ttc10",
             label: "Nguyên giá",
             type: "number",
@@ -637,7 +633,6 @@ const HomePage = () => {
             type: "lookup",
             name: "chucVu",
           },
-
         ],
         description: "Chứa các trường thông tin của việc đã cấp phát tài sản",
       },
