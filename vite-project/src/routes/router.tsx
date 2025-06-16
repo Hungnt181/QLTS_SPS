@@ -21,7 +21,7 @@ import Dashboard from "../layouts/dashboard/dashboard.tsx";
 import TableListFormConfig from "../layouts/tableList/tableListFormConfig.tsx";
 import FormConfigDetail from "../pages/listPage/settings/Detail/FormConfigDetail.tsx";
 import AdvancedInfo from "../pages/listPage/settings/AdvancedInfo.tsx";
-
+import InventoryList from "../layouts/tableList/inventoryList.tsx";
 import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 import AddNewAdvancedInfo from "../layouts/FormAdd/formAddNewAdvancedInfo.tsx";
 
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
           // inventory
           {
             path: "inventory",
-            element: <AssetDashboard />,
+            element: <InventoryList />,
           },
           //// List Asset
           {
