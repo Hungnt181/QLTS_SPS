@@ -21,7 +21,10 @@ import Dashboard from "../layouts/dashboard/dashboard.tsx";
 import TableListFormConfig from "../layouts/tableList/tableListFormConfig.tsx";
 import FormConfigDetail from "../pages/listPage/settings/Detail/FormConfigDetail.tsx";
 import AdvancedInfo from "../pages/listPage/settings/AdvancedInfo.tsx";
-import { Tab } from "@fluentui/react-components";
+
+import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
+import AddNewAdvancedInfo from "../layouts/FormAdd/formAddNewAdvancedInfo.tsx";
+
 // import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 
 const router = createBrowserRouter([
@@ -162,6 +165,12 @@ const router = createBrowserRouter([
           {
             path: "settings/advanced-info",
             element: <AdvancedInfo />,
+            children: [
+              {
+                path: "w-create",
+                element: <AddNewAdvancedInfo />,
+              },
+            ],
           },
         ],
       },
@@ -176,10 +185,10 @@ const router = createBrowserRouter([
         element: <FormConfigDetail />,
       },
       // deatail formConfig ttnc tài sản
-      // {
-      //     path: 'taisan/settings/advanced-info/detail/:_id',
-      //     element: <FormAdvancedInfoDetail/>,
-      // },
+      {
+          path: 'taisan/settings/advanced-info/detail/:_id',
+          element: <FormAdvancedInfoDetail/>,
+      },
 
       {
         path: "tongquan",
