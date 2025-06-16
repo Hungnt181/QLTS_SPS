@@ -23,6 +23,7 @@ import AdvancedInfo from "../pages/listPage/settings/AdvancedInfo.tsx";
 
 import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 import AddNewAdvancedInfo from "../layouts/FormAdd/formAddNewAdvancedInfo.tsx";
+import MyDashBoard from "../pages/myDashboard/MyDashboard.tsx";
 
 // import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 
@@ -185,7 +186,7 @@ const router = createBrowserRouter([
 
       {
         path: "tongquan",
-        element: <EmptyPage />,
+        element: <MyDashBoard />,
       },
       {
         path: "quytrinh",
