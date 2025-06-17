@@ -14,8 +14,7 @@ import {
     Filter20Regular,
     Grid20Regular,
     PersonCircle24Filled,
-    TaskListSquareAdd24Regular,
-    TaskListSquareLtr20Regular
+    TaskListSquareLtr20Regular, TaskListSquareLtr24Regular
 } from "@fluentui/react-icons";
 import {
     Avatar, Badge,
@@ -26,13 +25,12 @@ import {
     Menu,
     MenuButton, MenuItem, MenuList,
     MenuPopover,
-    MenuTrigger
+    MenuTrigger, mergeClasses, tokens
 } from "@fluentui/react-components";
 import {DatePicker} from "@fluentui/react-datepicker-compat";
 import {
     type ChartProps,
-    DataVizPalette,
-    DonutChart, getColorFromToken,
+    DonutChart,
 } from "@fluentui/react-charts";
 
 // interfaces
@@ -67,7 +65,7 @@ interface TaskItem {
     id: string;
     title: string;
     category: string;
-    status: "Đang thực hiện" | "Hoàn thành" | "Từ chối";
+    status: "Đang thực hiện" | "Hoàn thành" | "Quá hạn";
     dueDate: string;
 }
 
@@ -202,7 +200,7 @@ const MyDashBoard = () => {
                 "id": "task003",
                 "title": "Dịch đa ngôn ngữ tiếng Nhật",
                 "category": "Công việc",
-                "status": "Từ chối",
+                "status": "Quá hạn",
                 "dueDate": "11/06 09:30"
             },
             {
@@ -218,7 +216,21 @@ const MyDashBoard = () => {
                 "category": "Văn bản",
                 "status": "Hoàn thành",
                 "dueDate": "14/06 09:30"
-            }
+            },
+            {
+                "id": "task006",
+                "title": "Hoàn thiện figma cho màn hình chính",
+                "category": "Công việc",
+                "status": "Đang thực hiện",
+                "dueDate": "14/06 09:30"
+            },
+            {
+                "id": "task007",
+                "title": "Thiết kế giao diện QLTS",
+                "category": "Quy trình",
+                "status": "Hoàn thành",
+                "dueDate": "14/06 09:30"
+            },
         ]
     };
     localStorage.setItem('dataDashboard', JSON.stringify(dataDashboard));
@@ -231,19 +243,19 @@ const MyDashBoard = () => {
         {
             legend: "Quá hạn",
             data: 15,
-            color: getColorFromToken(DataVizPalette.color1),
+            color: tokens.colorBrandBackgroundSelected,
             xAxisCalloutData: "2020/04/30",
         },
         {
             legend: "Hôm nay",
             data: 20,
-            color: getColorFromToken(DataVizPalette.color2),
+            color: tokens.colorBrandBackground,
             xAxisCalloutData: "2024/04/20",
         },
         {
             legend: "Hoàn thành",
             data: 85,
-            color: getColorFromToken(DataVizPalette.color3),
+            color: tokens.colorBrandBackground2Pressed,
             xAxisCalloutData: "2024/04/20",
         },
     ];
@@ -400,7 +412,7 @@ const MyDashBoard = () => {
                                         anhvn@spsvn.com
                                     </p>
                                 </div>
-                                <div>
+                                <div className={style.personDepartment}>
                                     <p className={style.title}>Nhân viên thực tập</p>
                                     <p className={style.startTime}>SPSVN - Phòng công nghệ</p>
                                 </div>
@@ -419,7 +431,7 @@ const MyDashBoard = () => {
                                 <Body1 className={style.headerBody1}>
                                     <div className={style.CardHeaderLogo}>
                                         <div>
-                                            {<TaskListSquareAdd24Regular className={style.icon}/>}
+                                            {<TaskListSquareLtr24Regular className={style.icon}/>}
                                         </div>
                                         <p className={style.title}>Nhiệm vụ</p>
                                     </div>
@@ -453,8 +465,7 @@ const MyDashBoard = () => {
                                         typeof window !== "undefined" ? window.navigator.language : "en-us"
                                     }
                                     data={dataChart}
-                                    innerRadius={85}
-                                    // href={"https://developer.microsoft.com/en-us/"}
+                                    innerRadius={90}
                                     legendsOverflowText={"overflow Items"}
                                     hideLegend={false}
                                     height={100}
@@ -502,7 +513,7 @@ const MyDashBoard = () => {
                                                             <span>{task.category}</span>
                                                         </div>
                                                     </div>
-                                                    <div className={style.duration}>
+                                                    <div className={mergeClasses(style.dueDate, task.status == "Quá hạn" ? style.isOverdue : '')}>
                                                         {task.dueDate}
                                                     </div>
                                                 </div>

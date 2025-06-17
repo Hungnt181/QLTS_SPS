@@ -39,10 +39,10 @@ const myDashboardStyles = makeStyles({
     dashboardContent: {
         width: "calc(100vw - 108px)",
         height: "calc(100vh - 145px)",
-        // display: 'flex',
-        // flexDirection: 'column',
+        display: 'flex',
+        flexDirection: 'column',
         maxHeight: "100vh",
-        // gap: '20px',
+        gap: '20px',
         overflowY: 'auto',
         padding: '20px',
     },
@@ -51,7 +51,7 @@ const myDashboardStyles = makeStyles({
         width: '100%',
         // minHeight: '320px',
         // maxHeight: '400px',
-        height: '60%',
+        height: '50%',
         display: 'flex',
         justifyContent: 'space-between',
         gap: '20px',
@@ -59,7 +59,7 @@ const myDashboardStyles = makeStyles({
     ///// calendar card
     calendarCard: {
         width: '75%',
-        height: 'calc(100% - 32px)',
+        height: '100%',
         padding: '16px',
     },
     // calendar card header
@@ -217,7 +217,7 @@ const myDashboardStyles = makeStyles({
     /// myProfile Card
     profileCard: {
         width: '25%',
-        height: 'calc(100% - 32px)',
+        height: '100%',
         padding: '16px',
         display: 'flex',
         flexDirection: 'column',
@@ -240,13 +240,14 @@ const myDashboardStyles = makeStyles({
 
     personalInfo: {
         width: '100%',
-        height: '80%',
+        height: 'calc(75% - 24px)',
         display: 'flex',
         flexDirection: 'column',
         borderRadius: '4px',
         alignItems: 'center',
-        justifyContent: 'center',
-        gap: '8px',
+        paddingTop: '24px',
+        // justifyContent: 'center',
+        gap: '12px',
         backgroundColor: tokens.colorBrandBackground2,
         marginBottom: `8px`,
     },
@@ -254,7 +255,7 @@ const myDashboardStyles = makeStyles({
         width: '60%',
         minWidth: '120px',
         maxWidth: '150px',
-        height: '28px',
+        height: '36px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -264,6 +265,14 @@ const myDashboardStyles = makeStyles({
         fontSize: '14px',
         fontWeight: 600,
         lineHeight: '20px',
+    },
+    personDepartment: {
+        height: 'calc(25% - 12px)',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px',
+        justifyContent:'end'
     },
 
     //// 2nd Row
@@ -276,29 +285,34 @@ const myDashboardStyles = makeStyles({
     cardWorks: {
         height: '100%',
         width: '100%',
-        gap: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+        padding: '16px',
     },
 
     worksCardPreview: {
         width: '100%',
-        height: 'calc(100% - 32px)',
+        height: 'calc(100% - 90px) !important',
         display: 'flex',
         margin: '0 auto !important',
         gap: '20px',
     },
 // Card works chart
     cardWorksChart: {
-        height: '100%',
+        height: '95% !important',
         width: '25% !important',
     },
     donutChart: {
         height: '100%',
-        width: '100%',
+        width: '80%',
+        maxWidth: '230px !important',
         alignItems: 'center',
+        margin: '0 auto !important',
     },
 // Card works list
     cardWorksList: {
-        maxHeight: 'calc(100% - 32px)',
+        maxHeight: 'calc(100% - 32px) !important',
         width: '75%',
         display: 'flex',
         flexDirection: 'column',
@@ -324,7 +338,7 @@ const myDashboardStyles = makeStyles({
     },
     worksItem: {
         display: 'flex',
-        width: '100%',
+        width: 'calc(100% - 16px) !important',
         height: '56px',
         alignItems: 'center',
         // justifyContent: 'space-between',
@@ -342,7 +356,7 @@ const myDashboardStyles = makeStyles({
         alignItems: 'center',
     },
     worksItemContent: {
-        width: 'calc(100% - 60px)',
+        width: 'calc(100% - 20px)',
         height: '100%',
         display: 'flex',
         justifyContent: 'space-between',
@@ -364,7 +378,15 @@ const myDashboardStyles = makeStyles({
         gap: '8px',
     },
 
-
+    dueDate: {
+        fontSize: '14px',
+        lineHeight: '16px',
+        display: 'flex',
+        alignSelf: 'start'
+    },
+    isOverdue: {
+        color: tokens.colorStatusDangerForeground1,
+    },
 
     // Icon header Card
     icon: {
