@@ -50,13 +50,13 @@ const formConfigDetailStyle = makeStyles(({
 
     // Content Card
     contentCard: {
-        width: "60%",
-        height: "400px",
+        width: "90%",
+        height: "90%",
         padding: "20px",
-        maxWidth:"800px",
-        minWidth:"600px",
-        maxHeight:"800px",
-        minHeight:"400px",
+        // maxWidth:"1200px",
+        // minWidth:"800px",
+        // maxHeight:"1200px",
+        // minHeight:"400px",
         overflowY: "auto",
     },
     // // contentCardHeader: {

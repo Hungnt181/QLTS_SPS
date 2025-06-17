@@ -153,7 +153,7 @@ const TableStatus = ({tooltipProps} : TableStatusProps) => {
                                         checked={selected}
                                         checkboxIndicator={{"aria-label": "Chọn"}}
                                     />
-                                    <TableCell onClick={() => nav(`detail/$(item?.tenTinhTrang)`)}>
+                                    <TableCell>
                                         {item?.tenTinhTrang}
                                     </TableCell>
                                     {/* <TableCell>

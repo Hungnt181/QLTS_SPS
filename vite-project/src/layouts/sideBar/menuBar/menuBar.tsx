@@ -29,8 +29,8 @@ import {
     Tooltip,
     type TooltipProps
 } from "@fluentui/react-components";
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
 
 type MenuBar = {
     tooltipProps?: TooltipProps;
@@ -52,10 +52,46 @@ type SplitNavItemNestedProps = {
 
 
 const MenuBar = ({tooltipProps}: MenuBar) => {
+    // Tạo mapping giữa URL prefix và item value (sắp xếp theo độ dài giảm dần)
+    const URL_PREFIX_TO_ITEM_MAP: Array<{prefix: string, value: string}> = [
+        // Routes dài hơn phải đặt trước để match chính xác
+        { prefix: '/taisan/settings/master-data', value: '8' },
+        { prefix: '/taisan/settings/form-config', value: '9' },
+        { prefix: '/taisan/settings/advanced-info', value: '10' },
+        { prefix: '/taisan/dashboard', value: '1' },
+        { prefix: '/taisan/my-asset', value: '11' },
+        { prefix: '/taisan/list', value: '12' },
+        { prefix: '/taisan/maintenance', value: '3' },
+        { prefix: '/taisan/fix', value: '4' },
+        { prefix: '/taisan/liquidation', value: '5' },
+        { prefix: '/taisan/inventory', value: '6' },
+    ];
+
+// Function để lấy item value từ current URL (sử dụng prefix matching)
+    const getSelectedItemFromUrl = (pathname: string): string => {
+        // Tìm prefix đầu tiên khớp với pathname
+        const matchedItem = URL_PREFIX_TO_ITEM_MAP.find(item =>
+            pathname.startsWith(item.prefix)
+        );
+
+        return matchedItem?.value || '1'; // Default là '1' nếu không tìm thấy
+    };
+    const nav = useNavigate();
+    const location = useLocation();
+
+    // Khởi tạo selectedItem từ URL hiện tại
+    const [selectedItem, setSelectedItem] = useState(() =>
+        getSelectedItemFromUrl(location.pathname)
+    );
+    // Cập nhật selectedItem khi URL thay đổi (khi người dùng navigate bằng cách khác)
+    useEffect(() => {
+        const currentItem = getSelectedItemFromUrl(location.pathname);
+        setSelectedItem(currentItem);
+    }, [location.pathname]);
     const style = menuBarStyle()
 
-    const [selectedItem, setSelectedItem] = useState("12")
-    const nav = useNavigate()
+    // const [selectedItem, setSelectedItem] = useState("12")
+    // const nav = useNavigate()
 
     // Array of menu bar items
     const splitNavItemNestedProps: SplitNavItemNestedProps[] = [
@@ -169,7 +205,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                     {
                         navItem: {
                             value: "9",
-                            children: "Cấu hình bểu mẫu",
+                            children: "Cấu hình biểu mẫu",
                             icon: [<DocumentData20Regular/>, <DocumentData20Filled/>],
                             action: () => {
                                 nav("/taisan/settings/form-config");
@@ -216,7 +252,11 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
             <div className={style.menuBarContent}>
                 <Nav
                     defaultSelectedValue={selectedItem}
-                    defaultSelectedCategoryValue="2"
+                    defaultSelectedCategoryValue={
+                        ["8", "9", "10"].includes(selectedItem) ? "7" :
+                            ["11", "12"].includes(selectedItem) ? "2" :
+                                ""
+                    }
                 >
                     {splitNavItemNestedProps.map((item: SplitNavItemNestedProps, index) =>
                         item?.splitNavItem?.navCategory ? (
