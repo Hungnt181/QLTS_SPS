@@ -2,6 +2,8 @@ import toolBarStyle from "../../styles/toolBar/toolBar.ts";
 import {Image, Tab, TabList} from "@fluentui/react-components";
 import logo from "../../assets/Images/logo.png"
 import type {TabListProps} from "@fluentui/react-components";
+import {useLocation, useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 
 type TabToolBar = {
@@ -19,7 +21,35 @@ type ToolBarTab = {
 const ToolBar = ({tabListProps,titleToolBar}: ToolBarTab, ) => {
     const style = toolBarStyle()
     const tabToolBar = titleToolBar?.current || [];
+    // Tạo mapping giữa URL prefix và item value (sắp xếp theo độ dài giảm dần)
+    const URL_PREFIX_TO_ITEM_MAP: Array<{prefix: string, value: string}> = [
+        // Routes dài hơn phải đặt trước để match chính xác
+        { prefix: '/taisan/settings/master-data/group', value: 'group' },
+        { prefix: '/taisan/settings/master-data/type', value: 'type' },
+        { prefix: '/taisan/settings/master-data/status', value: 'status' },
+        { prefix: '/taisan/settings/master-data/state', value: 'state' },
+        { prefix: '/taisan/settings/master-data/add', value: 'add' },
+    ];
 
+// Function để lấy item value từ current URL (sử dụng prefix matching)
+    const getSelectedItemFromUrl = (pathname: string): string => {
+        // Tìm prefix đầu tiên khớp với pathname
+        const matchedItem = URL_PREFIX_TO_ITEM_MAP.find(item =>
+            pathname.startsWith(item.prefix)
+        );
+
+        return matchedItem?.value || 'group'; // Default là '1' nếu không tìm thấy
+    };
+    const location = useLocation();
+
+    // Khởi tạo selectedItem từ URL hiện tại
+    const [selectedItem, setSelectedItem] = useState(() =>
+        getSelectedItemFromUrl(location.pathname)
+    );
+    useEffect(() => {
+        const currentItem = getSelectedItemFromUrl(location.pathname);
+        setSelectedItem(currentItem);
+    }, [location.pathname]);
     return (
         <div className={style.toolbar}>
             <div className={style.toolbarStart}>
@@ -34,7 +64,7 @@ const ToolBar = ({tabListProps,titleToolBar}: ToolBarTab, ) => {
                     Tài sản
                 </h3>
                 <div className={style.tabList}>
-                    <TabList {...tabListProps} className={style.tabListItem} defaultSelectedValue={tabToolBar[0]?.value}>
+                    <TabList {...tabListProps} className={style.tabListItem} defaultSelectedValue={selectedItem} >
                         {tabToolBar.map((item:TabToolBar) => {
                             return (
                                 <Tab value={item?.value} key={item?.value}

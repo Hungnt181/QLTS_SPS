@@ -115,6 +115,14 @@ const TableListFormConfig = ({tooltipProps} : TableGroupAssetProps) => {
         },
         [toggleAllRows]
     );
+    const handleClick = (id: string) => {
+        if (id === 'ttnc') {
+            nav(`/taisan/settings/advanced-info`);
+            window.location.reload();
+            return;
+        }
+        nav(`/taisan/settings/form-config/detail/${id}`);
+    }
     return (
 
         <div className={style.tableList}>
@@ -158,7 +166,7 @@ const TableListFormConfig = ({tooltipProps} : TableGroupAssetProps) => {
                                         checkboxIndicator={{"aria-label": "Select row"}}
                                     />
                                     <TableCell className={style.hoverNameItem}
-                                               onClick={() => nav(`/taisan/settings/form-config/detail/${item?.id}`)}>
+                                               onClick={()=>handleClick(item.id)}>
                                         {item?.name}
                                     </TableCell>
                                     <Tooltip content={item?.description || null}  {...tooltipProps}>

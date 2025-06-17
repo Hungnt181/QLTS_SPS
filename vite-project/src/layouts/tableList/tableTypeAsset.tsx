@@ -169,7 +169,7 @@ const TableTypeAsset = ({tooltipProps} : TableTypeAssetProps) => {
                                         checked={selected}
                                         checkboxIndicator={{"aria-label": "Seclect row"}}
                                     />
-                                    <TableCell onClick={() => nav(`detail/${item?.id}`)}>
+                                    <TableCell >
                                         {item?.tenLoaiTaiSan}
                                     </TableCell>
                                     <TableCell>

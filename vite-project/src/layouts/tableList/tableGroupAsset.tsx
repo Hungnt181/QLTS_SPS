@@ -169,7 +169,7 @@ const TableGroupAsset = ({tooltipProps} : TableGroupAssetProps) => {
                                         checked={selected}
                                         checkboxIndicator={{"aria-label": "Select row"}}
                                     />
-                                    <TableCell className={style.hoverNameItem} onClick={() =>  nav(`detail/${item?.id}`)}>
+                                    <TableCell>
                                         {item?.tenNhomTaiSan}
                                     </TableCell>
                                     <TableCell>

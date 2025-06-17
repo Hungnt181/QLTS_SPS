@@ -181,7 +181,7 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
                                 {
                                     item.fields.map((field) => {
                                         if ("idField" in field) {
-                                            console.log('field', field);
+                                            // console.log('field', field);
                                             return (
                                                 <CardPreview key={field.idField} className={style.contentCardBody}>
                                                     <div className={style.rowContentCardBody}>
