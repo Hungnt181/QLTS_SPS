@@ -10,7 +10,7 @@ import MasterData from "../pages/listPage/settings/MasterData.tsx";
 import TableTypeAsset from "../layouts/tableList/tableTypeAsset.tsx";
 import TableGroupAsset from "../layouts/tableList/tableGroupAsset.tsx";
 import AddNewGroupAs from "../layouts/FormAdd/formAddNewgroupAs.tsx";
-import AddNewTypeAs from "../layouts/FormAdd/formAddNewTypeAs.tsx"
+import AddNewTypeAs from "../layouts/FormAdd/formAddNewTypeAs.tsx";
 import TableStatus from "../layouts/tableList/tableStatus.tsx";
 import AddNewStatus from "../layouts/FormAdd/formAddNewStatus.tsx";
 import TableState from "../layouts/tableList/tableState.tsx";
@@ -24,6 +24,7 @@ import AdvancedInfo from "../pages/listPage/settings/AdvancedInfo.tsx";
 
 import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 import AddNewAdvancedInfo from "../layouts/FormAdd/formAddNewAdvancedInfo.tsx";
+import MyDashBoard from "../pages/myDashboard/MyDashboard.tsx";
 
 // import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 
@@ -108,9 +109,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "type",
-                element: (
-                    <TableTypeAsset />
-                ),
+                element: <TableTypeAsset />,
                 children: [
                   {
                     path: "w-create",
@@ -120,9 +119,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "status",
-                element: (
-                  <TableStatus />
-                ),
+                element: <TableStatus />,
                 children: [
                   {
                     path: "w-create",
@@ -132,13 +129,11 @@ const router = createBrowserRouter([
               },
               {
                 path: "state",
-                element:( 
-                <TableState />
-                ),
+                element: <TableState />,
                 children: [
                   {
                     path: "w-create",
-                    element: <AddNewState />
+                    element: <AddNewState />,
                   },
                 ],
               },
@@ -186,13 +181,13 @@ const router = createBrowserRouter([
       },
       // deatail formConfig ttnc tài sản
       {
-          path: 'taisan/settings/advanced-info/detail/:_id',
-          element: <FormAdvancedInfoDetail/>,
+        path: "taisan/settings/advanced-info/detail/:_id",
+        element: <FormAdvancedInfoDetail />,
       },
 
       {
         path: "tongquan",
-        element: <EmptyPage />,
+        element: <MyDashBoard />,
       },
       {
         path: "quytrinh",
@@ -215,13 +210,11 @@ const router = createBrowserRouter([
         element: <EmptyPage />,
       },
     ],
-    
   },
   {
-    
     path: "/",
     element: <HomePage />,
-  }
+  },
 ]);
 
 export default router;
