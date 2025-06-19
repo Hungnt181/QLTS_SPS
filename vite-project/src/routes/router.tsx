@@ -25,6 +25,14 @@ import AdvancedInfo from "../pages/listPage/settings/AdvancedInfo.tsx";
 import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 import AddNewAdvancedInfo from "../layouts/FormAdd/formAddNewAdvancedInfo.tsx";
 import MyDashBoard from "../pages/myDashboard/MyDashboard.tsx";
+import RevokeAsset from "../pages/assetDetail/Form/RevokeAssset.tsx";
+import AssignAsset from "../pages/assetDetail/Form/AssignAsset.tsx";
+import RepairAsset from "../pages/assetDetail/Form/RepairAsset.tsx";
+import RepairList from "../pages/listPage/repair/RepairList.tsx";
+import RepairCompleted from "../pages/listPage/repair/RepairCompleted.tsx";
+import MaintenanceAsset from "../pages/assetDetail/Form/MaintenanceAsset.tsx";
+import MaintenanceList from "../pages/listPage/maintenance/MaintenanceList.tsx";
+import MaintenanceCompleted from "../pages/listPage/maintenance/MaintenanceCompleted.tsx";
 
 // import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 
@@ -35,7 +43,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/taisan/list" replace />,
+        element: <Navigate to="/taisan/dashboard" replace />,
       },
       {
         path: "taisan",
@@ -43,7 +51,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <AssetList />,
+            element: <Dashboard />,
           },
           // Dashboard
           {
@@ -53,12 +61,24 @@ const router = createBrowserRouter([
           // maintenance
           {
             path: "maintenance",
-            element: <AssetDashboard />,
+            element: <MaintenanceList />,
+            children: [
+              {
+                path: "completed/:id",
+                element: <MaintenanceCompleted/>
+              },
+            ]
           },
           // fix
           {
-            path: "fix",
-            element: <AssetDashboard />,
+            path: "repair",
+            element: <RepairList />,
+            children: [
+              {
+                path: "completed/:id",
+                element: <RepairCompleted/>
+              },
+            ]
           },
           // liquidation
           {
@@ -83,7 +103,7 @@ const router = createBrowserRouter([
           },
           {
             path: "my-asset",
-            element: <MyLisstAsset />,
+            element: <AssetList />,
           },
           // Settings
           // Settings Master Data
@@ -173,6 +193,24 @@ const router = createBrowserRouter([
       {
         path: "taisan/list/detail/:id",
         element: <AssetDetail />,
+        children: [
+            {
+               path: "revoke",
+              element: <RevokeAsset/>
+            },
+          {
+            path: "assign",
+            element: <AssignAsset/>
+          },
+          {
+            path: "repair",
+            element: <RepairAsset/>
+          },
+          {
+            path: "maintenance",
+            element: <MaintenanceAsset/>
+          }
+        ]
       },
       //deatail formConfigtaif sản
       {

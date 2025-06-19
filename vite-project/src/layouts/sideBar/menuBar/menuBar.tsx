@@ -62,7 +62,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
         { prefix: '/taisan/my-asset', value: '11' },
         { prefix: '/taisan/list', value: '12' },
         { prefix: '/taisan/maintenance', value: '3' },
-        { prefix: '/taisan/fix', value: '4' },
+        { prefix: '/taisan/repair', value: '4' },
         { prefix: '/taisan/liquidation', value: '5' },
         { prefix: '/taisan/inventory', value: '6' },
     ];
@@ -155,25 +155,25 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                     icon: [<BoxEdit20Regular/>, <BoxEdit20Filled/>],
                     children: "Sửa chữa",
                     action: () => {
-                        nav("/taisan/fix");
+                        nav("/taisan/repair");
                         setSelectedItem("4")
                     }
                 },
             },
         },
-        {
-            splitNavItem: {
-                navItem: {
-                    value: "5",
-                    icon: [<Warning20Regular/>, <Warning20Filled/>],
-                    children: "Mất-Hủy-Thanh lý",
-                    action: () => {
-                        nav("/taisan/liquidation");
-                        setSelectedItem("5")
-                    }
-                },
-            },
-        },
+        // {
+        //     splitNavItem: {
+        //         navItem: {
+        //             value: "5",
+        //             icon: [<Warning20Regular/>, <Warning20Filled/>],
+        //             children: "Mất-Hủy-Thanh lý",
+        //             action: () => {
+        //                 nav("/taisan/liquidation");
+        //                 setSelectedItem("5")
+        //             }
+        //         },
+        //     },
+        // },
         {
             splitNavItem: {
                 navItem: {
