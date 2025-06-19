@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from "react"
+import  {useEffect, useState} from "react"
 import { Text, Persona, PersonaSize} from "@fluentui/react"
-import axios from 'axios';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import type { TypeTaiSan } from "../../types/table";
+import {useParams, useNavigate, Outlet, useLocation} from 'react-router-dom';
+import type {AssignAssetItem, RevokeAssetItem, TypeTaiSan} from "../../types/table";
 import assetDetailStyle from "../../styles/listPages/assetDetail/assetDetail.ts"
 
-import { 
+import {
     NumberSymbolSquare20Regular,
     ScanText20Regular,
     GroupList20Regular,
@@ -33,14 +32,14 @@ import {
     ChevronDown20Regular,
     GroupReturn20Regular
 } from "@fluentui/react-icons";
+import {Button} from "@fluentui/react-components";
 
 const AssetDetail = () => {
     // const [assetDetail, setAssetDetail] = useState<TypeTaiSan | null> (null)
     const [isLoading, setIsLoading] = useState(false)
-    const location = useLocation()
     const navigate = useNavigate()
-    const [showAssetRecalPopup, setShowAssetRecalPopup] = useState(false) 
-    
+    const [isDisabled, setIsDisabled] = useState(false)
+    const location = useLocation();
     useEffect(() => {
         document.body.style.overflow = 'hidden';
         return () => {
@@ -51,46 +50,55 @@ const AssetDetail = () => {
     const style = assetDetailStyle()
     const {id} = useParams()
     const [asset, setAsset] = useState<TypeTaiSan | null > (null)
-    console.log({id});
-    
-    // useEffect(() => {
-    //     (async () => {
-    //         try {
-    //             const response = await axios.get(`http://localhost:3000/dataTable/${id}`)
-    //             console.log('response', response);
-    //             setAsset(response.data);
-    //         } catch (error) {
-    //             console.log(error)
-    //         }
-    //     })();
-    // }, [id]);
+    const [assetRevoke, setAssetRevoke] = useState<RevokeAssetItem | null>(null)
+    const [assetAssign, setAssetAssign] = useState<AssignAssetItem | null>(null)
+    const fetchData = async () => {
+        try {
+            setIsLoading(true)
+            const data = localStorage.getItem('data')
 
+            if (!data) return
+            const parsed = JSON.parse(data)
+            const assetList: TypeTaiSan[] = Array.isArray(parsed.dataTable)
+                ? parsed.dataTable
+                : []
+            const foundAsset= assetList.find(item => String(item.id) === String(id))
+            setAsset(foundAsset || null)
+            // Lấy data của tài sản thu hồi
+            const allData = data ? JSON.parse(data) : {revokeAsset: []};
+            const revokeAsset = allData?.revokeAsset.filter((item: RevokeAssetItem) =>
+                item?.taiSan?.id == id
+            )
+            setAssetRevoke(revokeAsset)
+            //lấy data của tài sản cấp phát
+            const assignAsset = allData?.assignAsset.filter((item: AssignAssetItem) =>
+                item?.taiSan?.id == id
+            )
+            setAssetAssign(assignAsset)
+        } catch(error) {
+            console.log ('Lỗi đọc tài sản trong Local Storage', error)
+        } finally {
+            setIsLoading(false)
+        }
+    }
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setIsLoading(true)
-                const data = localStorage.getItem('data')
-                // const allData: TypeTaiSan[] = data ? JSON.parse(data) : []
-                // const foundAsset = allData.find(item => String(item.id) === String(id))
-                // setAsset (foundAsset || null)
-                if (!data) return
+        fetchData().then()
+        // if (id) {
+        //     fetchData().then()
+        // }
+        if (location.state?.reload) {
+            fetchData();
+        }
+    }, [id, location.state?.reload])
 
-                const parsed = JSON.parse(data)
-                const assetList: TypeTaiSan[] = Array.isArray(parsed.dataTable)
-                    ? parsed.dataTable
-                    : []
-                const foundAsset= assetList.find(item => String(item.id) === String(id))
-                setAsset(foundAsset || null)
-            } catch(error) {
-                console.log ('Lỗi đọc tài sản trong Local Storage', error)
-            } finally {
-                setIsLoading(false)
-            }
-        }  
-        if (id) {
-            fetchData()
-        }      
-    }, [id])
+    useEffect(()=> {
+        if (asset?.nguoiSuDung != "") {
+            setIsDisabled(true)
+        } else {
+            setIsDisabled(false)
+        }
+    },[asset])
+
 
     if(isLoading) {
         <div>Đang tải thông tin tài sản...</div>
@@ -105,34 +113,33 @@ const AssetDetail = () => {
             <div className={style.actionBar}>
                 <div className={style.leftActionBar}>
                     <div className={style.title}>
-                        <button className={style.buttonIcon} onClick = {() => navigate(-1)}>
+                        <button className={style.buttonIcon} onClick = {() => navigate("/taisan/list")} >
                             <DismissSquare24Regular className={style.titleIcon}/>
                         </button>
                         <Text variant="xLarge" className={style.actionBarTitle}>Chi tiết tài sản</Text>
                     </div>
-                    
+
                     <div className={style.actionButton}>
-                        <button className={style.button} onClick={() => setShowAssetRecalPopup(true)}>
+                        <Button className={style.button} disabled={!isDisabled} onClick={()=>navigate(`/taisan/list/detail/${id}/revoke`)}>
                             <PersonArrowLeft20Regular className={style.icon}/>
-                            <span className={style.buttonTitle}>Thu hồi</span>
-                        </button>
-                        {/* {showAssetRecalPopup && <assetRecall onClose={() => setShowAssetRecalPopup(false)} />} */}
-                        <button className={style.button}>
+                            <span className={style.buttonTitle} >Thu hồi</span>
+                        </Button>
+                        <Button className={style.button} disabled={isDisabled} onClick={()=>navigate(`/taisan/list/detail/${id}/assign`)}>
                             <PersonArrowRight20Regular className={style.icon}/>
                             <span className={style.buttonTitle}>Cấp phát</span>
-                        </button>
-                        <button className={style.button}>
+                        </Button>
+                        <Button className={style.button}>
                             <EditSettings20Regular className={style.icon}/>
                             <span className={style.buttonTitle}>Chỉnh sửa</span>
-                        </button>
-                        <button className={style.button}>
-                            <BoxEdit20Regular className={style.icon}/>
+                        </Button>
+                        <Button className={style.button} disabled={asset?.trangThai === "Đang sửa chữa"} onClick={()=>navigate(`/taisan/list/detail/${id}/repair`)}>
+                            <BoxEdit20Regular className={style.icon} />
                             <span className={style.buttonTitle}>Sửa chữa</span>
-                        </button>
-                        <button className={style.button}>
+                        </Button>
+                        <Button className={style.button} disabled={asset?.trangThai === "Đang bảo dưỡng" || asset?.trangThai === "Đang sửa chữa"} onClick={()=>navigate(`/taisan/list/detail/${id}/maintenance`)}>
                             <History20Regular className={style.icon}/>
                             <span className={style.buttonTitle}>Bảo dưỡng</span>
-                        </button>
+                        </Button>
                     </div>
 
                     <div className={style.rightActionButton}>
@@ -194,7 +201,7 @@ const AssetDetail = () => {
                             <div className={style.spanContainer}>
                                 <Money20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Nguyên giá</span>
-                            </div>                            
+                            </div>
                                 <Text className={style.valueText}>{asset?.nguyenGia.toLocaleString("vi-VN")}</Text>
                         </div>
 
@@ -202,15 +209,15 @@ const AssetDetail = () => {
                             <div className={style.spanContainer}>
                                 <Autosum20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Số lượng</span>
-                            </div>                            
-                                <Text className={style.valueText}>{''}</Text>
+                            </div>
+                                <Text className={style.valueText}>{asset?.soLuong}</Text>
                         </div>
 
                         <div className={style.itemBlock}>
                             <div className={style.spanContainer}>
                                 <Location20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Địa điểm</span>
-                            </div>                                
+                            </div>
                                 <Text className={style.valueText}>{asset?.diaDiem}</Text>
                         </div>
 
@@ -218,7 +225,7 @@ const AssetDetail = () => {
                             <div className={style.spanContainer}>
                                 <Location20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Bộ phận</span>
-                            </div>                            
+                            </div>
                                 <Text className={style.valueText}>{asset?.boPhan}</Text>
                         </div>
 
@@ -226,7 +233,7 @@ const AssetDetail = () => {
                             <div className={style.spanContainer}>
                                 <Person20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Người quản lý</span>
-                            </div>                            
+                            </div>
                                 <Persona className={style.valueText} text={asset?.nguoiQuanLy} style={{paddingTop: "8px", paddingBottom: "8px"}} size={PersonaSize.size32} />
                         </div>
 
@@ -234,8 +241,8 @@ const AssetDetail = () => {
                             <div className={style.spanContainer}>
                                 <PersonAccounts20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Chức vụ</span>
-                            </div>                            
-                                <Text className={style.valueText}>{''}</Text>
+                            </div>
+                                <Text className={style.valueText}>{asset?.chucVuQL}</Text>
                         </div>
 
                         <div className={style.itemBlock}>
@@ -243,10 +250,10 @@ const AssetDetail = () => {
                                 <Attach20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Tài liệu</span>
                             </div>
-                            
-                                <ul className={style.valueText}>
-                                    {''}
-                                </ul>
+                            <Text className={style.valueText}>{asset?.taiLieu}</Text>
+                                {/*<ul className={style.valueText}>*/}
+                                {/*    {asset?.taiLieu}*/}
+                                {/*</ul>*/}
                         </div>
 
                         <div className={style.itemBlock}>
@@ -254,40 +261,40 @@ const AssetDetail = () => {
                                 <Calendar20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Ngày mua</span>
                             </div>
-                            
-                                <Text className={style.valueText}>{''}</Text>
+
+                                <Text className={style.valueText}>{asset?.ngayMua}</Text>
                         </div>
 
                         <div className={style.itemBlock}>
                             <div className={style.spanContainer}>
                                 <CalendarClock20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Hạn bảo hành</span>
-                            </div>                            
-                                <Text className={style.valueText}>{''}</Text>
+                            </div>
+                                <Text className={style.valueText}>{asset?.hanBaoHanh}</Text>
                         </div>
 
                         <div className={style.itemBlock}>
                             <div className={style.spanContainer}>
                                 <Status20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Trạng thái</span>
-                            </div>                            
-                                <Text className={style.valueText}>{''}</Text>
+                            </div>
+                                <Text className={style.valueText}>{asset?.trangThai}</Text>
                         </div>
 
                         <div className={style.itemBlock}>
                             <div className={style.spanContainer}>
                                 <Status20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Lịch sử bảo dưỡng - sửa chữa</span>
-                            </div>                            
-                                <Text className={style.valueText}>{''}</Text>
+                            </div>
+                                <Text className={style.valueText}>{asset?.lichSuBaoTri}</Text>
                         </div>
 
                         <div className={style.itemBlock}>
                             <div className={style.spanContainer}>
                                 <Status20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Lịch sử kiểm kê gần nhất</span>
-                            </div>                            
-                                <Text className={style.valueText}>{''}</Text>
+                            </div>
+                                <Text className={style.valueText}>{asset?.lichSuKiemKe}</Text>
                         </div>
                     </div>
                 </div>
@@ -301,23 +308,23 @@ const AssetDetail = () => {
                             <div className={style.spanContainer}>
                                 <Person20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Tên người tiếp nhận</span>
-                            </div>                            
-                                <Persona className={style.valueText} text={asset?.nguoiSuDung || "Chưa cấp phát"} size={PersonaSize.size32} />
+                            </div>
+                            {asset?.nguoiSuDung ? (<Persona className={style.valueText} text={asset?.nguoiSuDung} size={PersonaSize.size32} />) : null}
                         </div>
 
                         <div className={style.itemBlock}>
                             <div className={style.spanContainer}>
                                 <GroupList20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Chức vụ</span>
-                            </div>                            
-                                <Text className={style.valueText}>{''}</Text>
+                            </div>
+                                <Text className={style.valueText}>{asset?.chucVuSD}</Text>
                         </div>
 
                         <div className={style.itemBlock}>
                             <div className={style.spanContainer}>
                                 <Calendar20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Ngày tiếp nhận</span>
-                            </div>                            
+                            </div>
                                 <Text className={style.valueText}>{asset?.ngayTiepNhan || ""}</Text>
                         </div>
 
@@ -325,20 +332,20 @@ const AssetDetail = () => {
                             <div className={style.spanContainer}>
                                 <PulseSquare20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Tình trạng</span>
-                            </div>                            
-                                <Text className={style.valueText}>{''}</Text>
+                            </div>
+                                <Text className={style.valueText}>{asset?.tinhTrang}</Text>
                         </div>
 
                         <div className={style.itemBlock}>
                             <div className={style.spanContainer}>
                                 <CalendarEdit20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Hạn bảo dưỡng</span>
-                            </div>                            
-                                <Text className={style.valueText}>{''}</Text>
+                            </div>
+                                <Text className={style.valueText}>{asset?.hanBaoDuong}</Text>
                         </div>
                     </div>
                 </div>
-            </div>          
+            </div>
         </div>
 
         <div className={style.rightElements}>
@@ -349,20 +356,74 @@ const AssetDetail = () => {
                 </div>
             </div>
             <div className={style.historyTable}>
+                { Array.isArray(assetRevoke) ? (
+                    assetRevoke.map((item: RevokeAssetItem) => (
+                        <div key={item?.id} className={style.history}>
+                            <div className={style.time}>
+                                <Text>{item?.ngayThuHoi}</Text>
+                            </div>
+
+                            <div className={style.timeContainer}>
+                                <div className={style.timeLine}>
+                                    <div className={style.activities}>
+                                        <div className={style.statusText}>Đã thu hồi</div>
+                                        <div className={style.info}>
+                                            <div className={style.text}>
+                                                <Persona size={PersonaSize.size32} className={style.persona} />
+                                                <span className={style.name}>{item?.nguoiThuHoi}</span>
+                                                <span className={style.chucVu}>Nhân viên thực tập - Phòng Công Nghệ 1 - SPSVN</span>
+                                            </div>
+                                        </div>
+                                        <div className={style.iconWrapper}>
+                                            <GroupReturn20Regular />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : null }
+                { Array.isArray(assetAssign) ? (
+                    assetAssign.map((item: AssignAssetItem) => (
+                        <div key={item?.id} className={style.history}>
+                            <div className={style.time}>
+                                <Text>{item?.ngayCapPhat}</Text>
+                            </div>
+
+                            <div className={style.timeContainer}>
+                                <div className={style.timeLine}>
+                                    <div className={style.activities}>
+                                        <div className={style.statusText}>Đã cấp phát</div>
+                                        <div className={style.info}>
+                                            <div className={style.text}>
+                                                <Persona size={PersonaSize.size32} className={style.persona} />
+                                                <span className={style.name}>{item?.nguoiCapPhat}</span>
+                                                <span className={style.chucVu}>Nhân viên thực tập - Phòng Công Nghệ 1 - SPSVN</span>
+                                            </div>
+                                        </div>
+                                        <div className={style.iconWrapper}>
+                                            <GroupReturn20Regular />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : null }
                 <div className={style.history}>
                     <div className={style.time}>
-                        <Text>10/08 8:00</Text> 
+                        <Text>10/08 8:00</Text>
                     </div>
 
                     <div className={style.timeContainer}>
-                        <div className={style.timeLine}>                                              
+                        <div className={style.timeLine}>
                             <div className={style.activities}>
                                 <div className={style.statusText}>Đã tiếp nhận</div>
                                 <div className={style.info}>
                                     <div className={style.text}>
                                         <Persona size={PersonaSize.size32} className={style.persona} />
                                         <span className={style.name}>Nguyễn Như Trọng</span>
-                                        <span className={style.chucVu}>Nhân viên thực tập - Phòng Công Nghệ 1 - SPSVN</span>                                   
+                                        <span className={style.chucVu}>Nhân viên thực tập - Phòng Công Nghệ 1 - SPSVN</span>
                                     </div>
                                 </div>
                                 <div className={style.iconWrapper}>
@@ -372,8 +433,12 @@ const AssetDetail = () => {
                         </div>
                     </div>
                 </div>
+                {
+
+                }
             </div>
         </div>
+        <Outlet></Outlet>
     </div>
     )
 };

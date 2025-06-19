@@ -129,4 +129,23 @@ const FormAddMasterDataStyle = makeStyles(({
         backgroundColor: "none",
     },
 }))
-export {FormAddMasterDataStyle}
+export {FormAddMasterDataStyle};
+
+const FormRevoke = makeStyles(({
+        itemInfo: {
+            width: "100%",
+            height: '36px',
+            borderBottom: `1px solid ${tokens.colorNeutralBackground3Pressed}`,
+            borderTop: `1px solid ${tokens.colorNeutralBackground3Pressed}`,
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "8px",
+        },
+        itemInfoIcon : {
+            width: '50%',
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+        }
+    }))
+export  {FormRevoke};
