@@ -603,17 +603,6 @@ const HomePage = () => {
                 name: "Thông tin nâng cao",
                 fields: [
                     {
-                        label: "",
-                        value: "",
-                        _id: "",
-                        _loaiTaiSan: "",
-                        _nhomTaiSan: "",
-                        _moTa: "T",
-                        _fields: [
-
-                        ],
-                    },
-                    {
                         idField: "ttnc1",
                         label: "Danh mục tài sản",
                         type: "lookup",
