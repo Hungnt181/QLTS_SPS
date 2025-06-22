@@ -15,7 +15,7 @@ import {
     MenuList,
     MenuPopover,
     MenuTrigger,
-    Checkbox,
+    Checkbox, Accordion, AccordionItem, AccordionHeader, AccordionPanel,
 } from "@fluentui/react-components";
 import {
     AddCircle20Regular,
@@ -296,46 +296,55 @@ const FormAdvancedInfoDetail = (props: Partial<DropdownProps>) => {
         const options = field.options || [];
 
         return (
-            <div style={{ marginTop: '12px', padding: '12px', border: '1px solid #e0e0e0', borderRadius: '4px' }}>
-                <Text weight="semibold" size={300}>Cấu hình giá trị Lookup:</Text>
-                {options.map((option, index) => (
-                    <div key={index} style={{ display: 'flex', gap: '8px', marginTop: '8px', alignItems: 'center' }}>
-                        <Input
-                            placeholder="Nhập label"
-                            value={option.label}
-                            onChange={(e) => handleUpdateLookupOption(
-                                field._ID || '',
-                                index,
-                                'label',
-                                e.target.value,
-                                isNewField
-                            )}
-                            style={{ flex: 1 }}
-                        />
-                        <Input
-                            placeholder="Value (tự động)"
-                            value={option.value}
-                            readOnly
-                            style={{ flex: 1, backgroundColor: '#f5f5f5' }}
-                        />
-                        <Button
-                            icon={<Delete20Regular />}
-                            size="small"
-                            appearance="subtle"
-                            onClick={() => handleRemoveLookupOption(field._ID || '', index, isNewField)}
-                        />
-                    </div>
-                ))}
-                <Button
-                    icon={<AddCircle20Regular />}
-                    size="small"
-                    appearance="subtle"
-                    onClick={() => handleAddLookupOption(field._ID || '', isNewField)}
-                    style={{ marginTop: '8px' }}
-                >
-                    Thêm giá trị
-                </Button>
-            </div>
+            <Accordion collapsible>
+                <AccordionItem value="1">
+                    <AccordionHeader>Giá trị lookup</AccordionHeader>
+                    <AccordionPanel>
+                        <div style={{ marginTop: '12px', padding: '12px', border: '1px solid #e0e0e0', borderRadius: '4px' }}>
+                            <Text weight="semibold" size={300}>Cấu hình giá trị Lookup:</Text>
+                            {options.map((option, index) => (
+                                <div key={index} style={{ display: 'flex', gap: '8px', marginTop: '8px', alignItems: 'center' }}>
+                                    <Input
+                                        placeholder="Nhập label"
+                                        value={option.label}
+                                        onChange={(e) => handleUpdateLookupOption(
+                                            field._ID || '',
+                                            index,
+                                            'label',
+                                            e.target.value,
+                                            isNewField
+                                        )}
+                                        style={{ flex: 1 }}
+                                    />
+                                    <Input
+                                        placeholder="Value (tự động)"
+                                        value={option.value}
+                                        readOnly
+                                        style={{ flex: 1, backgroundColor: '#f5f5f5' }}
+                                    />
+                                    <Button
+                                        icon={<Delete20Regular />}
+                                        size="small"
+                                        appearance="subtle"
+                                        onClick={() => handleRemoveLookupOption(field._ID || '', index, isNewField)}
+                                    />
+                                </div>
+                            ))}
+                            <Button
+                                icon={<AddCircle20Regular />}
+                                size="small"
+                                appearance="subtle"
+                                onClick={() => handleAddLookupOption(field._ID || '', isNewField)}
+                                style={{ marginTop: '8px' }}
+                            >
+                                Thêm giá trị
+                            </Button>
+                        </div>
+                    </AccordionPanel>
+                </AccordionItem>
+
+            </Accordion>
+
         );
     };
 

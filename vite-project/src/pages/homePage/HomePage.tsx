@@ -29,7 +29,7 @@ const HomePage = () => {
                 chucVuQL: "Quản lý IT",
                 chucVuSD: "Nhân viên IT",
                 taiLieu: "https://example.com/tai-lieu/ts001.pdf",
-                ngayMua:"10/01/2025",
+                ngayMua: "10/01/2025",
                 lichSuBaoTri: "Lần bảo trì gần nhất vào 01-02-2025",
                 lichSuKiemKe: "Lần kiểm kê gần nhất vào 01-03-2025",
             },
@@ -368,7 +368,7 @@ const HomePage = () => {
         //     },
         // ],
         // Tài sản thu hồi
-        formConfig : [
+        formConfig: [
             {
                 id: "ttc",
                 name: "Thông tin chung",
@@ -415,10 +415,10 @@ const HomePage = () => {
                         type: "lookup",
                         name: "nhomTaiSan",
                         options: [
-                            { label: "Công cụ, dụng cụ", value: "Công cụ, dụng cụ" },
-                            { label: "Máy móc thiết bị", value: "Máy móc thiết bị" },
-                            { label: "Phương tiện vận tải", value: "Phương tiện vận tải" },
-                            { label: "Nhà cửa, vật kiến trúc", value: "Nhà cửa, vật kiến trúc" }
+                            {label: "Công cụ, dụng cụ", value: "Công cụ, dụng cụ"},
+                            {label: "Máy móc thiết bị", value: "Máy móc thiết bị"},
+                            {label: "Phương tiện vận tải", value: "Phương tiện vận tải"},
+                            {label: "Nhà cửa, vật kiến trúc", value: "Nhà cửa, vật kiến trúc"}
                         ],
                         defaultValue: "Công cụ, dụng cụ"
                     },
@@ -428,10 +428,10 @@ const HomePage = () => {
                         type: "lookup",
                         name: "loaiTaiSan",
                         options: [
-                            { label: "Tài sản cố định hữu hình", value: "Tài sản cố định hữu hình" },
-                            { label: "Tài sản cố định vô hình", value: "Tài sản cố định vô hình" },
-                            { label: "Tài sản lưu động", value: "Tài sản lưu động" },
-                            { label: "Tài sản khác", value: "Tài sản khác" }
+                            {label: "Tài sản cố định hữu hình", value: "Tài sản cố định hữu hình"},
+                            {label: "Tài sản cố định vô hình", value: "Tài sản cố định vô hình"},
+                            {label: "Tài sản lưu động", value: "Tài sản lưu động"},
+                            {label: "Tài sản khác", value: "Tài sản khác"}
                         ],
                         defaultValue: "Tài sản cố định hữu hình"
                     },
@@ -441,13 +441,13 @@ const HomePage = () => {
                         type: "lookup",
                         name: "diaDiem",
                         options: [
-                            { label: "Tầng 1", value: "Tầng 1" },
-                            { label: "Tầng 2", value: "Tầng 2" },
-                            { label: "Tầng 3", value: "Tầng 3" },
-                            { label: "Kho A", value: "Kho A" },
-                            { label: "Kho B", value: "Kho B" },
-                            { label: "Văn phòng A", value: "Văn phòng A" },
-                            { label: "Văn phòng B", value: "Văn phòng B" }
+                            {label: "Tầng 1", value: "Tầng 1"},
+                            {label: "Tầng 2", value: "Tầng 2"},
+                            {label: "Tầng 3", value: "Tầng 3"},
+                            {label: "Kho A", value: "Kho A"},
+                            {label: "Kho B", value: "Kho B"},
+                            {label: "Văn phòng A", value: "Văn phòng A"},
+                            {label: "Văn phòng B", value: "Văn phòng B"}
                         ],
                         defaultValue: "Tầng 1"
                     },
@@ -457,11 +457,11 @@ const HomePage = () => {
                         type: "lookup",
                         name: "boPhan",
                         options: [
-                            { label: "", value: "" },
-                            { label: "Phòng kinh doanh", value: "Phòng kinh doanh" },
-                            { label: "Phòng nhân sự", value: "Phòng nhân sự" },
-                            { label: "Phòng kế toán", value: "Phòng kế toán" },
-                            { label: "Phòng IT", value: "Phòng IT" }
+                            {label: "", value: ""},
+                            {label: "Phòng kinh doanh", value: "Phòng kinh doanh"},
+                            {label: "Phòng nhân sự", value: "Phòng nhân sự"},
+                            {label: "Phòng kế toán", value: "Phòng kế toán"},
+                            {label: "Phòng IT", value: "Phòng IT"}
                         ],
                         defaultValue: "Phòng kinh doanh",
                     },
@@ -479,11 +479,11 @@ const HomePage = () => {
                         type: "lookup",
                         name: "nguoiQuanLy",
                         options: [
-                            { label: "", value: "" },
-                            { label: "Nguyễn Văn A", value: "Nguyễn Văn A" },
-                            { label: "Trần Thị B", value: "Trần Thị B" },
-                            { label: "Lê Văn C", value: "Lê Văn C" },
-                            { label: "Phạm Thị D", value: "Phạm Thị D" }
+                            {label: "", value: ""},
+                            {label: "Nguyễn Văn A", value: "Nguyễn Văn A"},
+                            {label: "Trần Thị B", value: "Trần Thị B"},
+                            {label: "Lê Văn C", value: "Lê Văn C"},
+                            {label: "Phạm Thị D", value: "Phạm Thị D"}
                         ],
                         defaultValue: "Nguyễn Văn A"
                     },
@@ -493,11 +493,11 @@ const HomePage = () => {
                         type: "lookup",
                         name: "trangThai",
                         options: [
-                            { label: "Đang sử dụng", value: "Đang sử dụng" },
-                            { label: "Chưa sử dụng", value: "Chưa sử dụng" },
-                            { label: "Đang bảo trì", value: "Đang bảo trì" },
-                            { label: "Hỏng", value: "Hỏng" },
-                            { label: "Đã thanh lý", value: "Đã thanh lý" }
+                            {label: "Đang sử dụng", value: "Đang sử dụng"},
+                            {label: "Chưa sử dụng", value: "Chưa sử dụng"},
+                            {label: "Đang bảo trì", value: "Đang bảo trì"},
+                            {label: "Hỏng", value: "Hỏng"},
+                            {label: "Đã thanh lý", value: "Đã thanh lý"}
                         ],
                         defaultValue: "Đang sử dụng"
                     },
@@ -507,11 +507,11 @@ const HomePage = () => {
                         type: "lookup",
                         name: "tinhTrang",
                         options: [
-                            { label: "Tốt", value: "Tốt" },
-                            { label: "Khá", value: "Khá" },
-                            { label: "Trung bình", value: "Trung bình" },
-                            { label: "Kém", value: "Kém" },
-                            { label: "Hỏng", value: "Hỏng" }
+                            {label: "Tốt", value: "Tốt"},
+                            {label: "Khá", value: "Khá"},
+                            {label: "Trung bình", value: "Trung bình"},
+                            {label: "Kém", value: "Kém"},
+                            {label: "Hỏng", value: "Hỏng"}
                         ],
                         defaultValue: "Tốt"
                     },
@@ -540,10 +540,10 @@ const HomePage = () => {
                         type: "lookup",
                         name: "donViTinh2",
                         options: [
-                            { label: "Tháng", value: "Tháng" },
-                            { label: "Năm", value: "Năm" },
-                            { label: "Ngày", value: "Ngày" },
-                            { label: "Tuần", value: "Tuần" }
+                            {label: "Tháng", value: "Tháng"},
+                            {label: "Năm", value: "Năm"},
+                            {label: "Ngày", value: "Ngày"},
+                            {label: "Tuần", value: "Tuần"}
                         ],
                         defaultValue: "Tháng"
                     },
@@ -572,11 +572,11 @@ const HomePage = () => {
                         type: "lookup",
                         name: "nguoiSuDung",
                         options: [
-                            { label: "", value: "" },
-                            { label: "Nguyễn Văn A", value: "Nguyễn Văn A" },
-                            { label: "Trần Thị B", value: "Trần Thị B" },
-                            { label: "Lê Văn C", value: "Lê Văn C" },
-                            { label: "Phạm Thị D", value: "Phạm Thị D" }
+                            {label: "", value: ""},
+                            {label: "Nguyễn Văn A", value: "Nguyễn Văn A"},
+                            {label: "Trần Thị B", value: "Trần Thị B"},
+                            {label: "Lê Văn C", value: "Lê Văn C"},
+                            {label: "Phạm Thị D", value: "Phạm Thị D"}
                         ],
                         defaultValue: "Nguyễn Văn A"
                     },
@@ -586,13 +586,13 @@ const HomePage = () => {
                         type: "lookup",
                         name: "chucVu",
                         options: [
-                            { label: "", value: "" },
-                            { label: "Giám đốc", value: "Giám đốc" },
-                            { label: "Phó giám đốc", value: "Phó giám đốc" },
-                            { label: "Trưởng phòng", value: "Trưởng phòng" },
-                            { label: "Phó phòng", value: "Phó phòng" },
-                            { label: "Nhân viên", value: "Nhân viên" },
-                            { label: "Chuyên viên", value: "Chuyên viên" }
+                            {label: "", value: ""},
+                            {label: "Giám đốc", value: "Giám đốc"},
+                            {label: "Phó giám đốc", value: "Phó giám đốc"},
+                            {label: "Trưởng phòng", value: "Trưởng phòng"},
+                            {label: "Phó phòng", value: "Phó phòng"},
+                            {label: "Nhân viên", value: "Nhân viên"},
+                            {label: "Chuyên viên", value: "Chuyên viên"}
                         ]
                     },
                 ],
@@ -633,15 +633,15 @@ const HomePage = () => {
                                         _label: "Thông số Ram",
                                         _type: "lookup",
                                         _name: "ram",
-                                        _options: [
-                                            { __label: "", __value: "" },
-                                            { __label: "2GB", __value: "2GB" },
-                                            { __label: "4GB", __value: "4GB" },
-                                            { __label: "8GB", __value: "8GB" },
-                                            { __label: "16GB", __value: "16GB" },
-                                            { __label: "32GB", __value: "32GB" },
+                                        options: [
+                                            {label: "", value: ""},
+                                            {label: "2GB", value: "2GB"},
+                                            {label: "4GB", value: "4GB"},
+                                            {label: "8GB", value: "8GB"},
+                                            {label: "16GB", value: "16GB"},
+                                            {label: "32GB", value: "32GB"},
                                         ],
-                                        _defaultValue: "2GB",
+                                        defaultValue: "2GB",
                                     },
                                 ],
                             },
@@ -673,13 +673,9 @@ const HomePage = () => {
                 description: "Chứa các trường nâng cao dễ dàng tìm kiếm và phân loại tài sản chi tiết",
             }
         ],
-        revokeAsset: [
-
-        ],
+        revokeAsset: [],
         // Tài sản đã cấp phát
-        assignAsset : [
-
-        ],
+        assignAsset: [],
         //Tài sản cần sửa chữa
         repairAsset: [
             {

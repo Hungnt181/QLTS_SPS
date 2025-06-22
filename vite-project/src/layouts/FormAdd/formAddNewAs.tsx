@@ -150,16 +150,16 @@ const AddNewAsset = () => {
                             id={field._name}
                             name={field._name}
                             className={style.formInput}
-                            defaultValue={field._defaultValue}
+                            defaultValue={field.defaultValue}
                             onChange={(event, data) => handleInputChange(field._name, data.value)}
                         >
-                            {field._options?.map((option, idx) => (
+                            {field.options?.map((option, idx) => (
                                 <option
                                     key={idx}
-                                    value={option.__value}
-                                    hidden={option.__value === ""}
+                                    value={option.value}
+                                    hidden={option.value === ""}
                                 >
-                                    {option.__label}
+                                    {option.label}
                                 </option>
                             ))}
                         </Select>
