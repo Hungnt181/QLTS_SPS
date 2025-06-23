@@ -97,6 +97,7 @@ const RevokeAsset = () => {
                 ...item,
                 trangThai: "Đã thu hồi",
                 nguoiSuDung: "",
+                chucVuSD: "",
                 ngayTiepNhan: "",
             } : item
         ))

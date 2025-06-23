@@ -19,42 +19,46 @@ import {ChevronLeft16Regular} from "@fluentui/react-icons";
 import {useState} from "react";
 
 const AddNewAsset = () => {
-    // call api lấy data
     const style = AddNewAssetStyle()
     const nav = useNavigate()
     const [openItems, setOpenItems] = useState(["1"]);
+
+    // FormConfig data
+    const data = localStorage.getItem('data');
+    const allData = data ? JSON.parse(data) : [];
+    const formConfig = allData.formConfig
+
+    // Thêm state để quản lý dynamic fields
+    const [dynamicFields, setDynamicFields] = useState({});
+
     const handleToggle: AccordionToggleEventHandler<string> = (_event, data) => {
         setOpenItems(data.openItems);
     };
-    // Khởi tạo state để lưu trữ dữ liệu của form
-    const [formData, setFormData] = useState({
-        tenTaiSan: "",
-        maTaiSan: "",
-        soLuong: "1",
-        donViTinh: "Cái",
-        nhomTaiSan: "Công cụ dụng cụ",
-        loaiTaiSan: "Thiết bị máy móc",
-        diaDiem: "Văn phòng Hà Nội",
-        boPhan: "Phòng Kinh doanh",
-        nguyenGia: "",
-        nguoiQuanLy: "Nguyễn Văn An",
-        trangThai: "Mới",
-        tinhTrang: "Đang ử dụng",
-        ngayMua: "",
-        thoiGianBaoHanh: "",
-        donViTinh2: "Tháng",
-        hanBaoHanh: "",
-        ngayTiepNhan: "",
-        nguoiSuDung: "",
-        chucVu: ""
-    });
-    // Thêm mới item
+
+    // Tạo initial form data từ config
+    const createInitialFormData = () => {
+        const initialData = {};
+        formConfig.forEach(section => {
+            section.fields.forEach(field => {
+                // Đặc biệt xử lý cho danhMucTaiSan - để trống ban đầu
+                if (field.name === "danhMucTaiSan") {
+                    initialData[field.name] = "";
+                } else {
+                    initialData[field.name] = field.defaultValue || "";
+                }
+            });
+        });
+        return initialData;
+    };
+
+    const [formData, setFormData] = useState(createInitialFormData());
+
     const addNewItem = async () => {
-        // Thêm mới bằng localStorage
+        console.log('formData', formData)
         const data = localStorage.getItem('data');
         const allData = data ? JSON.parse(data) : { dataTable: [] };
         allData.dataTable.push({
-            id: formData.maTaiSan,
+            id:`TS_${formConfig.id}`,
             ...formData
         });
         localStorage.setItem('data', JSON.stringify(allData));
@@ -62,11 +66,247 @@ const AddNewAsset = () => {
         nav("/taisan/list", { state: { reload: true } })
     }
 
-    const handleDateChange = (field: keyof typeof formData) => (date: Date | null | undefined) => {
-        setFormData((prev) => ({
+    // Cập nhật hàm handleInputChange để xử lý dynamic fields
+    const handleInputChange = (fieldName, value, sectionId = null) => {
+        setFormData(prev => ({
             ...prev,
-            [field]: date ? date.toLocaleDateString("vi-VN") : "",
+            [fieldName]: value
         }));
+
+        // Xử lý khi chọn danh mục tài sản (có _fields)
+        if (fieldName === "danhMucTaiSan") {
+            // Tìm option được chọn để lấy _fields
+            const selectedSection = formConfig.find(section => section.id === "ttnc");
+            const danhMucField = selectedSection?.fields.find(field => field.name === "danhMucTaiSan");
+            const selectedOption = danhMucField?.options.find(option => option.value === value);
+
+            if (selectedOption && selectedOption._fields) {
+                // console.log('Selected option _fields:', selectedOption._fields);
+                setDynamicFields({
+                    ...dynamicFields,
+                    [sectionId || "ttnc"]: selectedOption._fields
+                });
+
+                // Set default values cho dynamic fields
+                const newFormData = { ...formData, [fieldName]: value };
+                selectedOption._fields.forEach(field => {
+                    newFormData[field._name] = field._defaultValue || "";
+                });
+                setFormData(newFormData);
+            } else {
+                // Xóa dynamic fields nếu không có _fields
+                setDynamicFields({
+                    ...dynamicFields,
+                    [sectionId || "ttnc"]: []
+                });
+            }
+        }
+    };
+
+    const handleDateChange = (fieldName) => (date) => {
+        setFormData(prev => ({
+            ...prev,
+            [fieldName]: date ? date.toLocaleDateString("vi-VN") : ""
+        }));
+    };
+
+    // Hàm render dynamic field
+    const renderDynamicField = (field) => {
+        switch (field._type) {
+            case "text":
+            case "number":
+                return (
+                    <div key={field._ID} className={style.formDiv}>
+                        <Label
+                            size="medium"
+                            htmlFor={field._name}
+                            className={style.formLabel}
+                        >
+                            {field._label}
+                        </Label>
+                        <Input
+                            size="medium"
+                            name={field._name}
+                            id={field._name}
+                            className={style.formInput}
+                            type={field._type}
+                            defaultValue={field._defaultValue}
+                            onChange={(e) => handleInputChange(field._name, e.target.value)}
+                        />
+                    </div>
+                );
+
+            case "lookup":
+                return (
+                    <div key={field._ID} className={style.formDiv}>
+                        <Label
+                            size="medium"
+                            htmlFor={field._name}
+                            className={style.formLabel}
+                        >
+                            {field._label}
+                        </Label>
+                        <Select
+                            id={field._name}
+                            name={field._name}
+                            className={style.formInput}
+                            defaultValue={field.defaultValue}
+                            onChange={(event, data) => handleInputChange(field._name, data.value)}
+                        >
+                            {field.options?.map((option, idx) => (
+                                <option
+                                    key={idx}
+                                    value={option.value}
+                                    hidden={option.value === ""}
+                                >
+                                    {option.label}
+                                </option>
+                            ))}
+                        </Select>
+                    </div>
+                );
+
+            default:
+                return null;
+        }
+    };
+
+    // Render field dựa trên type
+    const renderField = (field, index, sectionId = null) => {
+        const isDoubleField = (field.name === "soLuong" || field.name === "donViTinh");
+
+        switch (field.type) {
+            case "text":
+            case "number":
+                return (
+                    <div key={field.idField} className={isDoubleField ? style.formDiv : style.formDiv}>
+                        <Label
+                            size="medium"
+                            required={field.required}
+                            htmlFor={field.name}
+                            className={style.formLabel}
+                        >
+                            {field.label}
+                        </Label>
+                        <Input
+                            size="medium"
+                            name={field.name}
+                            id={field.name}
+                            className={style.formInput}
+                            readOnly={field.readOnly}
+                            defaultValue={field.defaultValue}
+                            contentAfter={field.suffix ? <Text size={400}>{field.suffix}</Text> : undefined}
+                            onChange={(e) => handleInputChange(field.name, e.target.value, sectionId)}
+                        />
+                    </div>
+                );
+
+            case "lookup":
+                return (
+                    <div key={field.idField} className={isDoubleField ? style.formDiv : style.formDiv}>
+                        <Label
+                            size="medium"
+                            required={field.required}
+                            htmlFor={field.name}
+                            className={style.formLabel}
+                        >
+                            {field.label}
+                        </Label>
+                        <Select
+                            id={field.name}
+                            name={field.name}
+                            className={style.formInput}
+                            defaultValue={field.name === "danhMucTaiSan" ? "" : field.defaultValue}
+                            placeholder={field.name === "danhMucTaiSan" ? "Chọn danh mục tài sản" : undefined}
+                            onChange={(event, data) => {
+                                // Với Fluent UI Select, giá trị được chọn nằm trong data.value
+                                handleInputChange(field.name, data.value, sectionId);
+
+                                // Log để debug
+                                if (field.name === "danhMucTaiSan") {
+                                    console.log('Selected danh muc value:', data.value);
+                                }
+                            }}
+                        >
+                            {field.name === "danhMucTaiSan" && (
+                                <option value="" disabled hidden>
+                                    Chọn danh mục tài sản
+                                </option>
+                            )}
+                            {field.options?.map((option, idx) => (
+                                <option
+                                    key={idx}
+                                    value={option.value}
+                                    hidden={option.value === ""}
+                                >
+                                    {option.label}
+                                </option>
+                            ))}
+                        </Select>
+                    </div>
+                );
+
+            case "date":
+                return (
+                    <div key={field.idField} className={style.formDiv}>
+                        <Field label={field.label} className={style.formLabel}>
+                            <DatePicker
+                                className={style.formInput}
+                                placeholder={`Chọn ${field.label.toLowerCase()}`}
+                                id={field.name}
+                                name={field.name}
+                                onSelectDate={handleDateChange(field.name)}
+                            />
+                        </Field>
+                    </div>
+                );
+
+            default:
+                return null;
+        }
+    };
+
+    // Render section với các trường hợp đặc biệt cho layout
+    const renderSection = (section, sectionIndex) => {
+        const fields = section.fields;
+        const renderedFields = [];
+        const sectionDynamicFields = dynamicFields[section.id] || [];
+
+        for (let i = 0; i < fields.length; i++) {
+            const field = fields[i];
+            const nextField = fields[i + 1];
+
+            // Xử lý trường hợp đặc biệt cho layout 2 cột
+            if ((field.name === "soLuong" && nextField?.name === "donViTinh") ||
+                (field.name === "thoiGianBaoHanh" && nextField?.name === "donViTinh2")) {
+
+                renderedFields.push(
+                    <div key={`${field.idField}-${nextField.idField}`} className={style.formDivTow}>
+                        {renderField(field, i, section.id)}
+                        {renderField(nextField, i + 1, section.id)}
+                    </div>
+                );
+                i++; // Skip next field vì đã render
+            } else {
+                renderedFields.push(renderField(field, i, section.id));
+            }
+        }
+
+        // Thêm dynamic fields nếu có
+        if (sectionDynamicFields.length > 0) {
+            renderedFields.push(
+                <div key={`dynamic-${section.id}`}>
+                    <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #e0e0e0' }}>
+                        <Text size={500} weight="semibold" style={{ marginBottom: '12px', display: 'block' }}>
+                            Thông tin chi tiết
+                        </Text>
+                        {sectionDynamicFields.map(dynamicField => renderDynamicField(dynamicField))}
+                    </div>
+                </div>
+            );
+        }
+
+        return renderedFields;
     };
 
     return (
@@ -82,258 +322,48 @@ const AddNewAsset = () => {
                                 multiple
                                 collapsible
                             >
-                                <AccordionItem value="1">
-                                    <AccordionHeader className={style.formSection} expandIconPosition={"end"}
-                                                     size={"extra-large"}><h4 className={style.formSectionTitle}>Thông
-                                        tin chung</h4>
-                                    </AccordionHeader>
-                                    <AccordionPanel className={style.formContent}>
-                                        {/*//Thông tin chung*/}
-                                        <div>
-                                            <div className={style.formDiv}>
-                                                <Label size="medium" required htmlFor={"tenTaiSan"}
-                                                       className={style.formLabel}>
-                                                    Tên tài sản
-                                                </Label>
-                                                <Input size="medium" name={"tenTaiSan"} id={"tenTaiSan"} className={style.formInput}
-                                                onChange= {(e) => setFormData({...formData, [e.target.name]: e.target.value})} />
+                                {formConfig.map((section, sectionIndex) => (
+                                    <AccordionItem
+                                        key={section.id}
+                                        value={(sectionIndex + 1).toString()}
+                                        className={sectionIndex > 0 ? style.formAccordionItem : undefined}
+                                    >
+                                        <AccordionHeader
+                                            className={style.formSection}
+                                            expandIconPosition="end"
+                                            size="extra-large"
+                                        >
+                                            <h4 className={style.formSectionTitle}>
+                                                {section.name}
+                                            </h4>
+                                        </AccordionHeader>
+                                        <AccordionPanel className={style.formContent}>
+                                            <div>
+                                                {renderSection(section, sectionIndex)}
                                             </div>
-                                            <div className={style.formDiv}>
-                                                <Label size="medium" required htmlFor={"maTaiSan"}
-                                                       className={style.formLabel}>
-                                                    Mã tài sản
-                                                </Label>
-                                                <Input size="medium" id={"maTaiSan"} name={"maTaiSan"}
-                                                       className={style.formInput}
-                                                       onChange= {(e) => setFormData({...formData, [e.target.name]: e.target.value})}/>
-                                            </div>
-                                            <div className={style.formDivTow}>
-                                                <div className={style.formDiv}>
-                                                    <Label size="medium" required htmlFor={"soLuong"}
-                                                           className={style.formLabel}>
-                                                        Số lượng
-                                                    </Label>
-                                                    <Input size="medium" id={"soLuong"} readOnly={true} className={style.formInput} name={"soLuong"} defaultValue={"1"}
-                                                    onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}/>
-                                                </div>
-                                                <div className={style.formDiv}>
-                                                    <Label size="medium" required htmlFor={"donViTinh"}
-                                                           className={style.formLabel}>
-                                                        Đơn vị tính
-                                                    </Label>
-                                                    <Select id={"donViTinh"} className={style.formInput} name={"donViTinh"}
-                                                    onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
-                                                        <option >Cái</option>
-                                                        <option >Chiếc</option>
-                                                        <option >Hộp</option>
-                                                    </Select>
-                                                </div>
-                                            </div>
-                                            <div className={style.formDiv}>
-                                                <Label size="medium" htmlFor={"nhomTaiSan"} className={style.formLabel}>
-                                                    Nhóm tài sản
-                                                </Label>
-                                                <Select name={"nhomTaiSan"} id={"nhomTaiSan"} className={style.formInput}
-                                                onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
-                                                    <option >Công cụ dụng cụ</option>
-                                                    <option >Tài sản cố định hữu hình</option>
-                                                    <option >Tài sản cố định vô hình</option>
-                                                </Select>
-                                            </div>
-                                            <div className={style.formDiv}>
-                                                <Label size="medium" htmlFor={"loaiTaiSan"} className={style.formLabel}>
-                                                    Loại tài sản
-                                                </Label>
-                                                <Select id={"loaiTaiSan"} name={"loaiTaiSan"} className={style.formInput}
-                                                onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
-                                                    <option>Thiết bị máy móc</option>
-                                                    <option>Phương tiện vận chuyển</option>
-                                                    <option>Phương tiện di chuyển</option>
-                                                </Select>
-                                            </div>
-                                            <div className={style.formDiv}>
-                                                <Label size="medium" htmlFor={"diaDiem"} className={style.formLabel}>
-                                                    Địa điểm
-                                                </Label>
-                                                <Select id={"diaDiem"} name={"diaDiem"} className={style.formInput}
-                                                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}
-                                                >
-                                                    <option>Văn phòng Hà Nội</option>
-                                                    <option>Văn Phòng Đà Nẵng</option>
-                                                </Select>
-                                            </div>
-                                            <div className={style.formDiv}>
-                                                <Label size="medium" htmlFor={"boPhan"} className={style.formLabel}>
-                                                    Bộ phận
-                                                </Label>
-                                                <Select id={"boPhan"} name={"boPhan"} className={style.formInput}
-                                                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
-                                                    <option>Phòng Kinh doanh</option>
-                                                    <option>Phòng Nhân sự</option>
-                                                </Select>
-                                            </div>
-                                            <div className={style.formDiv}>
-                                                <Label size="medium" required htmlFor={"nguyenGia"}
-                                                       className={style.formLabel}>
-                                                    Nguyên giá
-                                                </Label>
-                                                <Input size="medium" name={"nguyenGia"} id={"nguyenGia"} className={style.formInput}  contentAfter={
-                                                    <Text size={400} id={"nguyenGia"}>
-                                                        VNĐ
-                                                    </Text>
-                                                }
-                                                       onChange= {(e) => setFormData({...formData, [e.target.name]: e.target.value})} />
-                                            </div>
-                                            <div className={style.formDiv}>
-                                                <Label size="medium" htmlFor={"nguoiQuanLy"} className={style.formLabel}>
-                                                    Người quản lý
-                                                </Label>
-                                                <Select id={"nguoiQuanLy"} name={"nguoiQuanLy"} className={style.formInput}
-                                                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
-                                                    <option>Nguyễn Văn An</option>
-                                                    <option>Nguyễn Thị Biển</option>
-                                                </Select>
-                                            </div>
-
-                                            <div className={style.formDiv}>
-                                                <Label size="medium" htmlFor={"trangThai"} className={style.formLabel}>
-                                                    Trạng thái
-                                                </Label>
-                                                <Select id={"trangThai"} name={"trangThai"} className={style.formInput}
-                                                onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
-                                                    <option>Mới</option>
-                                                    <option>Cũ</option>
-                                                </Select>
-                                            </div>
-                                            <div className={style.formDiv}>
-                                                <Label size="medium" htmlFor={"tinhTrang"} className={style.formLabel}>
-                                                    Tình trạng
-                                                </Label>
-                                                <Select id={"tinhTrang"} name={"tinhTrang"} className={style.formInput}
-                                                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
-                                                    <option>Đang sử dụng</option>
-                                                    <option>Chưa sử dụng</option>
-                                                    <option>Đang bảo dưỡng</option>
-                                                    <option>Đang sửa chữa</option>
-                                                </Select>
-                                            </div>
-                                            <div className={style.formDiv}>
-                                                <Field label="Ngày mua"  className={style.formLabel}>
-                                                    <DatePicker
-                                                        className={style.formInput}
-                                                        placeholder="Chọn ngày mua tài sản"
-                                                        id={"ngayMua"}
-                                                        name={"ngayMua"}
-                                                        onSelectDate={handleDateChange("ngayMua")}
-                                                    />
-                                                </Field>
-                                            </div>
-                                        </div>
-                                    </AccordionPanel>
-                                </AccordionItem>
-                                {/**/}
-                                <AccordionItem value="2" className={style.formAccordionItem}>
-                                    <AccordionHeader className={style.formSection} expandIconPosition={"end"}
-                                                     size={"extra-large"}><h4 className={style.formSectionTitle}>Bảo
-                                        hành</h4>
-                                    </AccordionHeader>
-                                    <AccordionPanel className={style.formContent}>
-                                        {/*//Thông tin chung*/}
-                                        <div>
-                                            <div className={style.formDivTow}>
-                                                <div className={style.formDiv}>
-                                                    <Label size="medium" required htmlFor={"soLuong"}
-                                                           className={style.formLabel}>
-                                                        Thời gian bảo hành
-                                                    </Label>
-                                                    <Input size="medium" id={"thoiGianBaoHanh"} name={"thoiGianBaoHanh"} className={style.formInput}
-                                                    onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}/>
-                                                </div>
-                                                <div className={style.formDiv}>
-                                                    <Label size="medium" required htmlFor={"donViTinh2"}
-                                                           className={style.formLabel}>
-                                                        Đơn vị tính
-                                                    </Label>
-                                                    <Select id={"donViTinh2"} name={"donViTinh2"} className={style.formInput} defaultValue={"Tháng"}
-                                                    onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
-                                                        <option>Tháng</option>
-                                                        <option>Quý</option>
-                                                    </Select>
-                                                </div>
-                                            </div>
-
-                                            <div className={style.formDiv}>
-                                                <Field label="Hạn bảo hành" className={style.formLabel}>
-                                                    <DatePicker
-                                                        className={style.formInput}
-                                                        placeholder="Chọn ngày bảo hành"
-                                                        id={"hanBaoHanh"}
-                                                        name={"hanBaoHanh"}
-                                                        onSelectDate={handleDateChange("hanBaoHanh")}
-                                                    />
-                                                </Field>
-                                            </div>
-                                        </div>
-                                    </AccordionPanel>
-                                </AccordionItem>
-                                {/**/}
-                                <AccordionItem value="3" className={style.formAccordionItem}>
-                                    <AccordionHeader className={style.formSection} expandIconPosition={"end"}
-                                                     size={"extra-large"}>
-                                        <h4 className={style.formSectionTitle}>Đã cấp
-                                            phát</h4>
-                                    </AccordionHeader>
-                                    <AccordionPanel className={style.formContent}>
-                                        {/*Đã cấp phát*/}
-                                        <div>
-                                            <div className={style.formDiv}>
-                                                <Field label="Ngày tiếp nhận" className={style.formLabel}>
-                                                    <DatePicker
-                                                        className={style.formInput}
-                                                        placeholder="Chọn ngày cấp phát / tiếp nhận"
-                                                        id={"ngayTiepNhan"}
-                                                        name={"ngayTiepNhan"}
-                                                        onSelectDate={handleDateChange("ngayTiepNhan")}
-                                                    />
-                                                </Field>
-                                            </div>
-                                            <div className={style.formDiv}>
-                                                <Label size="medium" htmlFor={"nguoiSuDung"} className={style.formLabel}>
-                                                    Người tiếp nhận
-                                                </Label>
-                                                <Select id={"nguoiSuDung"} name={"nguoiSuDung"} className={style.formInput}
-                                                onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
-                                                    <option hidden={true}></option>
-                                                    <option>Nguyễn Văn Anh</option>
-                                                    <option>Trần Văn Hoàn</option>
-                                                    <option> Lý Hoàng Nam</option>
-                                                    <option>Lê Hoàng Hiệp</option>
-                                                </Select>
-                                            </div>
-                                            <div className={style.formDiv}>
-                                                <Label size="medium" htmlFor={"chucVu"} className={style.formLabel}>
-                                                    Chức vụ
-                                                </Label>
-                                                <Select id={"chucVu"} name={"chucVu"} className={style.formInput}
-                                                onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
-                                                    <option value={""} hidden={true} ></option>
-                                                    <option>Trưởng phòng</option>
-                                                    <option>Nhân viên</option>
-                                                </Select>
-                                            </div>
-                                        </div>
-                                    </AccordionPanel>
-                                </AccordionItem>
+                                        </AccordionPanel>
+                                    </AccordionItem>
+                                ))}
                             </Accordion>
-
                         </DialogContent>
                         <DialogActions className={style.Formbutton}>
                             <div className={style.Formbutton}>
                                 <DialogTrigger disableButtonEnhancement>
-                                    <Button icon={<ChevronLeft16Regular/>} className={style.closeBtn}
-                                            appearance="secondary" onClick={() => nav("/taisan/list")}>Quay lại</Button>
+                                    <Button
+                                        icon={<ChevronLeft16Regular/>}
+                                        className={style.closeBtn}
+                                        appearance="secondary"
+                                        onClick={() => nav("/taisan/list")}
+                                    >
+                                        Quay lại
+                                    </Button>
                                 </DialogTrigger>
-                                <Button appearance="primary" onClick={() => addNewItem()}>Thêm mới</Button>
+                                <Button
+                                    appearance="primary"
+                                    onClick={() => addNewItem()}
+                                >
+                                    Thêm mới
+                                </Button>
                             </div>
                         </DialogActions>
                     </DialogBody>

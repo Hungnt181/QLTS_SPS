@@ -29,7 +29,7 @@ const HomePage = () => {
                 chucVuQL: "Quản lý IT",
                 chucVuSD: "Nhân viên IT",
                 taiLieu: "https://example.com/tai-lieu/ts001.pdf",
-                ngayMua:"10/01/2025",
+                ngayMua: "10/01/2025",
                 lichSuBaoTri: "Lần bảo trì gần nhất vào 01-02-2025",
                 lichSuKiemKe: "Lần kiểm kê gần nhất vào 01-03-2025",
             },
@@ -158,6 +158,216 @@ const HomePage = () => {
                 moTa: "Chưa có ai sử dụng",
             },
         ],
+        // formConfig: [
+        //     {
+        //         id: "ttc",
+        //         name: "Thông tin chung",
+        //         fields: [
+        //             {
+        //                 idField: "ttc1",
+        //                 label: "Tên tài sản",
+        //                 type: "text",
+        //                 name: "tenTaiSan",
+        //             },
+        //             {
+        //                 idField: "ttc2",
+        //                 label: "Mã tài sản",
+        //                 type: "text",
+        //                 name: "maTaiSan",
+        //             },
+        //             {idField: "ttc3", label: "Mã QR", type: "text", name: "maQR"},
+        //             {
+        //                 idField: "ttc3",
+        //                 label: "Mã QR",
+        //                 type: "text",
+        //                 name: "maQR",
+        //             },
+        //             {
+        //                 idField: "ttc4",
+        //                 label: "Số lượng",
+        //                 type: "number",
+        //                 name: "soLuong",
+        //             },
+        //             {
+        //                 idField: "ttc5",
+        //                 label: "Đơn vị tính",
+        //                 type: "text",
+        //                 name: "donViTinh",
+        //             },
+        //             {
+        //                 idField: "ttc6",
+        //                 label: "Nhóm tài sản",
+        //                 type: "lookup",
+        //                 name: "nhomTaiSan",
+        //             },
+        //             {
+        //                 idField: "ttc7",
+        //                 label: "Loại tài sản",
+        //                 type: "lookup",
+        //                 name: "loaiTaiSan",
+        //             },
+        //             {
+        //                 idField: "ttc8",
+        //                 label: "Địa điểm",
+        //                 type: "lookup",
+        //                 name: "diaDiem",
+        //             },
+        //             {idField: "ttc9", label: "Bộ phận", type: "text", name: "boPhan"},
+        //             {
+        //                 idField: "ttc9",
+        //                 label: "Bộ phận",
+        //                 type: "text",
+        //                 name: "boPhan",
+        //             },
+        //             {
+        //                 idField: "ttc10",
+        //                 label: "Nguyên giá",
+        //                 type: "number",
+        //                 name: "nguyenGia",
+        //             },
+        //             {
+        //                 idField: "ttc11",
+        //                 label: "Người quản lý",
+        //                 type: "text",
+        //                 name: "nguoiQuanLy",
+        //             },
+        //             {
+        //                 idField: "ttc12",
+        //                 label: "Trạng thái",
+        //                 type: "lookup",
+        //                 name: "trangThai",
+        //             },
+        //             {
+        //                 idField: "ttc13",
+        //                 label: "Tình trạng",
+        //                 type: "lookup",
+        //                 name: "tinhTrang",
+        //             },
+        //             {
+        //                 idField: "ttc14",
+        //                 label: "Ngày mua",
+        //                 type: "date",
+        //                 name: "ngayMua",
+        //             },
+        //         ],
+        //         description: "Chứa các trường thông tin chung của tài sản",
+        //     },
+        //     {
+        //         id: "bh",
+        //         name: "Bảo hành",
+        //         fields: [
+        //             {
+        //                 idField: "bh1",
+        //                 label: "Thời gian bảo hành",
+        //                 type: "date",
+        //                 name: "thoiGianBaoHanh",
+        //             },
+        //             {
+        //                 idField: "bh2",
+        //                 label: "Đơn vị tính",
+        //                 type: "lookup",
+        //                 name: "donViTinh2",
+        //             },
+        //             {
+        //                 idField: "bh3",
+        //                 label: "Hạn bảo hành",
+        //                 type: "date",
+        //                 name: "hanBaoHanh",
+        //             },
+        //         ],
+        //         description: "Chứa các trường thông tin bảo hành",
+        //     },
+        //     {
+        //         id: "dcp",
+        //         name: "Đã cấp phát",
+        //         fields: [
+        //             {
+        //                 idField: "dcp1",
+        //                 label: "Ngày tiếp nhận",
+        //                 type: "date",
+        //                 name: "ngayTiepNhan",
+        //             },
+        //             {
+        //                 idField: "dcp2",
+        //                 label: "Ngời tiếp nhân",
+        //                 type: "lookup",
+        //                 name: "nguoiSuDung",
+        //             },
+        //
+        //             {
+        //                 idField: "dcp3",
+        //                 label: "Chức vụ",
+        //                 type: "lookup",
+        //                 name: "chucVu",
+        //             },
+        //         ],
+        //         description: "Chứa các trường thông tin của việc đã cấp phát tài sản",
+        //     },
+        //     {
+        //         id: "ttnc",
+        //         name: "Thông tin nâng cao",
+        //         fields: [
+        //             {
+        //                 label: "Danh mục tài sản",
+        //                 type: "look",
+        //                 name: "danhMucTaiSan",
+        //                 options: [
+        //                     {
+        //                         label: "Máy tính để bàn ",
+        //                         _id: "danhMuc1",
+        //                         _loaiTaiSan: "Máy móc thiết bị",
+        //                         _nhomTaiSan: "Công cụ, dụng cụ",
+        //                         _moTa: "Tập hợp các thiết bị máy tính để bàn",
+        //                         _fields: [
+        //                             {
+        //                                 _ID: "mtdb1",
+        //                                 _label: "Năm sản xuất",
+        //                                 _type: "number",
+        //                                 _name: "namSanXuat",
+        //                             },
+        //                             {
+        //                                 _ID: "mtdb2",
+        //                                 _label: "Hãng sản xuất",
+        //                                 _type: "text",
+        //                                 _name: "hangSanXuat",
+        //                             },
+        //                             {
+        //                                 _ID: "mtdb3",
+        //                                 _label: "Thông số Ram",
+        //                                 _type: "text",
+        //                                 _name: "ram",
+        //                             },
+        //                         ],
+        //                     },
+        //                     {
+        //                         label: "Tivi",
+        //                         _id: "danhMuc2",
+        //                         _loaiTaiSan: "Máy móc thiết bị",
+        //                         _nhomTaiSan: "Công cụ, dụng cụ",
+        //                         _moTa: "Tập hợp các thiết bị tivi",
+        //                         _fields: [
+        //                             {
+        //                                 _ID: "tivi1",
+        //                                 _label: "Năm sản xuất",
+        //                                 _type: "text",
+        //                                 _name: "namSanXuat",
+        //                             },
+        //                             {
+        //                                 _ID: "tivi2",
+        //                                 _label: "Kích cỡ",
+        //                                 _type: "text",
+        //                                 _name: "kichCo",
+        //                             },
+        //                         ],
+        //                     },
+        //                 ],
+        //             },
+        //         ],
+        //         description:
+        //             "Chứa các trường nng cao dễ dàng tìm kiếm và phân loại tài sản chi tiết",
+        //     },
+        // ],
+        // Tài sản thu hồi
         formConfig: [
             {
                 id: "ttc",
@@ -168,80 +378,142 @@ const HomePage = () => {
                         label: "Tên tài sản",
                         type: "text",
                         name: "tenTaiSan",
+                        required: true
                     },
                     {
                         idField: "ttc2",
                         label: "Mã tài sản",
                         type: "text",
                         name: "maTaiSan",
+                        required: true
                     },
-                    {idField: "ttc3", label: "Mã QR", type: "text", name: "maQR"},
-                    {
-                        idField: "ttc3",
-                        label: "Mã QR",
-                        type: "text",
-                        name: "maQR",
-                    },
+                    // {
+                    //     idField: "ttc3",
+                    //     label: "Mã QR",
+                    //     type: "text",
+                    //     name: "maQR",
+                    // },
                     {
                         idField: "ttc4",
                         label: "Số lượng",
                         type: "number",
                         name: "soLuong",
+                        defaultValue: "1",
+                        readOnly: true,
+                        required: true
                     },
                     {
                         idField: "ttc5",
                         label: "Đơn vị tính",
                         type: "text",
                         name: "donViTinh",
+                        defaultValue: "Cái"
                     },
                     {
                         idField: "ttc6",
                         label: "Nhóm tài sản",
                         type: "lookup",
                         name: "nhomTaiSan",
+                        options: [
+                            {label: "Công cụ, dụng cụ", value: "Công cụ, dụng cụ"},
+                            {label: "Máy móc thiết bị", value: "Máy móc thiết bị"},
+                            {label: "Phương tiện vận tải", value: "Phương tiện vận tải"},
+                            {label: "Nhà cửa, vật kiến trúc", value: "Nhà cửa, vật kiến trúc"}
+                        ],
+                        defaultValue: "Công cụ, dụng cụ"
                     },
                     {
                         idField: "ttc7",
                         label: "Loại tài sản",
                         type: "lookup",
                         name: "loaiTaiSan",
+                        options: [
+                            {label: "Tài sản cố định hữu hình", value: "Tài sản cố định hữu hình"},
+                            {label: "Tài sản cố định vô hình", value: "Tài sản cố định vô hình"},
+                            {label: "Tài sản lưu động", value: "Tài sản lưu động"},
+                            {label: "Tài sản khác", value: "Tài sản khác"}
+                        ],
+                        defaultValue: "Tài sản cố định hữu hình"
                     },
                     {
                         idField: "ttc8",
                         label: "Địa điểm",
                         type: "lookup",
                         name: "diaDiem",
+                        options: [
+                            {label: "Tầng 1", value: "Tầng 1"},
+                            {label: "Tầng 2", value: "Tầng 2"},
+                            {label: "Tầng 3", value: "Tầng 3"},
+                            {label: "Kho A", value: "Kho A"},
+                            {label: "Kho B", value: "Kho B"},
+                            {label: "Văn phòng A", value: "Văn phòng A"},
+                            {label: "Văn phòng B", value: "Văn phòng B"}
+                        ],
+                        defaultValue: "Tầng 1"
                     },
-                    {idField: "ttc9", label: "Bộ phận", type: "text", name: "boPhan"},
                     {
                         idField: "ttc9",
                         label: "Bộ phận",
-                        type: "text",
+                        type: "lookup",
                         name: "boPhan",
+                        options: [
+                            {label: "", value: ""},
+                            {label: "Phòng kinh doanh", value: "Phòng kinh doanh"},
+                            {label: "Phòng nhân sự", value: "Phòng nhân sự"},
+                            {label: "Phòng kế toán", value: "Phòng kế toán"},
+                            {label: "Phòng IT", value: "Phòng IT"}
+                        ],
+                        defaultValue: "Phòng kinh doanh",
                     },
                     {
                         idField: "ttc10",
                         label: "Nguyên giá",
                         type: "number",
                         name: "nguyenGia",
+                        suffix: "VNĐ",
+                        required: true
                     },
                     {
                         idField: "ttc11",
                         label: "Người quản lý",
-                        type: "text",
+                        type: "lookup",
                         name: "nguoiQuanLy",
+                        options: [
+                            {label: "", value: ""},
+                            {label: "Nguyễn Văn A", value: "Nguyễn Văn A"},
+                            {label: "Trần Thị B", value: "Trần Thị B"},
+                            {label: "Lê Văn C", value: "Lê Văn C"},
+                            {label: "Phạm Thị D", value: "Phạm Thị D"}
+                        ],
+                        defaultValue: "Nguyễn Văn A"
                     },
                     {
                         idField: "ttc12",
                         label: "Trạng thái",
                         type: "lookup",
                         name: "trangThai",
+                        options: [
+                            {label: "Đang sử dụng", value: "Đang sử dụng"},
+                            {label: "Chưa sử dụng", value: "Chưa sử dụng"},
+                            {label: "Đang bảo trì", value: "Đang bảo trì"},
+                            {label: "Hỏng", value: "Hỏng"},
+                            {label: "Đã thanh lý", value: "Đã thanh lý"}
+                        ],
+                        defaultValue: "Đang sử dụng"
                     },
                     {
                         idField: "ttc13",
                         label: "Tình trạng",
                         type: "lookup",
                         name: "tinhTrang",
+                        options: [
+                            {label: "Tốt", value: "Tốt"},
+                            {label: "Khá", value: "Khá"},
+                            {label: "Trung bình", value: "Trung bình"},
+                            {label: "Kém", value: "Kém"},
+                            {label: "Hỏng", value: "Hỏng"}
+                        ],
+                        defaultValue: "Tốt"
                     },
                     {
                         idField: "ttc14",
@@ -259,7 +531,7 @@ const HomePage = () => {
                     {
                         idField: "bh1",
                         label: "Thời gian bảo hành",
-                        type: "date",
+                        type: "text",
                         name: "thoiGianBaoHanh",
                     },
                     {
@@ -267,6 +539,13 @@ const HomePage = () => {
                         label: "Đơn vị tính",
                         type: "lookup",
                         name: "donViTinh2",
+                        options: [
+                            {label: "Tháng", value: "Tháng"},
+                            {label: "Năm", value: "Năm"},
+                            {label: "Ngày", value: "Ngày"},
+                            {label: "Tuần", value: "Tuần"}
+                        ],
+                        defaultValue: "Tháng"
                     },
                     {
                         idField: "bh3",
@@ -289,16 +568,32 @@ const HomePage = () => {
                     },
                     {
                         idField: "dcp2",
-                        label: "Ngời tiếp nhân",
+                        label: "Người sử dụng",
                         type: "lookup",
                         name: "nguoiSuDung",
+                        options: [
+                            {label: "", value: ""},
+                            {label: "Nguyễn Văn A", value: "Nguyễn Văn A"},
+                            {label: "Trần Thị B", value: "Trần Thị B"},
+                            {label: "Lê Văn C", value: "Lê Văn C"},
+                            {label: "Phạm Thị D", value: "Phạm Thị D"}
+                        ],
+                        defaultValue: "Nguyễn Văn A"
                     },
-
                     {
                         idField: "dcp3",
                         label: "Chức vụ",
                         type: "lookup",
                         name: "chucVu",
+                        options: [
+                            {label: "", value: ""},
+                            {label: "Giám đốc", value: "Giám đốc"},
+                            {label: "Phó giám đốc", value: "Phó giám đốc"},
+                            {label: "Trưởng phòng", value: "Trưởng phòng"},
+                            {label: "Phó phòng", value: "Phó phòng"},
+                            {label: "Nhân viên", value: "Nhân viên"},
+                            {label: "Chuyên viên", value: "Chuyên viên"}
+                        ]
                     },
                 ],
                 description: "Chứa các trường thông tin của việc đã cấp phát tài sản",
@@ -308,12 +603,14 @@ const HomePage = () => {
                 name: "Thông tin nâng cao",
                 fields: [
                     {
+                        idField: "ttnc1",
                         label: "Danh mục tài sản",
-                        type: "look",
+                        type: "lookup",
                         name: "danhMucTaiSan",
                         options: [
                             {
-                                label: "Máy tính để bàn ",
+                                label: "Máy tính để bàn",
+                                value: "may_tinh_de_ban",
                                 _id: "danhMuc1",
                                 _loaiTaiSan: "Máy móc thiết bị",
                                 _nhomTaiSan: "Công cụ, dụng cụ",
@@ -334,13 +631,23 @@ const HomePage = () => {
                                     {
                                         _ID: "mtdb3",
                                         _label: "Thông số Ram",
-                                        _type: "text",
+                                        _type: "lookup",
                                         _name: "ram",
+                                        options: [
+                                            {label: "", value: ""},
+                                            {label: "2GB", value: "2GB"},
+                                            {label: "4GB", value: "4GB"},
+                                            {label: "8GB", value: "8GB"},
+                                            {label: "16GB", value: "16GB"},
+                                            {label: "32GB", value: "32GB"},
+                                        ],
+                                        defaultValue: "2GB",
                                     },
                                 ],
                             },
                             {
                                 label: "Tivi",
+                                value: "tivi",
                                 _id: "danhMuc2",
                                 _loaiTaiSan: "Máy móc thiết bị",
                                 _nhomTaiSan: "Công cụ, dụng cụ",
@@ -363,18 +670,12 @@ const HomePage = () => {
                         ],
                     },
                 ],
-                description:
-                    "Chứa các trường nng cao dễ dàng tìm kiếm và phân loại tài sản chi tiết",
-            },
+                description: "Chứa các trường nâng cao dễ dàng tìm kiếm và phân loại tài sản chi tiết",
+            }
         ],
-        // Tài sản thu hồi
-        revokeAsset: [
-
-        ],
+        revokeAsset: [],
         // Tài sản đã cấp phát
-        assignAsset : [
-
-        ],
+        assignAsset: [],
         //Tài sản cần sửa chữa
         repairAsset: [
             {

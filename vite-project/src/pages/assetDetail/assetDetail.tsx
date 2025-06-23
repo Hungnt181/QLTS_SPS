@@ -256,13 +256,43 @@ const AssetDetail = () => {
                                 {/*</ul>*/}
                         </div>
 
+                    </div>
+                </div>
+                <div className={style.general}>
+                    <div className={style.h2}>
+                        <h2 className={style.contentContainerTitle}>Thông tin trạng thái</h2>
+                    </div>
+
+                    <div className={style.detail}>
+                        <div className={style.itemBlock}>
+                            <div className={style.spanContainer}>
+                                <Status20Regular className={style.contentIcon}/>
+                                <span className={style.span}>Trạng thái</span>
+                            </div>
+                            <Text className={style.valueText}>{asset?.trangThai}</Text>
+                        </div>
+                        <div className={style.itemBlock}>
+                            <div className={style.spanContainer}>
+                                <PulseSquare20Regular className={style.contentIcon}/>
+                                <span className={style.span}>Tình trạng</span>
+                            </div>
+                            <Text className={style.valueText}>{asset?.tinhTrang}</Text>
+                        </div>
+
+                        <div className={style.itemBlock}>
+                            <div className={style.spanContainer}>
+                                <CalendarEdit20Regular className={style.contentIcon}/>
+                                <span className={style.span}>Hạn bảo dưỡng</span>
+                            </div>
+                            <Text className={style.valueText}>{asset?.hanBaoDuong}</Text>
+                        </div>
                         <div className={style.itemBlock}>
                             <div className={style.spanContainer}>
                                 <Calendar20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Ngày mua</span>
                             </div>
 
-                                <Text className={style.valueText}>{asset?.ngayMua}</Text>
+                            <Text className={style.valueText}>{asset?.ngayMua}</Text>
                         </div>
 
                         <div className={style.itemBlock}>
@@ -270,23 +300,23 @@ const AssetDetail = () => {
                                 <CalendarClock20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Hạn bảo hành</span>
                             </div>
-                                <Text className={style.valueText}>{asset?.hanBaoHanh}</Text>
+                            <Text className={style.valueText}>{asset?.hanBaoHanh}</Text>
                         </div>
+                    </div>
+                </div>
+                <div className={style.general}>
+                    <div className={style.h2}>
+                        <h2 className={style.contentContainerTitle}>Lịch sử</h2>
+                    </div>
+                    <div className={style.detail}>
 
-                        <div className={style.itemBlock}>
-                            <div className={style.spanContainer}>
-                                <Status20Regular className={style.contentIcon}/>
-                                <span className={style.span}>Trạng thái</span>
-                            </div>
-                                <Text className={style.valueText}>{asset?.trangThai}</Text>
-                        </div>
 
                         <div className={style.itemBlock}>
                             <div className={style.spanContainer}>
                                 <Status20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Lịch sử bảo dưỡng - sửa chữa</span>
                             </div>
-                                <Text className={style.valueText}>{asset?.lichSuBaoTri}</Text>
+                            <Text className={style.valueText}>{asset?.lichSuBaoTri}</Text>
                         </div>
 
                         <div className={style.itemBlock}>
@@ -294,11 +324,10 @@ const AssetDetail = () => {
                                 <Status20Regular className={style.contentIcon}/>
                                 <span className={style.span}>Lịch sử kiểm kê gần nhất</span>
                             </div>
-                                <Text className={style.valueText}>{asset?.lichSuKiemKe}</Text>
+                            <Text className={style.valueText}>{asset?.lichSuKiemKe}</Text>
                         </div>
                     </div>
                 </div>
-
                 <div className={style.user}>
                     <div className={style.h2}>
                         <h2 className={style.contentContainerTitle}>Thông tin người tiếp nhận</h2>
@@ -328,21 +357,7 @@ const AssetDetail = () => {
                                 <Text className={style.valueText}>{asset?.ngayTiepNhan || ""}</Text>
                         </div>
 
-                        <div className={style.itemBlock}>
-                            <div className={style.spanContainer}>
-                                <PulseSquare20Regular className={style.contentIcon}/>
-                                <span className={style.span}>Tình trạng</span>
-                            </div>
-                                <Text className={style.valueText}>{asset?.tinhTrang}</Text>
-                        </div>
 
-                        <div className={style.itemBlock}>
-                            <div className={style.spanContainer}>
-                                <CalendarEdit20Regular className={style.contentIcon}/>
-                                <span className={style.span}>Hạn bảo dưỡng</span>
-                            </div>
-                                <Text className={style.valueText}>{asset?.hanBaoDuong}</Text>
-                        </div>
                     </div>
                 </div>
             </div>
