@@ -116,7 +116,6 @@ const AssetDetail = () => {
                             <PersonArrowLeft20Regular className={style.icon}/>
                             <span className={style.buttonTitle}>Thu hồi</span>
                         </button>
-                        {/* {showAssetRecalPopup && <assetRecall onClose={() => setShowAssetRecalPopup(false)} />} */}
                         <button className={style.button}>
                             <PersonArrowRight20Regular className={style.icon}/>
                             <span className={style.buttonTitle}>Cấp phát</span>

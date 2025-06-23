@@ -39,7 +39,7 @@ const AddNewAsset = () => {
         nguyenGia: "",
         nguoiQuanLy: "Nguyễn Văn An",
         trangThai: "Mới",
-        tinhTrang: "Đang ử dụng",
+        tinhTrang: "Đang sử dụng",
         ngayMua: "",
         thoiGianBaoHanh: "",
         donViTinh2: "Tháng",

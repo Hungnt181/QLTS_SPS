@@ -12,15 +12,17 @@
   "dependencies": {
     "@fluentui/react": "^8.123.0",
     "@fluentui/react-components": "^9.64.1",
-    "@fluentui/react-datepicker-compat": "^0.5.7",
+    "@fluentui/react-datepicker-compat": "^0.5.9",
     "@fluentui/react-icons": "^2.0.300",
     "@fluentui/react-nav-preview": "^0.13.8",
     "axios": "^1.9.0",
     "babel-plugin-react-compiler": "^0.0.0-experimental-a550a97-20250529",
     "chart.js": "^4.4.9",
+    "date-fns": "^4.1.0",
     "json-server": "^1.0.0-beta.3",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.3.0",
+    "react-datepicker": "^8.4.0",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.6.0",
     "recharts": "^2.15.3"
@@ -28,6 +30,7 @@
   "devDependencies": {
     "@eslint/js": "^9.25.0",
     "@types/react": "^18.2.14",
+    "@types/react-datepicker": "^6.2.0",
     "@types/react-dom": "^18.2.4",
     "@vitejs/plugin-react": "^4.4.1",
     "eslint": "^9.25.0",

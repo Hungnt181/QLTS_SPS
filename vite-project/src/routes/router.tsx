@@ -21,9 +21,12 @@ import Dashboard from "../layouts/dashboard/dashboard.tsx";
 import TableListFormConfig from "../layouts/tableList/tableListFormConfig.tsx";
 import FormConfigDetail from "../pages/listPage/settings/Detail/FormConfigDetail.tsx";
 import AdvancedInfo from "../pages/listPage/settings/AdvancedInfo.tsx";
-import InventoryList from "../layouts/tableList/inventoryList.tsx";
 import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 import AddNewAdvancedInfo from "../layouts/FormAdd/formAddNewAdvancedInfo.tsx";
+import InventoryList from "../layouts/tableList/inventoryList.tsx";
+import InventoryDetail from "../pages/inventoryDetail/inventoryDetail.tsx";
+import AddNewInventoryDate from "../layouts/FormAdd/AddNewInventoryDate.tsx";
+import AddNewInvenBoard from "../layouts/FormAdd/AddNewInvenBoard.tsx";
 
 // import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 
@@ -69,6 +72,24 @@ const router = createBrowserRouter([
             path: "inventory",
             element: <InventoryList />,
           },
+
+          {
+            path: "/taisan/inventory",
+            element: <InventoryList />,
+            children: [
+              {
+                path: "w-create",
+                element: <AddNewInventoryDate />,
+                children: [
+                  {
+                    path: "add",
+                    element: <AddNewInvenBoard mode="add" />,
+                  }
+                ]
+              }
+            ]
+          },
+          
           //// List Asset
           {
             path: "list",
@@ -189,6 +210,17 @@ const router = createBrowserRouter([
           path: 'taisan/settings/advanced-info/detail/:_id',
           element: <FormAdvancedInfoDetail/>,
       },
+      // detail Kiểm kê
+        {
+          path: "taisan/inventory-detail/:maSoPhieu",
+          element: <InventoryDetail />,
+          children: [
+                {
+                  path: "add",
+                  element: <AddNewInvenBoard mode="detail" />,
+                }
+              ]
+        },
 
       {
         path: "tongquan",

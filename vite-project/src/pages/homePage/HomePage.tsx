@@ -2,6 +2,7 @@ import listPageStyle from "../../styles/listPages/listPage.ts";
 import Header from "../../layouts/header/header.tsx";
 import { Outlet } from "react-router-dom";
 import AppBar from "../../layouts/sideBar/appBar/appBar.tsx";
+import InventoryList from "../../layouts/tableList/inventoryList.tsx";
 
 const HomePage = () => {
   const style = listPageStyle();
@@ -491,6 +492,96 @@ const HomePage = () => {
         moTa: "Chưa có ai sử dụng",
       },
     ],
+    InventoryList: [
+      {
+        maSoPhieu: "KK00001",
+        noidung: "Kiểm kê tài sản SPS",
+        kiKiemKe: "Tháng 06/2025",
+        hanKiemKe: "16/06/2025",
+        diaDiem: "VP Hà Nội",
+        boPhan: "Phòng Công Nghệ",
+        nhomTaiSan: "Cố định hữu hình",
+        loaiTaiSan: "Máy móc thiết bị",
+        truongBanKiemKe: "Nguyễn Văn Anh",
+        chucVu: "Trưởng phòng công nghệ",
+        trangThai: "Chưa kiểm kê",
+        tienDo: "0%",
+        id: "k31c",
+      },
+    ],
+
+    InvenBoardData: {
+      "KK00001": [
+        {
+          STT: "001",
+          hoTen: "Nguyễn Văn Anh",
+          phongBan: "Phòng kế toán",
+          chucVu: "Phó trưởng phòng",
+          diaDiem: "VP Hà Nội",
+          vaiTro: "Trưởng ban",
+        },
+        {
+          STT: "002",
+          hoTen: "Trần Văn Bảo",
+          phongBan: "Phòng kế toán",
+          chucVu: "Nhân viên",
+          diaDiem: "VP Hà Nội",
+          vaiTro: "Thành viên",
+        },
+      ],
+      "temp": [
+        {
+          STT: "001",
+          hoTen: "Nguyễn Văn Anh",
+          phongBan: "Phòng kế toán",
+          chucVu: "Phó trưởng phòng",
+          diaDiem: "VP Hà Nội",
+          vaiTro: "Trưởng ban",
+        },
+        {
+          STT: "002",
+          hoTen: "Trần Văn Bảo",
+          phongBan: "Phòng kế toán",
+          chucVu: "Nhân viên",
+          diaDiem: "VP Hà Nội",
+          vaiTro: "Thành viên",
+        },
+      ],
+    },
+
+    AssetInvenList: [
+      {
+        tenTaiSan: "Máy tính DELL",
+        maTaiSan: "DELL1",
+        nguoiQuanLy: "Nguyễn Diệu Anh",
+        chucVu: "Phó phòng KD",
+        phongBan: "Phòng KD",
+        chuaSuDung: "0",
+        dangSuDung: "1",
+        hongSua: "0",
+      },
+      {
+        tenTaiSan: "Máy tính DELL",
+        maTaiSan: "DELL2",
+        nguoiQuanLy: "Nguyễn Diệu Anh",
+        chucVu: "Phó phòng KD",
+        phongBan: "Phòng KD",
+        chuaSuDung: "0",
+        dangSuDung: "1",
+        hongSua: "0",
+      },
+      {
+        tenTaiSan: "Máy tính DELL",
+        maTaiSan: "DELL3",
+        nguoiQuanLy: "Nguyễn Diệu Anh",
+        chucVu: "Phó phòng KD",
+        phongBan: "Phòng KD",
+        chuaSuDung: "0",
+        dangSuDung: "1",
+        hongSua: "0",
+      },
+    ],
+
     formConfig: [
       {
         id: "ttc",

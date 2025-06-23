@@ -44,6 +44,44 @@ export interface StateList {
   moTa: string;
 }
 
+export interface InventoryListType {
+    maSoPhieu: string,
+    id: string,
+    noidung: string,
+    kiKiemKe: string,
+    hanKiemKe: string,
+    diaDiem: string,
+    boPhan: string,
+    nhomTaiSan: string,
+    loaiTaiSan: string,
+    truongBanKiemKe: string,
+    chucVu: string,
+    trangThai: string,
+    tienDo: string,
+}
+
+export interface InvenBoardType {
+    STT: string,
+    hoTen: string,
+    phongBan: string,
+    chucVu: string,
+    diaDiem: string,
+    vaiTro: string,
+    // ghiChu: string,
+}
+
+export interface AssetInvenType {
+    tenTaiSan: string,
+    maTaiSan: string,
+    qr: string,
+    nguoiQuanLy: string,
+    chucVu: string,
+    phongBan: string,
+    chuaSuDung: string,
+    dangSuDung: string,
+    hongSua: string,
+}
+
 // Interface cho field trong form thường
 export interface Field {
     idField: string;
