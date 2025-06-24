@@ -21,7 +21,6 @@ import Dashboard from "../layouts/dashboard/dashboard.tsx";
 import TableListFormConfig from "../layouts/tableList/tableListFormConfig.tsx";
 import FormConfigDetail from "../pages/listPage/settings/Detail/FormConfigDetail.tsx";
 import AdvancedInfo from "../pages/listPage/settings/AdvancedInfo.tsx";
-
 import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 import AddNewAdvancedInfo from "../layouts/FormAdd/formAddNewAdvancedInfo.tsx";
 import MyDashBoard from "../pages/myDashboard/MyDashboard.tsx";
@@ -33,6 +32,10 @@ import RepairCompleted from "../pages/listPage/repair/RepairCompleted.tsx";
 import MaintenanceAsset from "../pages/assetDetail/Form/MaintenanceAsset.tsx";
 import MaintenanceList from "../pages/listPage/maintenance/MaintenanceList.tsx";
 import MaintenanceCompleted from "../pages/listPage/maintenance/MaintenanceCompleted.tsx";
+import InventoryList from "../layouts/tableList/inventoryList.tsx";
+import InventoryDetail from "../pages/inventoryDetail/inventoryDetail.tsx";
+import AddNewInventoryDate from "../layouts/FormAdd/AddNewInventoryDate.tsx";
+import AddNewInvenBoard from "../layouts/FormAdd/AddNewInvenBoard.tsx";
 
 // import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 
@@ -65,9 +68,9 @@ const router = createBrowserRouter([
             children: [
               {
                 path: "completed/:id",
-                element: <MaintenanceCompleted/>
+                element: <MaintenanceCompleted />,
               },
-            ]
+            ],
           },
           // fix
           {
@@ -76,9 +79,9 @@ const router = createBrowserRouter([
             children: [
               {
                 path: "completed/:id",
-                element: <RepairCompleted/>
+                element: <RepairCompleted />,
               },
-            ]
+            ],
           },
           // liquidation
           {
@@ -88,8 +91,26 @@ const router = createBrowserRouter([
           // inventory
           {
             path: "inventory",
-            element: <AssetDashboard />,
+            element: <InventoryList />,
           },
+
+          {
+            path: "/taisan/inventory",
+            element: <InventoryList />,
+            children: [
+              {
+                path: "w-create",
+                element: <AddNewInventoryDate />,
+                children: [
+                  {
+                    path: "add",
+                    element: <AddNewInvenBoard mode="add" />,
+                  },
+                ],
+              },
+            ],
+          },
+
           //// List Asset
           {
             path: "list",
@@ -194,23 +215,23 @@ const router = createBrowserRouter([
         path: "taisan/list/detail/:id",
         element: <AssetDetail />,
         children: [
-            {
-               path: "revoke",
-              element: <RevokeAsset/>
-            },
+          {
+            path: "revoke",
+            element: <RevokeAsset />,
+          },
           {
             path: "assign",
-            element: <AssignAsset/>
+            element: <AssignAsset />,
           },
           {
             path: "repair",
-            element: <RepairAsset/>
+            element: <RepairAsset />,
           },
           {
             path: "maintenance",
-            element: <MaintenanceAsset/>
-          }
-        ]
+            element: <MaintenanceAsset />,
+          },
+        ],
       },
       //deatail formConfigtaif sản
       {
@@ -221,6 +242,18 @@ const router = createBrowserRouter([
       {
         path: "taisan/settings/advanced-info/detail/:_id",
         element: <FormAdvancedInfoDetail />,
+      },
+
+      // detail Kiểm kê
+      {
+        path: "taisan/inventory-detail/:maSoPhieu",
+        element: <InventoryDetail />,
+        children: [
+          {
+            path: "add",
+            element: <AddNewInvenBoard mode="detail" />,
+          },
+        ],
       },
 
       {
