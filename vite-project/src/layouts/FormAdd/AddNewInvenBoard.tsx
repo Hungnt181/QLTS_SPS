@@ -96,7 +96,7 @@ const AddNewInvenBoard = ({ mode }: AddNewInvenBoardProps) => {
                                                 <Label className={style.formLabel} size="medium" required htmlFor={"hoTen"}>
                                                     Họ và tên
                                                 </Label>
-                                                <Select className={style.formInput} id={"hoTen"} name={"hoTen"}
+                                                <Select className={style.formInput} id={"hoTen"} name={"hoTen"} value={formData.hoTen}
                                                     onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}>
                                                     <option value=""></option>
                                                     <option value="Nguyễn Văn Anh">Nguyễn Văn Anh</option>
@@ -108,7 +108,7 @@ const AddNewInvenBoard = ({ mode }: AddNewInvenBoardProps) => {
                                                 <Label className={style.formLabel} size="medium" required htmlFor={"phongBan"}>
                                                     Phòng ban
                                                 </Label>
-                                                <Select className={style.formInput} id={"phongBan"} name={"phongBan"}
+                                                <Select className={style.formInput} value={formData.phongBan} id={"phongBan"} name={"phongBan"}
                                                     onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}>
                                                     <option value=""></option>
                                                     <option value="Phòng kinh doanh">Phòng kinh doanh</option>
@@ -119,7 +119,7 @@ const AddNewInvenBoard = ({ mode }: AddNewInvenBoardProps) => {
                                                 <Label className={style.formLabel} size="medium" required htmlFor={"chucVu"}>
                                                     Chức vụ
                                                 </Label>
-                                                <Select className={style.formInput} id={"chucVu"} name={"chucVu"}
+                                                <Select className={style.formInput} value={formData.chucVu} id={"chucVu"} name={"chucVu"}
                                                     onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}>
                                                     <option value=""></option>
                                                     <option value="Trưởng phòng">Trưởng phòng</option>
@@ -131,7 +131,7 @@ const AddNewInvenBoard = ({ mode }: AddNewInvenBoardProps) => {
                                                 <Label className={style.formLabel} size="medium" required htmlFor={"diaDiem"}>
                                                     Địa điểm
                                                 </Label>
-                                                <Select className={style.formInput} id={"diaDiem"} name={"diaDiem"}
+                                                <Select className={style.formInput} value={formData.diaDiem} id={"diaDiem"} name={"diaDiem"}
                                                     onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}>
                                                     <option value=""></option>
                                                     <option value="VP Hà Nội">VP Hà Nội</option>
@@ -142,7 +142,7 @@ const AddNewInvenBoard = ({ mode }: AddNewInvenBoardProps) => {
                                                 <Label className={style.formLabel} size="medium" required htmlFor={"vaiTro"}>
                                                     Vai trò
                                                 </Label>
-                                                <Select className={style.formInput} id={"vaiTro"} name={"vaiTro"}
+                                                <Select className={style.formInput} value={formData.vaiTro} id={"vaiTro"} name={"vaiTro"}
                                                     onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}>
                                                     <option value=""></option>
                                                     <option value="Thành viên">Thành viên</option>

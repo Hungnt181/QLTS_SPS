@@ -499,7 +499,7 @@ const HomePage = () => {
         kiKiemKe: "Tháng 06/2025",
         hanKiemKe: "16/06/2025",
         diaDiem: "VP Hà Nội",
-        boPhan: "Phòng Công Nghệ",
+        phongBan: "Phòng công nghệ",
         nhomTaiSan: "Cố định hữu hình",
         loaiTaiSan: "Máy móc thiết bị",
         truongBanKiemKe: "Nguyễn Văn Anh",
@@ -549,14 +549,16 @@ const HomePage = () => {
       ],
     },
 
-    AssetInvenList: [
+    AssetInvenList: {
+      "phongKinhDoanh": [
       {
         tenTaiSan: "Máy tính DELL",
         maTaiSan: "DELL1",
         nguoiQuanLy: "Nguyễn Diệu Anh",
         chucVu: "Phó phòng KD",
-        phongBan: "Phòng KD",
+        phongBan: "Phòng kinh doanh",
         chuaSuDung: "0",
+        diaDiem: "VP Hà Nội",
         dangSuDung: "1",
         hongSua: "0",
       },
@@ -565,22 +567,27 @@ const HomePage = () => {
         maTaiSan: "DELL2",
         nguoiQuanLy: "Nguyễn Diệu Anh",
         chucVu: "Phó phòng KD",
-        phongBan: "Phòng KD",
+        phongBan: "Phòng kinh doanh",
         chuaSuDung: "0",
+        diaDiem: "VP Hà Nội",
         dangSuDung: "1",
         hongSua: "0",
       },
+      ],
+      "phongCongNghe": [
       {
         tenTaiSan: "Máy tính DELL",
         maTaiSan: "DELL3",
         nguoiQuanLy: "Nguyễn Diệu Anh",
         chucVu: "Phó phòng KD",
-        phongBan: "Phòng KD",
+        phongBan: "Phòng công nghệ",
         chuaSuDung: "0",
+        diaDiem: "VP Hồ Chí Minh",
         dangSuDung: "1",
         hongSua: "0",
       },
-    ],
+      ],
+    },
 
     formConfig: [
       {

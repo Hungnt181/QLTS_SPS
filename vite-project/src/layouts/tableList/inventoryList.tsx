@@ -76,7 +76,7 @@ const InventoryList: React.FC<TableInventoryProps> = ({ tooltipProps }) => {
     const nav = useNavigate()
 
     const tableHeaderCell = [
-        'Nội dung', 'Kì kiểm kê', 'Hạn kiểm kê', 'Địa điểm', 'Bộ phận', 'Nhóm tài sản', 'Loại tài sản', 'Trưởng ban kiểm kê', 'Chức vụ', 'Trạng thái', 'Tiến độ'
+        'Nội dung', 'Kì kiểm kê', 'Hạn kiểm kê', 'Địa điểm', 'Phòng ban', 'Nhóm tài sản', 'Loại tài sản', 'Trưởng ban kiểm kê', 'Chức vụ', 'Trạng thái', 'Tiến độ'
     ];
 
     console.log({ inventory });
@@ -89,7 +89,7 @@ const InventoryList: React.FC<TableInventoryProps> = ({ tooltipProps }) => {
         kiKiemKe: data.kiKiemKe,
         hanKiemKe: data.hanKiemKe,
         diaDiem: data.diaDiem,
-        boPhan: data.boPhan,
+        phongBan: data.phongBan,
         nhomTaiSan: data.nhomTaiSan,
         loaiTaiSan: data.loaiTaiSan,
         truongBanKiemKe: data.truongBanKiemKe,
@@ -112,7 +112,7 @@ const InventoryList: React.FC<TableInventoryProps> = ({ tooltipProps }) => {
             columnId: "diaDiem",
         }),
         createTableColumn<Item>({
-            columnId: "boPhan",
+            columnId: "phongBan",
         }),
         createTableColumn<Item>({
             columnId: "nhomTaiSan",
@@ -241,7 +241,7 @@ const InventoryList: React.FC<TableInventoryProps> = ({ tooltipProps }) => {
                                             {item?.diaDiem}
                                         </TableCell>
                                         <TableCell>
-                                            {item?.boPhan}
+                                            {item?.phongBan}
                                         </TableCell>
                                         <TableCell>
                                             {item?.nhomTaiSan}

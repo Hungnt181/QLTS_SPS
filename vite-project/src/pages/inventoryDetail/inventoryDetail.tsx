@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import type { AssetInvenType, InventoryListType } from "../../types/table";
 import InventoryDetailStyle from "../../styles/inventory/inventoryDetailStyle";
-import { createTableColumn, Persona, Table, TableBody, TableCell, TableHeader, TableHeaderCell, TableRow, Toolbar, ToolbarButton, type TableColumnDefinition, type TooltipProps } from "@fluentui/react-components";
-import { DismissSquare24Regular } from "@fluentui/react-icons";
+import { Button, createTableColumn, Persona, Table, TableBody, TableCell, TableHeader, TableHeaderCell, TableRow, Toolbar, ToolbarButton, type TableColumnDefinition, type TooltipProps } from "@fluentui/react-components";
+import { Dismiss24Regular } from "@fluentui/react-icons";
 import AssetInvenList from "./assetInvenList";
 import InvenBoardList from "./invenBoardList";
 
@@ -12,13 +12,14 @@ type TableInvenBoardProps = {
     tooltipProps?: TooltipProps
 }
 
-const InventoryDetail: React.FC<TableInvenBoardProps> = ({tooltipProps}) => {
+const InventoryDetail: React.FC<TableInvenBoardProps> = ({ tooltipProps }) => {
     const { maSoPhieu } = useParams()
     const [isLoading, setIsLoading] = useState(false)
     const location = useLocation()
     const nav = useNavigate()
     const style = InventoryDetailStyle()
-    const [inventory, setInventory] = useState <InventoryListType | (null)> (null)
+    const [inventory, setInventory] = useState<InventoryListType | (null)>(null)
+    const [assetFilters, setAssetFilters] = useState<{ phongBan: string; diaDiem: string }[]>([]);
 
     // Lấy thông tin chung
     useEffect(() => {
@@ -34,8 +35,9 @@ const InventoryDetail: React.FC<TableInvenBoardProps> = ({tooltipProps}) => {
                     : []
                 const foundInventory = inventoryList.find(item => String(item.maSoPhieu) === String(maSoPhieu))
                 setInventory(foundInventory || null)
+
             } catch (error) {
-                console.log ("lỗi", error)
+                console.log("lỗi", error)
             } finally {
                 setIsLoading(false)
             }
@@ -44,28 +46,46 @@ const InventoryDetail: React.FC<TableInvenBoardProps> = ({tooltipProps}) => {
             fetchData()
         }
     }, [maSoPhieu])
-    
+
 
     // if(!inventory) {
     //     console.log('không tìm thấy thông tin kiểm kê')
     // }
-    
-    return (
-        <> 
-        <div className={style.detailPage}>
-            <Toolbar aria-label="Back" className={style.toolbar}>
-                <ToolbarButton 
-                    appearance="subtle"
-                    icon={<DismissSquare24Regular className={style.toolbarIcon} />}
-                    onClick={() => nav('/taisan/inventory')}
-                >
-                </ToolbarButton>
-                <div className={style.toolbarTitle}>
-                    Thông tin kiểm kê
-                </div>
-            </Toolbar>
 
-            <div className={style.detail}>
+    const handleSaveInventory = () => {
+        const data = localStorage.getItem('data')
+        if (!data || !inventory) return
+
+        const parsed = JSON.parse(data)
+
+        const inventoryList: InventoryListType[] = Array.isArray(parsed.InventoryList)
+            ? parsed.InventoryList
+            : []
+
+        const updatedList = inventoryList.map(item => item.maSoPhieu === inventory.maSoPhieu ? inventory : item)
+
+        parsed.InventoryList = updatedList
+
+        localStorage.setItem('data', JSON.stringify(parsed))
+        alert("Lưu thành công")
+    }
+
+    return (
+        <>
+            <div className={style.detailPage}>
+                <Toolbar aria-label="Back" className={style.toolbar}>
+                    <ToolbarButton className={style.toolbarBtn}
+                        appearance="subtle"
+                        icon={<Dismiss24Regular className={style.toolbarIcon} />}
+                        onClick={() => nav('/taisan/inventory')}
+                    >
+                    </ToolbarButton>
+                    <div className={style.toolbarTitle}>
+                        Thông tin kiểm kê
+                    </div>
+                </Toolbar>
+
+                <div className={style.detail}>
                     <div className={style.general}>
                         <h2 className={style.title}>Thông tin chung</h2>
                         <div className={style.generalInfo}>
@@ -86,10 +106,10 @@ const InventoryDetail: React.FC<TableInvenBoardProps> = ({tooltipProps}) => {
                         </div>
                         <div className={style.generalInfo}>
                             <div className={style.text}>
-                                Bộ phận:
+                                Phòng ban:
                             </div>
-                            <div className={style.info}> 
-                                {inventory?.boPhan}
+                            <div className={style.info}>
+                                {inventory?.phongBan}
                             </div>
                         </div>
                         <div className={style.generalInfo}>
@@ -110,16 +130,24 @@ const InventoryDetail: React.FC<TableInvenBoardProps> = ({tooltipProps}) => {
                         </div>
                     </div>
 
-                    <div> 
+                    <div>
                         <InvenBoardList />
                     </div>
 
                     <div>
-                        <AssetInvenList />
+                        <AssetInvenList phongBan={inventory?.phongBan}
+                            diaDiem={inventory?.diaDiem} />
+                    </div>
+                    <div className={style.saveBtn}>
+                        <Button
+                            appearance="primary"
+                            onClick={handleSaveInventory}>
+                            Lưu kiểm kê
+                        </Button>
                     </div>
                     <Outlet />
                 </div>
-            </div>  
+            </div>
         </>
     )
 }

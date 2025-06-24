@@ -45,7 +45,8 @@ const AddNewInventoryDate = () => {
         kiKiemKeNam: "",
         kiKiemKe: "",
         hanKiemKe: "",
-        boPhan: "",
+        diaDiem: "",
+        phongBan: "",
         nhomTaiSan: "",
         loaiTaiSan: "",
         trangThai: "Chưa kiểm kê",
@@ -150,7 +151,7 @@ const AddNewInventoryDate = () => {
                                                 </Dropdown> */}
                                                 <Label size="medium" required htmlFor={"kiKiemKe"} className={style.formLabel}>Kì kiểm kê</Label>
                                                 <div className={style.selectDate}>
-                                                    <Select id={"kiKiemKeThang"} name={"kiKiemKeThang"} className={style.formItem}
+                                                    <Select id={"kiKiemKeThang"} name={"kiKiemKeThang"} className={style.formItem} value={formData.kiKiemKeThang ?? ""}
                                                         onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}>
                                                         <option></option>
                                                         <option>Tháng 01</option>
@@ -167,7 +168,7 @@ const AddNewInventoryDate = () => {
                                                         <option>Tháng 12</option>
                                                     </Select>
 
-                                                    <Input size="medium" id={"kiKiemKeNam"} name={"kiKiemKeNam"} className={style.formItem}
+                                                    <Input size="medium" id={"kiKiemKeNam"} name={"kiKiemKeNam"} className={style.formItem} value={formData.kiKiemKeNam ?? ""}
                                                         onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })} placeholder="2025"
                                                         contentAfter={<Calendar16Regular />}
                                                     />
@@ -176,14 +177,8 @@ const AddNewInventoryDate = () => {
 
                                             <div className={style.datePicker}>
                                                 <Label size="medium" required htmlFor={"hanKiemKe"} className={style.formLabel}>Hạn kiểm kê</Label>
-                                                <DatePicker className={style.formItem} id={"hanKiemKe"} placeholder="Chọn ngày" value={formData.hanKiemKe ? new Date(formData.hanKiemKe.split("/").reverse().join("-")) : undefined}
-                                                            onSelectDate={(date) =>
-                                                                setFormData((prev) =>({
-                                                                    ...prev,
-                                                                    hanKiemKe: date ? date.toLocaleDateString("vi-VN") : "",
-                                                                }))
-                                                            }
-                                                            formatDate={(date) => date?.toLocaleDateString("vi-VN") ?? ""}
+                                                <DatePicker className={style.formItem} id={"hanKiemKe"} placeholder="Chọn ngày"
+                                                            onSelectDate={handleDateChange("hanKiemKe")}
                                                 >
                                                 </DatePicker>
                                             </div>
@@ -194,20 +189,22 @@ const AddNewInventoryDate = () => {
                                                 </Label>
                                                 <Select id={"diaDiem"} name={"diaDiem"} className={style.formItem}
                                                     onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
-                                                        <option></option>
-                                                        <option>VP Hà Nội</option>
-                                                        <option>VP Hồ Chí Minh</option>
+                                                        <option value=""></option>
+                                                        <option value="VP Hà Nội">VP Hà Nội</option>
+                                                        <option value="VP Hồ Chí Minh">VP Hồ Chí Minh</option>
                                                 </Select>
                                             </div>
 
                                             <div className={style.formDiv}>
-                                                <Label size="medium" required htmlFor={"boPhan"} className={style.formLabel}>
-                                                    Bộ phận
+                                                <Label size="medium" required htmlFor={"phongBan"} className={style.formLabel}>
+                                                    Phòng ban
                                                 </Label>
-                                                <Input size="medium" id={"boPhan"} name={"boPhan"} className={style.formInput}
-                                                    onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
-                                                    placeholder="Phòng kinh doanh"
-                                                />
+                                                <Select id={"phongBan"} name={"phongBan"} className={style.formItem}
+                                                onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
+                                                    <option value=""></option>
+                                                    <option value="Phòng kinh doanh">Phòng kinh doanh</option>
+                                                    <option value="Phòng công nghệ">Phòng công nghệ</option>
+                                                </Select>
                                             </div>
 
                                             <div className={style.formDiv}>
@@ -241,7 +238,7 @@ const AddNewInventoryDate = () => {
 
                                 <InvenBoardList useTemp />
 
-                                <AssetInvenList />                                       
+                                <AssetInvenList diaDiem={formData.diaDiem} phongBan={formData.phongBan} />                                       
                             </Accordion>
                         </DialogContent>
 

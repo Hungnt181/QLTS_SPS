@@ -1,9 +1,9 @@
 import { makeStyles, tokens } from "@fluentui/react-components";
 
-const InventoryDetailStyle = makeStyles (({
+const InventoryDetailStyle = makeStyles(({
     detailPage: {
         width: "calc(100vw - 131px)",
-        height: "calc(100vh - 72px)",
+        height: "calc(100vh - 118px)",
         display: "flex",
         flexDirection: "column",
         gap: "12px",
@@ -11,17 +11,32 @@ const InventoryDetailStyle = makeStyles (({
         overflow: "hidden",
     },
 
-    toolbar:{
+    toolbar: {
         display: "flex",
         alignItems: "center",
         padding: "12px 0px",
-        gap: "12px"
+        gap: "12px",
+    },
+
+    rotate: {
+        transform: "rotate(90deg)",
+     
+    },
+
+    toolbarBtn: {
+        display: "flex",
+        width: "32px",
+        height: "32px",
+        alignItems: "center",
+        alignContent: "center",
+        border: "1px solid #adadad",
+        padding: "0px",
     },
 
     toolbarIcon: {
-        fontSize: "24px",
-        // color: tokens.colorNeutralForeground3,
+        boxSizing: "border-box",
         color: "#adadad",
+        lineHeight: "24px",
     },
 
     toolbarTitle: {
@@ -29,7 +44,7 @@ const InventoryDetailStyle = makeStyles (({
         fontWeight: 600,
         lineHeight: "22px",
     },
-    
+
     detail: {
         display: "flex",
         height: "100vh",
@@ -50,9 +65,9 @@ const InventoryDetailStyle = makeStyles (({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        marginBottom: "8px",
+        marginBottom: "0",
     },
-    
+
     title: {
         fontSize: "16px",
         fontWeight: 600,
@@ -89,9 +104,20 @@ const InventoryDetailStyle = makeStyles (({
         // backgroundcolor: tokens.colorNeutralForeground2,
         backgroundColor: "#E4E3E3",
     },
-    
+
     sum: {
-        fontWeight: 600,        
+        fontWeight: 600,
+    },
+
+    saveBtn: {
+        width: "calc(100vw - 131px)",
+        position: "fixed",
+        bottom: "0",
+        zIndex: 1,
+        display: "flex",
+        justifyContent: "flex-end",
+        padding: "12px 0",
+        backgroundColor: tokens.colorNeutralForegroundOnBrand,
     },
 }))
 export default InventoryDetailStyle

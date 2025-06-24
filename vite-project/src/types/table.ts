@@ -51,13 +51,14 @@ export interface InventoryListType {
     kiKiemKe: string,
     hanKiemKe: string,
     diaDiem: string,
-    boPhan: string,
+    phongBan: string,
     nhomTaiSan: string,
     loaiTaiSan: string,
     truongBanKiemKe: string,
     chucVu: string,
     trangThai: string,
     tienDo: string,
+    taiSanKiemKe: AssetInvenType[],
 }
 
 export interface InvenBoardType {
@@ -76,6 +77,7 @@ export interface AssetInvenType {
     qr: string,
     nguoiQuanLy: string,
     chucVu: string,
+    diaDiem: string,
     phongBan: string,
     chuaSuDung: string,
     dangSuDung: string,
