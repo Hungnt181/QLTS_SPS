@@ -3,7 +3,7 @@ import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import type { AssetInvenType, InventoryListType } from "../../types/table";
 import InventoryDetailStyle from "../../styles/inventory/inventoryDetailStyle";
 import { Button, createTableColumn, Persona, Table, TableBody, TableCell, TableHeader, TableHeaderCell, TableRow, Toolbar, ToolbarButton, type TableColumnDefinition, type TooltipProps } from "@fluentui/react-components";
-import { Dismiss24Regular } from "@fluentui/react-icons";
+import { ArrowExport24Regular, ArrowExportUp24Regular, Dismiss24Regular } from "@fluentui/react-icons";
 import AssetInvenList from "./assetInvenList";
 import InvenBoardList from "./invenBoardList";
 
@@ -135,8 +135,18 @@ const InventoryDetail: React.FC<TableInvenBoardProps> = ({ tooltipProps }) => {
                     </div>
 
                     <div>
+                        <div className={style.header}>
+                            <h2 className={style.title}>Tài sản kiểm kê</h2>
+                            <Button icon={<ArrowExport24Regular className={style.rotate} />}>Xuất File</Button>
+                        </div>
                         <AssetInvenList phongBan={inventory?.phongBan}
                             diaDiem={inventory?.diaDiem} />
+                    </div>
+                    <div>
+                        <div className={style.header}>
+                            <h2 className={style.title}>Kết quả kiểm kê</h2>
+                        </div>
+                        <Button icon={<ArrowExportUp24Regular />}>Import</Button>
                     </div>
                     <div className={style.saveBtn}>
                         <Button

@@ -126,10 +126,6 @@ const AssetInvenList = ({ assetList, phongBan, diaDiem, useTemp }: AssetInvenLis
     ]
     return (
         <>
-            <div className={style.header}>
-                <h2 className={style.title}>Tài sản kiểm kê</h2>
-                <Button icon={<ArrowExport24Regular className={style.rotate} />}>Xuất File</Button>
-            </div>
             <Table>
                 <TableHeader className={style.headerCell}>
                     <TableRow>

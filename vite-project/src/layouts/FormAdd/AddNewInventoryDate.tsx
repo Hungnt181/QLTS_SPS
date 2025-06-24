@@ -4,14 +4,16 @@ import { data, Outlet, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import type { AssetInvenType, InvenBoardType } from "../../types/table";
 import InventoryList from "../tableList/inventoryList";
-import { Calendar16Regular, ChevronLeft16Regular } from "@fluentui/react-icons";
+import { ArrowExportUp24Regular, Calendar16Regular, ChevronLeft16Regular } from "@fluentui/react-icons";
 import InvenBoardList from "../../pages/inventoryDetail/invenBoardList";
 import AssetInvenList from "../../pages/inventoryDetail/assetInvenList";
 import { DatePicker, type DatePickerProps } from "@fluentui/react-datepicker-compat";
+import InventoryDetailStyle from "../../styles/inventory/inventoryDetailStyle";
 
 
 const AddNewInventoryDate = () => {
     const style = FormAddNewInventoryDate()
+    const style1 = InventoryDetailStyle()
     const nav = useNavigate()
     const [openItems, setOpenItems] = useState(["1"])
     const handleToggle: AccordionToggleEventHandler<string> = (_event, data) => {
@@ -65,7 +67,7 @@ const AddNewInventoryDate = () => {
         const truongBan = tempList.find((item: any) => item.vaiTro === "Trưởng ban")
 
         console.log("Trưởng ban kiểm kê:", truongBan);
-        
+
 
         setFormData((prev) => ({
             ...prev,
@@ -97,7 +99,7 @@ const AddNewInventoryDate = () => {
         alert('Thêm mới thành công')
         nav('/taisan/inventory', { state: { reload: true } })
     }
-    
+
 
     const handleDateChange = (field: keyof typeof formData) => (date: Date | null | undefined) => {
         setFormData((prev) => ({
@@ -178,7 +180,7 @@ const AddNewInventoryDate = () => {
                                             <div className={style.datePicker}>
                                                 <Label size="medium" required htmlFor={"hanKiemKe"} className={style.formLabel}>Hạn kiểm kê</Label>
                                                 <DatePicker className={style.formItem} id={"hanKiemKe"} placeholder="Chọn ngày"
-                                                            onSelectDate={handleDateChange("hanKiemKe")}
+                                                    onSelectDate={handleDateChange("hanKiemKe")}
                                                 >
                                                 </DatePicker>
                                             </div>
@@ -188,10 +190,10 @@ const AddNewInventoryDate = () => {
                                                     Địa điểm
                                                 </Label>
                                                 <Select id={"diaDiem"} name={"diaDiem"} className={style.formItem}
-                                                    onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
-                                                        <option value=""></option>
-                                                        <option value="VP Hà Nội">VP Hà Nội</option>
-                                                        <option value="VP Hồ Chí Minh">VP Hồ Chí Minh</option>
+                                                    onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}>
+                                                    <option value=""></option>
+                                                    <option value="VP Hà Nội">VP Hà Nội</option>
+                                                    <option value="VP Hồ Chí Minh">VP Hồ Chí Minh</option>
                                                 </Select>
                                             </div>
 
@@ -200,7 +202,7 @@ const AddNewInventoryDate = () => {
                                                     Phòng ban
                                                 </Label>
                                                 <Select id={"phongBan"} name={"phongBan"} className={style.formItem}
-                                                onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
+                                                    onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}>
                                                     <option value=""></option>
                                                     <option value="Phòng kinh doanh">Phòng kinh doanh</option>
                                                     <option value="Phòng công nghệ">Phòng công nghệ</option>
@@ -212,11 +214,11 @@ const AddNewInventoryDate = () => {
                                                     Nhóm tài sản
                                                 </Label>
                                                 <Select id={"nhomTaiSan"} name={"nhomTaiSan"} className={style.formItem}
-                                                    onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
-                                                        <option></option>
-                                                        <option>Công cụ, dụng cụ</option>
-                                                        <option>Tài sản cố định hữu hình</option>
-                                                        <option>Tài sản cố định vô hình</option>
+                                                    onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}>
+                                                    <option></option>
+                                                    <option>Công cụ, dụng cụ</option>
+                                                    <option>Tài sản cố định hữu hình</option>
+                                                    <option>Tài sản cố định vô hình</option>
                                                 </Select>
                                             </div>
 
@@ -225,20 +227,24 @@ const AddNewInventoryDate = () => {
                                                     Loại tài sản
                                                 </Label>
                                                 <Select id={"loaiTaiSan"} name={"loaiTaiSan"} className={style.formItem}
-                                                    onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value})}>
-                                                        <option></option>
-                                                        <option>Máy móc thiết bị</option>
-                                                        <option>Phương tiện di chuyển</option>
-                                                        <option>Bàn ghế</option>
+                                                    onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}>
+                                                    <option></option>
+                                                    <option>Máy móc thiết bị</option>
+                                                    <option>Phương tiện di chuyển</option>
+                                                    <option>Bàn ghế</option>
                                                 </Select>
                                             </div>
                                         </div>
-                                    </AccordionPanel>                
+                                    </AccordionPanel>
                                 </AccordionItem>
 
                                 <InvenBoardList useTemp />
-
-                                <AssetInvenList diaDiem={formData.diaDiem} phongBan={formData.phongBan} />                                       
+                                <div>
+                                    <div className={style1.header}>
+                                        <h2 className={style1.title}>Tài sản kiểm kê</h2>
+                                    </div>
+                                    <AssetInvenList diaDiem={formData.diaDiem} phongBan={formData.phongBan} />
+                                </div>
                             </Accordion>
                         </DialogContent>
 
@@ -246,7 +252,7 @@ const AddNewInventoryDate = () => {
                             <div className={style.Formbutton}>
                                 <DialogTrigger disableButtonEnhancement>
                                     <Button icon={<ChevronLeft16Regular />} className={style.closeBtn}
-                                    appearance="secondary" onClick={() => nav('/taisan/inventory')}>Quay lại</Button>
+                                        appearance="secondary" onClick={() => nav('/taisan/inventory')}>Quay lại</Button>
                                 </DialogTrigger>
                                 <Button appearance="primary" onClick={() => addNewInventoryDate()}>Thêm mới</Button>
                             </div>

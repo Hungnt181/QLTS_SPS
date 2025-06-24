@@ -2,7 +2,6 @@ import listPageStyle from "../../styles/listPages/listPage.ts";
 import Header from "../../layouts/header/header.tsx";
 import { Outlet } from "react-router-dom";
 import AppBar from "../../layouts/sideBar/appBar/appBar.tsx";
-import InventoryList from "../../layouts/tableList/inventoryList.tsx";
 
 const HomePage = () => {
   const style = listPageStyle();
