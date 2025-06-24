@@ -15,7 +15,6 @@ import TableStatus from "../layouts/tableList/tableStatus.tsx";
 import AddNewStatus from "../layouts/FormAdd/formAddNewStatus.tsx";
 import TableState from "../layouts/tableList/tableState.tsx";
 import AddNewState from "../layouts/FormAdd/formAddNewState.tsx";
-import MyLisstAsset from "../pages/listPage/list/MyListAsset.tsx";
 import FormConfig from "../pages/listPage/settings/FormConfig.tsx";
 import Dashboard from "../layouts/dashboard/dashboard.tsx";
 import TableListFormConfig from "../layouts/tableList/tableListFormConfig.tsx";
@@ -65,9 +64,9 @@ const router = createBrowserRouter([
             children: [
               {
                 path: "completed/:id",
-                element: <MaintenanceCompleted/>
+                element: <MaintenanceCompleted />,
               },
-            ]
+            ],
           },
           // fix
           {
@@ -76,9 +75,9 @@ const router = createBrowserRouter([
             children: [
               {
                 path: "completed/:id",
-                element: <RepairCompleted/>
+                element: <RepairCompleted />,
               },
-            ]
+            ],
           },
           // liquidation
           {
@@ -194,23 +193,23 @@ const router = createBrowserRouter([
         path: "taisan/list/detail/:id",
         element: <AssetDetail />,
         children: [
-            {
-               path: "revoke",
-              element: <RevokeAsset/>
-            },
+          {
+            path: "revoke",
+            element: <RevokeAsset />,
+          },
           {
             path: "assign",
-            element: <AssignAsset/>
+            element: <AssignAsset />,
           },
           {
             path: "repair",
-            element: <RepairAsset/>
+            element: <RepairAsset />,
           },
           {
             path: "maintenance",
-            element: <MaintenanceAsset/>
-          }
-        ]
+            element: <MaintenanceAsset />,
+          },
+        ],
       },
       //deatail formConfigtaif sản
       {
