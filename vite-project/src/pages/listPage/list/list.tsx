@@ -3,17 +3,29 @@ import assetListStyle from "../../../styles/listPages/assetList/asstList.ts";
 import SubToolBar from "../../../layouts/subToolBar/subToolBar.tsx";
 import TableList from "../../../layouts/tableList/tableList.tsx";
 import FilterDraw from "../../../layouts/filterDraw/filterDraw.tsx";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {Outlet, useNavigate} from "react-router-dom";
 
+//interface cho titleToolBar
+type TabToolBar = {
+    value: string;
+    url: string;
+    label: string;
+    icon?: React.ReactNode;
+    action?: () => void;
+
+}
 const AssetList = () => {
     const style = assetListStyle();
     const nav = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
-    // state cho Filter
+    //titelToolBar
+    const titleToolBar = useRef<TabToolBar[]>([
+        {value: "danhSach", url: "#", label: "Danh sách"},
+    ]);
+    // state cho Filters
     const onOpen = () => {
         setIsOpen(true);
-        console.log('open')
     }
     const onClose = () => {
         setIsOpen(false);
@@ -26,7 +38,7 @@ const AssetList = () => {
 
     return (
         <div className={style.assetList}>
-            <ToolBar></ToolBar>
+            <ToolBar titleToolBar={titleToolBar}></ToolBar>
             <SubToolBar onOpen={onOpen} onOpenAdd={onOpenAdd}></SubToolBar>
             <TableList></TableList>
             <FilterDraw isOpen={isOpen} onClose={onClose}></FilterDraw>

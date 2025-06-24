@@ -3,8 +3,8 @@ import {
     Box20Filled,
     Box20Regular,
     BoxEdit20Filled,
-    BoxEdit20Regular,
-    Compose20Regular,
+    BoxEdit20Regular, Clipboard3Day20Filled, Clipboard3Day20Regular,
+    Compose20Regular, DatabaseMultiple20Filled, DatabaseMultiple20Regular, DocumentData20Filled, DocumentData20Regular,
     DocumentEdit20Filled,
     DocumentEdit20Regular,
     Filter20Regular,
@@ -18,9 +18,9 @@ import {
     Warning20Regular
 } from "@fluentui/react-icons";
 import {
-    Nav,
+    Nav, NavCategory, NavCategoryItem,
     type NavCategoryItemProps,
-    type NavCategoryProps, NavItem,
+    type NavCategoryProps, NavItem, NavSubItem, NavSubItemGroup,
     type SplitNavItemProps,
 } from "@fluentui/react-nav-preview";
 
@@ -29,8 +29,8 @@ import {
     Tooltip,
     type TooltipProps
 } from "@fluentui/react-components";
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
 
 type MenuBar = {
     tooltipProps?: TooltipProps;
@@ -41,13 +41,57 @@ type SplitNavItemNestedProps = {
     navCategory?: NavCategoryProps;
     navCategoryItem?: NavCategoryItemProps;
     navSubItems?: SplitNavItemProps[];
+    navItem?: {
+        value: string;
+        icon?: JSX.Element[];
+        children: string;
+        href?: string;
+        action?: () => void;
+    };
 };
 
 
 const MenuBar = ({tooltipProps}: MenuBar) => {
+    // Tạo mapping giữa URL prefix và item value (sắp xếp theo độ dài giảm dần)
+    const URL_PREFIX_TO_ITEM_MAP: Array<{prefix: string, value: string}> = [
+        // Routes dài hơn phải đặt trước để match chính xác
+        { prefix: '/taisan/settings/master-data', value: '8' },
+        { prefix: '/taisan/settings/form-config', value: '9' },
+        { prefix: '/taisan/settings/advanced-info', value: '10' },
+        { prefix: '/taisan/dashboard', value: '1' },
+        { prefix: '/taisan/my-asset', value: '11' },
+        { prefix: '/taisan/list', value: '12' },
+        { prefix: '/taisan/maintenance', value: '3' },
+        { prefix: '/taisan/repair', value: '4' },
+        { prefix: '/taisan/liquidation', value: '5' },
+        { prefix: '/taisan/inventory', value: '6' },
+    ];
+
+// Function để lấy item value từ current URL (sử dụng prefix matching)
+    const getSelectedItemFromUrl = (pathname: string): string => {
+        // Tìm prefix đầu tiên khớp với pathname
+        const matchedItem = URL_PREFIX_TO_ITEM_MAP.find(item =>
+            pathname.startsWith(item.prefix)
+        );
+
+        return matchedItem?.value || '1'; // Default là '1' nếu không tìm thấy
+    };
+    const nav = useNavigate();
+    const location = useLocation();
+
+    // Khởi tạo selectedItem từ URL hiện tại
+    const [selectedItem, setSelectedItem] = useState(() =>
+        getSelectedItemFromUrl(location.pathname)
+    );
+    // Cập nhật selectedItem khi URL thay đổi (khi người dùng navigate bằng cách khác)
+    useEffect(() => {
+        const currentItem = getSelectedItemFromUrl(location.pathname);
+        setSelectedItem(currentItem);
+    }, [location.pathname]);
     const style = menuBarStyle()
-    const [selectedItem, setSelectedItem] = useState("2")
-    const nav = useNavigate()
+
+    // const [selectedItem, setSelectedItem] = useState("12")
+    // const nav = useNavigate()
 
     // Array of menu bar items
     const splitNavItemNestedProps: SplitNavItemNestedProps[] = [
@@ -55,8 +99,8 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
             splitNavItem: {
                 navItem: {
                     value: "1", icon: [<Grid20Regular/>, <Grid20Filled/>], children: "Tổng quan",
-                    acction: () => {
-                        nav("/taisan/dasboard");
+                    action: () => {
+                        nav("/taisan/dashboard");
                         setSelectedItem("1")
                     }
                 },
@@ -64,12 +108,31 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
         },
         {
             splitNavItem: {
-                navItem: {
-                    value: "2", icon: [<Box20Regular/>, <Box20Filled/>], children: "Tài sản", acction: () => {
-                        nav("/taisan/list");
-                        setSelectedItem("2")
-                    }
-                },
+                navCategory: {value: "2"},
+                navCategoryItem: {icon: [<Box20Regular/>, <Box20Filled/>], children: "Tài sản"},
+                navSubItems: [
+                    {
+                        navItem: {
+                            value: "11", children: "Tài sản của tôi",
+                            icon: [<DatabaseMultiple20Regular/>, <DatabaseMultiple20Filled/>],
+                            action: () => {
+                                nav("/taisan/my-asset");
+                                setSelectedItem("11")
+                            }
+                        }
+                    },
+                    {
+                        navItem: {
+                            value: "12",
+                            children: "Danh sách quản lý",
+                            icon: [<DocumentData20Regular/>, <DocumentData20Filled/>],
+                            action: () => {
+                                nav("/taisan/list");
+                                setSelectedItem("12")
+                            }
+                        }
+                    },
+                ],
             },
         },
         {
@@ -78,8 +141,8 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                     value: "3",
                     icon: [<History20Regular/>, <History20Filled/>],
                     children: "Bảo dưỡng",
-                    acction: () => {
-                        nav("/taisan/dasboard");
+                    action: () => {
+                        nav("/taisan/maintenance");
                         setSelectedItem("3")
                     }
                 },
@@ -91,34 +154,34 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                     value: "4",
                     icon: [<BoxEdit20Regular/>, <BoxEdit20Filled/>],
                     children: "Sửa chữa",
-                    acction: () => {
-                        nav("/taisan/dasboard");
+                    action: () => {
+                        nav("/taisan/repair");
                         setSelectedItem("4")
                     }
                 },
             },
         },
-        {
-            splitNavItem: {
-                navItem: {
-                    value: "5",
-                    icon: [<Warning20Regular/>, <Warning20Filled/>],
-                    children: "Mất-Hủy-Thanh lý",
-                    acction: () => {
-                        nav("/taisan/dasboard");
-                        setSelectedItem("5")
-                    }
-                },
-            },
-        },
+        // {
+        //     splitNavItem: {
+        //         navItem: {
+        //             value: "5",
+        //             icon: [<Warning20Regular/>, <Warning20Filled/>],
+        //             children: "Mất-Hủy-Thanh lý",
+        //             action: () => {
+        //                 nav("/taisan/liquidation");
+        //                 setSelectedItem("5")
+        //             }
+        //         },
+        //     },
+        // },
         {
             splitNavItem: {
                 navItem: {
                     value: "6",
                     icon: [<DocumentEdit20Regular/>, <DocumentEdit20Filled/>],
                     children: "Kiểm kê",
-                    acction: () => {
-                        nav("/taisan/dasboard");
+                    action: () => {
+                        nav("/taisan/inventory");
                         setSelectedItem("6")
                     }
                 },
@@ -126,21 +189,42 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
         },
         {
             splitNavItem: {
-                navItem: {
-                    value: "7",
-                    icon: [<Settings20Regular/>, <Settings20Filled/>],
-                    children: "Cấu hình",
-                    acction: () => {
-                        nav("/taisan/dasboard");
-                        setSelectedItem("7")
-                    }
-                },
-                // navCategory: { value: "7" },
-                // navCategoryItem: { icon: [<Settings20Regular/>,<Settings20Filled/> ], children: "Cấu hình" },
-                // navSubItems: [
-                //     { navItem: { value: "9", children: "Cấu hình 1", href: "#" } },
-                //     { navItem: { value: "8", children: "Cấu hình 2", href: "#" } },
-                // ],
+                navCategory: {value: "7"},
+                navCategoryItem: {icon: [<Settings20Regular/>, <Settings20Filled/>], children: "Cấu hình"},
+                navSubItems: [
+                    {
+                        navItem: {
+                            value: "8", children: "Master Data",
+                            icon: [<DatabaseMultiple20Regular/>, <DatabaseMultiple20Filled/>],
+                            action: () => {
+                                nav("/taisan/settings/master-data");
+                                setSelectedItem("8")
+                            }
+                        }
+                    },
+                    {
+                        navItem: {
+                            value: "9",
+                            children: "Cấu hình biểu mẫu",
+                            icon: [<DocumentData20Regular/>, <DocumentData20Filled/>],
+                            action: () => {
+                                nav("/taisan/settings/form-config");
+                                setSelectedItem("9")
+                            }
+                        }
+                    },
+                    {
+                        navItem: {
+                            value: "10",
+                            children: "Thông tin nâng cao",
+                            icon: [<Clipboard3Day20Regular/>, <Clipboard3Day20Filled/>],
+                            action: () => {
+                                nav("/taisan/settings/advanced-info");
+                                setSelectedItem("10")
+                            }
+                        }
+                    },
+                ],
             },
         },
     ];
@@ -168,25 +252,55 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
             <div className={style.menuBarContent}>
                 <Nav
                     defaultSelectedValue={selectedItem}
-                    defaultSelectedCategoryValue=""
+                    defaultSelectedCategoryValue={
+                        ["8", "9", "10"].includes(selectedItem) ? "7" :
+                            ["11", "12"].includes(selectedItem) ? "2" :
+                                ""
+                    }
                 >
-                    {splitNavItemNestedProps.map((item, index) => {
-                        if (!item.navCategoryItem) {
-                            return (
-                                <NavItem key={index} href={item?.splitNavItem?.navItem?.href}
-                                         icon={selectedItem == item?.splitNavItem?.navItem?.value ? item?.splitNavItem?.navItem?.icon[1] : item?.splitNavItem?.navItem?.icon[0]}
-                                         value={item?.splitNavItem?.navItem?.value}
-                                         onClick={item?.splitNavItem?.navItem?.acction}
-                                         className={mergeClasses(style.menuBarItem,
-                                             selectedItem == item?.splitNavItem?.navItem?.value ? style.menuBarItemActive : "")}
-                                >
-                                    {item?.splitNavItem?.navItem?.children}
-                                </NavItem>
-                            );
-                        }
+                    {splitNavItemNestedProps.map((item: SplitNavItemNestedProps, index) =>
+                        item?.splitNavItem?.navCategory ? (
+                            <NavCategory value={ item?.splitNavItem?.navCategory?.value} key={ item?.splitNavItem?.navCategory?.value}>
+                                <NavCategoryItem icon={
+                                    item?.splitNavItem?.navCategoryItem?.icon[0]
+                                }  >
+                                    { item?.splitNavItem?.navCategoryItem?.children}
+                                </NavCategoryItem>
 
-
-                    })}
+                                <NavSubItemGroup>
+                                    {item?.splitNavItem?.navSubItems?.map((subItem, subIndex) => (
+                                        <NavSubItem
+                                            key={subItem?.navItem?.value}
+                                            value={subItem?.navItem?.value}
+                                            onClick={subItem?.navItem?.action}
+                                        >
+                                            {subItem.navItem.children}
+                                        </NavSubItem>
+                                    ))}
+                                </NavSubItemGroup>
+                            </NavCategory>
+                        ) : (
+                            <NavItem
+                                key={item?.splitNavItem?.navItem?.value}
+                                href={item?.splitNavItem?.navItem?.href}
+                                icon={
+                                    selectedItem == item?.splitNavItem?.navItem?.value
+                                        ? item?.splitNavItem?.navItem?.icon[1]
+                                        : item?.splitNavItem?.navItem?.icon[0]
+                                }
+                                value={item?.splitNavItem?.navItem?.value}
+                                onClick={item?.splitNavItem?.navItem?.action}
+                                className={mergeClasses(
+                                    style.menuBarItem,
+                                    selectedItem == item?.splitNavItem?.navItem?.value
+                                        ? style.menuBarItemActive
+                                        : ""
+                                )}
+                            >
+                                {item?.splitNavItem?.navItem?.children}
+                            </NavItem>
+                        )
+                    )}
                 </Nav>
             </div>
         </div>

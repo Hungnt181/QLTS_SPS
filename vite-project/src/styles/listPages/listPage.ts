@@ -3,7 +3,7 @@ import {makeStyles} from "@fluentui/react-components";
 const listPageStyle = makeStyles({
         body : {
             display: "flex",
-            width: "100vh"
+            width: "100vh",
         }
     })
 
