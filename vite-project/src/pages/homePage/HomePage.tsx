@@ -513,21 +513,6 @@ const HomePage = () => {
             name: "nhomTaiSan",
             options: [
               { label: "Công cụ, dụng cụ", value: "Công cụ, dụng cụ" },
-              { label: "Máy móc thiết bị", value: "Máy móc thiết bị" },
-              { label: "Phương tiện vận tải", value: "Phương tiện vận tải" },
-              {
-                label: "Nhà cửa, vật kiến trúc",
-                value: "Nhà cửa, vật kiến trúc",
-              },
-            ],
-            defaultValue: "Công cụ, dụng cụ",
-          },
-          {
-            idField: "ttc7",
-            label: "Loại tài sản",
-            type: "lookup",
-            name: "loaiTaiSan",
-            options: [
               {
                 label: "Tài sản cố định hữu hình",
                 value: "Tài sản cố định hữu hình",
@@ -538,6 +523,21 @@ const HomePage = () => {
               },
               { label: "Tài sản lưu động", value: "Tài sản lưu động" },
               { label: "Tài sản khác", value: "Tài sản khác" },
+            ],
+            defaultValue: "Công cụ, dụng cụ",
+          },
+          {
+            idField: "ttc7",
+            label: "Loại tài sản",
+            type: "lookup",
+            name: "loaiTaiSan",
+            options: [
+              { label: "Máy móc thiết bị", value: "Máy móc thiết bị" },
+              { label: "Phương tiện vận tải", value: "Phương tiện vận tải" },
+              {
+                label: "Nhà cửa, vật kiến trúc",
+                value: "Nhà cửa, vật kiến trúc",
+              },
             ],
             defaultValue: "Tài sản cố định hữu hình",
           },
