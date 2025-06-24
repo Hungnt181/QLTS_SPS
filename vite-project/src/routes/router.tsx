@@ -10,7 +10,7 @@ import MasterData from "../pages/listPage/settings/MasterData.tsx";
 import TableTypeAsset from "../layouts/tableList/tableTypeAsset.tsx";
 import TableGroupAsset from "../layouts/tableList/tableGroupAsset.tsx";
 import AddNewGroupAs from "../layouts/FormAdd/formAddNewgroupAs.tsx";
-import AddNewTypeAs from "../layouts/FormAdd/formAddNewTypeAs.tsx"
+import AddNewTypeAs from "../layouts/FormAdd/formAddNewTypeAs.tsx";
 import TableStatus from "../layouts/tableList/tableStatus.tsx";
 import AddNewStatus from "../layouts/FormAdd/formAddNewStatus.tsx";
 import TableState from "../layouts/tableList/tableState.tsx";
@@ -23,6 +23,15 @@ import FormConfigDetail from "../pages/listPage/settings/Detail/FormConfigDetail
 import AdvancedInfo from "../pages/listPage/settings/AdvancedInfo.tsx";
 import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 import AddNewAdvancedInfo from "../layouts/FormAdd/formAddNewAdvancedInfo.tsx";
+import MyDashBoard from "../pages/myDashboard/MyDashboard.tsx";
+import RevokeAsset from "../pages/assetDetail/Form/RevokeAssset.tsx";
+import AssignAsset from "../pages/assetDetail/Form/AssignAsset.tsx";
+import RepairAsset from "../pages/assetDetail/Form/RepairAsset.tsx";
+import RepairList from "../pages/listPage/repair/RepairList.tsx";
+import RepairCompleted from "../pages/listPage/repair/RepairCompleted.tsx";
+import MaintenanceAsset from "../pages/assetDetail/Form/MaintenanceAsset.tsx";
+import MaintenanceList from "../pages/listPage/maintenance/MaintenanceList.tsx";
+import MaintenanceCompleted from "../pages/listPage/maintenance/MaintenanceCompleted.tsx";
 import InventoryList from "../layouts/tableList/inventoryList.tsx";
 import InventoryDetail from "../pages/inventoryDetail/inventoryDetail.tsx";
 import AddNewInventoryDate from "../layouts/FormAdd/AddNewInventoryDate.tsx";
@@ -37,7 +46,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/taisan/list" replace />,
+        element: <Navigate to="/taisan/dashboard" replace />,
       },
       {
         path: "taisan",
@@ -45,7 +54,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <AssetList />,
+            element: <Dashboard />,
           },
           // Dashboard
           {
@@ -55,12 +64,24 @@ const router = createBrowserRouter([
           // maintenance
           {
             path: "maintenance",
-            element: <AssetDashboard />,
+            element: <MaintenanceList />,
+            children: [
+              {
+                path: "completed/:id",
+                element: <MaintenanceCompleted />,
+              },
+            ],
           },
           // fix
           {
-            path: "fix",
-            element: <AssetDashboard />,
+            path: "repair",
+            element: <RepairList />,
+            children: [
+              {
+                path: "completed/:id",
+                element: <RepairCompleted />,
+              },
+            ],
           },
           // liquidation
           {
@@ -84,12 +105,12 @@ const router = createBrowserRouter([
                   {
                     path: "add",
                     element: <AddNewInvenBoard mode="add" />,
-                  }
-                ]
-              }
-            ]
+                  },
+                ],
+              },
+            ],
           },
-          
+
           //// List Asset
           {
             path: "list",
@@ -103,7 +124,7 @@ const router = createBrowserRouter([
           },
           {
             path: "my-asset",
-            element: <MyLisstAsset />,
+            element: <AssetList />,
           },
           // Settings
           // Settings Master Data
@@ -129,9 +150,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "type",
-                element: (
-                    <TableTypeAsset />
-                ),
+                element: <TableTypeAsset />,
                 children: [
                   {
                     path: "w-create",
@@ -141,9 +160,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "status",
-                element: (
-                  <TableStatus />
-                ),
+                element: <TableStatus />,
                 children: [
                   {
                     path: "w-create",
@@ -153,13 +170,11 @@ const router = createBrowserRouter([
               },
               {
                 path: "state",
-                element:( 
-                <TableState />
-                ),
+                element: <TableState />,
                 children: [
                   {
                     path: "w-create",
-                    element: <AddNewState />
+                    element: <AddNewState />,
                   },
                 ],
               },
@@ -199,6 +214,24 @@ const router = createBrowserRouter([
       {
         path: "taisan/list/detail/:id",
         element: <AssetDetail />,
+        children: [
+          {
+            path: "revoke",
+            element: <RevokeAsset />,
+          },
+          {
+            path: "assign",
+            element: <AssignAsset />,
+          },
+          {
+            path: "repair",
+            element: <RepairAsset />,
+          },
+          {
+            path: "maintenance",
+            element: <MaintenanceAsset />,
+          },
+        ],
       },
       //deatail formConfigtaif sản
       {
@@ -207,24 +240,25 @@ const router = createBrowserRouter([
       },
       // deatail formConfig ttnc tài sản
       {
-          path: 'taisan/settings/advanced-info/detail/:_id',
-          element: <FormAdvancedInfoDetail/>,
+        path: "taisan/settings/advanced-info/detail/:_id",
+        element: <FormAdvancedInfoDetail />,
       },
+
       // detail Kiểm kê
-        {
-          path: "taisan/inventory-detail/:maSoPhieu",
-          element: <InventoryDetail />,
-          children: [
-                {
-                  path: "add",
-                  element: <AddNewInvenBoard mode="detail" />,
-                }
-              ]
-        },
+      {
+        path: "taisan/inventory-detail/:maSoPhieu",
+        element: <InventoryDetail />,
+        children: [
+          {
+            path: "add",
+            element: <AddNewInvenBoard mode="detail" />,
+          },
+        ],
+      },
 
       {
         path: "tongquan",
-        element: <EmptyPage />,
+        element: <MyDashBoard />,
       },
       {
         path: "quytrinh",
@@ -247,13 +281,11 @@ const router = createBrowserRouter([
         element: <EmptyPage />,
       },
     ],
-    
   },
   {
-    
     path: "/",
     element: <HomePage />,
-  }
+  },
 ]);
 
 export default router;

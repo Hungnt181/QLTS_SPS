@@ -1,18 +1,38 @@
 import formConfigDetailStyle from "../../../../styles/listPages/settings/formConfigDetail.ts";
 import {
+    Accordion, AccordionHeader, AccordionItem, AccordionPanel,
     Button,
     Card,
     CardFooter,
-    CardPreview,
+    CardPreview, Checkbox,
     Dropdown,
     type DropdownProps,
     Input,
-    Label, Option,
+    Label, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger,
+    Option,
+    Text,
 } from "@fluentui/react-components";
-import {AddCircle20Regular, Checkmark20Regular, ChevronLeft24Regular, Dismiss20Regular} from "@fluentui/react-icons";
+import {
+    AddCircle20Regular,
+    Checkmark20Regular,
+    ChevronLeft24Regular,
+    Dismiss20Regular,
+    Delete20Regular, MoreVertical20Regular
+} from "@fluentui/react-icons";
 import {useNavigate, useParams} from "react-router-dom";
 import type {Field, FormConfigItem} from "../../../../types/table.ts";
 import {useState} from "react";
+
+// Interface cho lookup option
+interface LookupOption {
+    label: string;
+    value: string;
+}
+
+// Extend Field interface để bao gồm options
+interface ExtendedField extends Field {
+    options?: LookupOption[];
+}
 
 const FormConfigDetail = (props: Partial<DropdownProps>) => {
     const style = formConfigDetailStyle();
@@ -31,10 +51,12 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
         'date',
     ];
 
-    // Tạo 1 item filed mới
-
     // State cho trường đang được thêm mới
-    const [newField, setNewField] = useState<Field | null>(null);
+    const [newField, setNewField] = useState<ExtendedField | null>(null);
+
+    // State cho việc chỉnh sửa các trường hiện có
+    const [editingFields, setEditingFields] = useState<{[key: string]: ExtendedField}>({});
+
     // Hàm lấy name tự động theo label
     const generateFieldName = (label: string): string => {
         // 1. Bỏ dấu tiếng Việt
@@ -51,8 +73,8 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
             .join("");
 
         return camelCased;
-
     };
+
     // Hàm thêm trường mới
     const handleAddNewField = () => {
         // Kiểm tra xem có trường mới nào chưa hoàn thành không
@@ -79,15 +101,17 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
         }
 
         // Tạo trường mới
-        const newFieldData: Field = {
+        const newFieldData: ExtendedField = {
             idField: `field_${Date.now()}`,
             label: "",
             type: "text",
             name: "",
+            options: []
         };
 
         setNewField(newFieldData);
     };
+
     // Hàm xử lý thay đổi label của trường mới
     const handleNewFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newLabel = e.target.value;
@@ -99,23 +123,139 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
             });
         }
     };
+
     // Hàm xử lý thay đổi type của trường mới
     const handleNewFieldTypeChange = (selectedOption: string) => {
         if (newField) {
-            setNewField({
+            const updatedField = {
                 ...newField,
                 type: selectedOption,
+            };
+
+            // Nếu chọn lookup, khởi tạo mảng options rỗng
+            if (selectedOption === 'lookup' && !updatedField.options) {
+                updatedField.options = [];
+            }
+
+            setNewField(updatedField);
+        }
+    };
+
+    // Hàm thêm option mới cho lookup field
+    const handleAddLookupOption = (fieldId: string, isNewField: boolean = false) => {
+        if (isNewField && newField) {
+            const newOptions = [...(newField.options || []), { label: "", value: "" }];
+            setNewField({
+                ...newField,
+                options: newOptions
             });
+        } else {
+            // Xử lý cho existing fields
+            const currentField = editingFields[fieldId] ||
+                formConfigData.find((item: FormConfigItem) => item.id === id)?.fields.find((f: Field) => f.idField === fieldId);
+
+            if (currentField) {
+                const newOptions = [...(currentField.options || []), { label: "", value: "" }];
+                setEditingFields({
+                    ...editingFields,
+                    [fieldId]: {
+                        ...currentField,
+                        options: newOptions
+                    }
+                });
+            }
+        }
+    };
+
+    // Hàm cập nhật option lookup
+    const handleUpdateLookupOption = (fieldId: string, optionIndex: number, field: 'label' | 'value', value: string, isNewField: boolean = false) => {
+        if (isNewField && newField) {
+            const updatedOptions = [...(newField.options || [])];
+            updatedOptions[optionIndex] = {
+                ...updatedOptions[optionIndex],
+                [field]: value
+            };
+
+            // Tự động generate value từ label nếu đang sửa label
+            if (field === 'label') {
+                updatedOptions[optionIndex].value = generateFieldName(value);
+            }
+
+            setNewField({
+                ...newField,
+                options: updatedOptions
+            });
+        } else {
+            // Xử lý cho existing fields
+            const currentField = editingFields[fieldId] ||
+                formConfigData.find((item: FormConfigItem) => item.id === id)?.fields.find((f: Field) => f.idField === fieldId);
+
+            if (currentField) {
+                const updatedOptions = [...(currentField.options || [])];
+                updatedOptions[optionIndex] = {
+                    ...updatedOptions[optionIndex],
+                    [field]: value
+                };
+
+                // Tự động generate value từ label nếu đang sửa label
+                if (field === 'label') {
+                    updatedOptions[optionIndex].value = generateFieldName(value);
+                }
+
+                setEditingFields({
+                    ...editingFields,
+                    [fieldId]: {
+                        ...currentField,
+                        options: updatedOptions
+                    }
+                });
+            }
+        }
+    };
+
+    // Hàm xóa option lookup
+    const handleRemoveLookupOption = (fieldId: string, optionIndex: number, isNewField: boolean = false) => {
+        if (isNewField && newField) {
+            const updatedOptions = newField.options?.filter((_, index) => index !== optionIndex) || [];
+            setNewField({
+                ...newField,
+                options: updatedOptions
+            });
+        } else {
+            // Xử lý cho existing fields
+            const currentField = editingFields[fieldId] ||
+                formConfigData.find((item: FormConfigItem) => item.id === id)?.fields.find((f: Field) => f.idField === fieldId);
+
+            if (currentField) {
+                const updatedOptions = currentField.options?.filter((_, index) => index !== optionIndex) || [];
+                setEditingFields({
+                    ...editingFields,
+                    [fieldId]: {
+                        ...currentField,
+                        options: updatedOptions
+                    }
+                });
+            }
         }
     };
 
     // Hàm lưu form data mới vào db
-
     const handleSaveFormData = () => {
+        // Cập nhật các trường đã chỉnh sửa
+        Object.keys(editingFields).forEach(fieldId => {
+            const formConfigItem = allData.formConfig.find((form: FormConfigItem) => form.id === id);
+            if (formConfigItem) {
+                const fieldIndex = formConfigItem.fields.findIndex((f: Field) => f.idField === fieldId);
+                if (fieldIndex !== -1) {
+                    formConfigItem.fields[fieldIndex] = editingFields[fieldId];
+                }
+            }
+        });
+
         // Kiểm tra xem có trường mới nào chưa hoàn thành không
         if (newField != null && newField.label.trim() !== '') {
-            const formData = newField
-            const selectedFormId = "ttc";
+            const formData = newField;
+            const selectedFormId = id || "ttc";
             const formConfigData = allData.formConfig.find((form: FormConfigItem) => form.id === selectedFormId);
 
             if (!formConfigData) {
@@ -131,16 +271,72 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
                 formConfigData.fields.push(formData);
                 localStorage.setItem("data", JSON.stringify(allData));
                 alert("Thêm mới thành công.");
-                nav("/taisan/settings/form-config", {state: {reload: true}})
+                nav("/taisan/settings/form-config", {state: {reload: true}});
             }
         } else {
             // Lưu dữ liệu vào localStorage
             localStorage.setItem('data', JSON.stringify(allData));
             alert(`Cập nhật thành công.`);
-            nav("/taisan/settings/form-config", {state: {reload: true}})
+            nav("/taisan/settings/form-config", {state: {reload: true}});
         }
-    }
+    };
 
+    // Component render lookup options
+    const renderLookupOptions = (field: ExtendedField, isNewField: boolean = false) => {
+        const options = field.options || [];
+
+        return (
+            <Accordion collapsible>
+                <AccordionItem value={1}>
+                    <AccordionHeader>Giá trị lookup</AccordionHeader>
+                    <AccordionPanel>
+                        <div style={{ marginTop: '12px', padding: '12px', border: '1px solid #e0e0e0', borderRadius: '4px' }}>
+                            <Text weight="semibold" size={300}>Cấu hình giá trị Lookup:</Text>
+                            {options.map((option, index) => (
+                                <div key={index} style={{ display: 'flex', gap: '8px', marginTop: '8px', alignItems: 'center' }}>
+                                    <Input
+                                        placeholder="Nhập label"
+                                        value={option.label}
+                                        onChange={(e) => handleUpdateLookupOption(
+                                            field.idField || '',
+                                            index,
+                                            'label',
+                                            e.target.value,
+                                            isNewField
+                                        )}
+                                        style={{ flex: 1 }}
+                                    />
+                                    <Input
+                                        placeholder="Value (tự động)"
+                                        value={option.value}
+                                        readOnly
+                                        style={{ flex: 1, backgroundColor: '#f5f5f5' }}
+                                    />
+                                    <Button
+                                        icon={<Delete20Regular />}
+                                        size="small"
+                                        appearance="subtle"
+                                        onClick={() => handleRemoveLookupOption(field.idField || '', index, isNewField)}
+                                    />
+                                </div>
+                            ))}
+                            <Button
+                                icon={<AddCircle20Regular />}
+                                size="small"
+                                appearance="subtle"
+                                onClick={() => handleAddLookupOption(field.idField || '', isNewField)}
+                                style={{ marginTop: '8px' }}
+                            >
+                                Thêm giá trị
+                            </Button>
+                        </div>
+                    </AccordionPanel>
+                </AccordionItem>
+            </Accordion>
+
+
+        );
+    };
 
     return <>
         <div className={style.formConfigDetailStyle}>
@@ -181,20 +377,51 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
                                 {
                                     item.fields.map((field) => {
                                         if ("idField" in field) {
-                                            console.log('field', field);
+                                            const currentField = editingFields[field.idField] || field;
                                             return (
                                                 <CardPreview key={field.idField} className={style.contentCardBody}>
                                                     <div className={style.rowContentCardBody}>
-                                                        <div className={style.divInput}>
-                                                            <Input className={style.divDropdown}
-                                                                   defaultValue={field.label}/>
+                                                        <div className={style.divInput} style={{display: "flex", alignItems: "center"}}>
+                                                            <Checkbox checked={true} />
+                                                            <Input
+                                                                className={style.divDropdown}
+                                                                defaultValue={field.label}
+                                                                onChange={(e) => {
+                                                                    setEditingFields({
+                                                                        ...editingFields,
+                                                                        [field.idField]: {
+                                                                            ...currentField,
+                                                                            label: e.target.value,
+                                                                            name: generateFieldName(e.target.value)
+                                                                        }
+                                                                    });
+                                                                }}
+                                                            />
                                                         </div>
-                                                        <div className={style.divInput}>
+                                                        <div className={style.divInput} style={{display: "flex", alignItems: "center"}}>
                                                             <Dropdown
                                                                 id={item.name}
                                                                 name={item.name}
-                                                                value={field.type}
+                                                                value={currentField.type}
                                                                 className={style.divDropdown}
+                                                                onOptionSelect={(e, data) => {
+                                                                    if (data.optionValue) {
+                                                                        const updatedField = {
+                                                                            ...currentField,
+                                                                            type: data.optionValue
+                                                                        };
+
+                                                                        // Nếu chọn lookup, khởi tạo mảng options
+                                                                        if (data.optionValue === 'lookup' && !updatedField.options) {
+                                                                            updatedField.options = [];
+                                                                        }
+
+                                                                        setEditingFields({
+                                                                            ...editingFields,
+                                                                            [field.idField]: updatedField
+                                                                        });
+                                                                    }
+                                                                }}
                                                                 {...props}
                                                             >
                                                                 {fieldTypes.map((type) => (
@@ -203,8 +430,22 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
                                                                     </Option>
                                                                 ))}
                                                             </Dropdown>
+                                                            <Menu positioning={{ autoSize: true }}>
+                                                                <MenuTrigger>
+                                                                    <MoreVertical20Regular/>
+                                                                </MenuTrigger>
+
+                                                                <MenuPopover>
+                                                                    <MenuList>
+                                                                        <MenuItem>Xóa </MenuItem>
+                                                                        <MenuItem>Sửa</MenuItem>
+                                                                    </MenuList>
+                                                                </MenuPopover>
+                                                            </Menu>
                                                         </div>
                                                     </div>
+                                                    {/* Hiển thị cấu hình lookup options nếu type là lookup */}
+                                                    {currentField.type === 'lookup' && renderLookupOptions(currentField)}
                                                 </CardPreview>
                                             );
                                         } else {
@@ -243,10 +484,11 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
                                                 </Dropdown>
                                             </div>
                                         </div>
+                                        {/* Hiển thị cấu hình lookup options cho trường mới nếu type là lookup */}
+                                        {newField.type === 'lookup' && renderLookupOptions(newField, true)}
                                     </CardPreview>
                                 )}
                             </div>
-
 
                             <CardFooter className={style.contentCardFooter}>
                                 <div className={style.contentCardFooterLine}>

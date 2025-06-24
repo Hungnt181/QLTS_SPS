@@ -8,28 +8,28 @@ import {
     TableHeader,
     TableHeaderCell,
     TableRow,
-    TableSelectionCell, Tooltip, type TooltipProps, useTableFeatures, useTableSelection
+    TableSelectionCell, useTableFeatures, useTableSelection
 } from "@fluentui/react-components";
 import {useEffect, useState} from "react";
-import type {FormConfigItem} from "../../types/table.ts";
-import { useNavigate} from "react-router-dom";
+import type {MaintenanceAssetItem, TypeTaiSan} from "../../types/table.ts";
+import {useLocation,} from "react-router-dom";
 
-type TableGroupAssetProps = {
-    tooltipProps?: TooltipProps;
-}
-const TableListFormConfig = ({tooltipProps} : TableGroupAssetProps) => {
+
+const TableListMaintenance = ({getID}: { getID: (id:string)=> void} ) => {
     // call api lấy data
-    const [dataFormConfig, setDataFormConfig] = useState<FormConfigItem[]>([])
+    const [dataTable, setDatatable] = useState<MaintenanceAssetItem[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    // const [selectedId, setSelectedId] = useState<string | null>(null);
+    const location = useLocation();
     useEffect(() => {
-       ( async () => {
+        const fetchData = async () => {
             try {
                 setIsLoading(true);
                 // const response = await axios.get(`http://localhost:3000/formConfig`);
                 const data = localStorage.getItem('data');
                 const allData = data ? JSON.parse(data) : [];
-                setDataFormConfig(
-                    allData.formConfig.map((item: FormConfigItem) => ({
+                setDatatable(
+                    allData.maintenanceAsset.map((item:MaintenanceAssetItem) => ({
                         key: item.id,
                         ...item
                     }))
@@ -39,32 +39,65 @@ const TableListFormConfig = ({tooltipProps} : TableGroupAssetProps) => {
             } finally {
                 setIsLoading(false);
             }
-        })();
-    }, []);
+        };
+        fetchData().then();
+        if (location.state?.reload) {
+            fetchData().then();
+        }
+    }, [location.state?.reload]);
     //
     const style = tableListStyle();
-    const nav = useNavigate()
 
     //
     const tableHeaderCell = [
-        'Tên biểu mẫu', 'Mô tả'
+        'Mã số biên bản', 'Tên tài sản', 'Mã tài sản','Nguyên giá', 'Người quản lý',
+        'Người sử dụng', 'Ngày mua', 'Hạn bảo dưỡng', "Mô tả tình trạng"
     ]
 
 
-    const items: Item[] = dataFormConfig.map((data) => ({
+    const items: Item[] = dataTable.map((data: MaintenanceAssetItem) => ({
         id: data.id,
-        name: data.name,
-        description: data.description,
+        taiSan: data.taiSan as TypeTaiSan,
+        tenTaiSan: data.taiSan.tenTaiSan,
+        maTaiSan: data.taiSan.maTaiSan,
+        nguyenGia: data.taiSan.nguyenGia,
+        trangThai: data.taiSan.trangThai,
+        nguoiQuanLy: data.taiSan.nguoiQuanLy,
+        nguoiSuDung: data.taiSan.nguoiSuDung,
+        ngayMua: data.taiSan.ngayMua,
+        hanBaoDuong: data.taiSan.hanBaoDuong,
+        moTa: data.moTa
     }));
 
 //
 
     const columns: TableColumnDefinition<Item>[] = [
         createTableColumn<Item>({
-            columnId: "name",
+            columnId: "id",
         }),
         createTableColumn<Item>({
-            columnId: "description",
+            columnId: "tenTaiSan",
+        }),
+        createTableColumn<Item>({
+            columnId: "maTaiSan",
+        }),
+        createTableColumn<Item>({
+            columnId: "nguyenGia",
+        }),
+        createTableColumn<Item>({
+            columnId: "nguoiQuanLy",
+        }),
+        createTableColumn<Item>({
+            columnId: "nguoiSuDung",
+        }),
+        createTableColumn<Item>({
+            columnId: "ngayMua",
+        }),
+        createTableColumn<Item>({
+            columnId: "hanBaoDuong",
+        }),
+        createTableColumn<Item>({
+            columnId: "moTa",
         }),
     ];
 
@@ -84,7 +117,7 @@ const TableListFormConfig = ({tooltipProps} : TableGroupAssetProps) => {
         },
         [
             useTableSelection({
-                selectionMode: "multiselect",
+                selectionMode: "single",
                 defaultSelectedItems: new Set([]),
             }),
         ]
@@ -94,11 +127,15 @@ const TableListFormConfig = ({tooltipProps} : TableGroupAssetProps) => {
         const selected = isRowSelected(row.rowId);
         return {
             ...row,
-            onClick: (e: React.MouseEvent) => toggleRow(e, row.rowId),
+            onClick: (e: React.MouseEvent) => {
+                toggleRow(e, row.rowId);
+                getID(row.item.id); // Lấy ID của hàng khi click
+            },
             onKeyDown: (e: React.KeyboardEvent) => {
                 if (e.key === " ") {
                     e.preventDefault();
                     toggleRow(e, row.rowId);
+                    getID(row.item.id);// Lấy ID của hàng khi click
                 }
             },
             selected,
@@ -115,14 +152,6 @@ const TableListFormConfig = ({tooltipProps} : TableGroupAssetProps) => {
         },
         [toggleAllRows]
     );
-    const handleClick = (id: string) => {
-        if (id === 'ttnc') {
-            nav(`/taisan/settings/advanced-info`);
-            window.location.reload();
-            return;
-        }
-        nav(`/taisan/settings/form-config/detail/${id}`);
-    }
     return (
 
         <div className={style.tableList}>
@@ -131,7 +160,7 @@ const TableListFormConfig = ({tooltipProps} : TableGroupAssetProps) => {
                     <Table
                         aria-label="Table with subtle selection"
                         // style={{minWidth: "550px"}}
-                        className={style.smallTable}
+                        className={style.table}
                     >
                         <TableHeader>
                             <TableRow>
@@ -165,15 +194,35 @@ const TableListFormConfig = ({tooltipProps} : TableGroupAssetProps) => {
                                         checked={selected}
                                         checkboxIndicator={{"aria-label": "Select row"}}
                                     />
-                                    <TableCell className={style.hoverNameItem}
-                                               onClick={()=>handleClick(item.id)}>
-                                        {item?.name}
+                                    <TableCell>
+                                        {item?.id}
                                     </TableCell>
-                                    <Tooltip content={item?.description || null}  {...tooltipProps}>
-                                        <TableCell className={style.toolTip}>
-                                            {item?.description}
-                                        </TableCell>
-                                    </Tooltip>
+                                    <TableCell className={style.hoverNameItem}
+                                    >
+                                        {item?.tenTaiSan}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.maTaiSan}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.nguyenGia}
+                                    </TableCell>
+
+                                    <TableCell>
+                                        {item?.nguoiQuanLy}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.nguoiSuDung}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.ngayMua}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.hanBaoDuong}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item?.moTa}
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -184,4 +233,4 @@ const TableListFormConfig = ({tooltipProps} : TableGroupAssetProps) => {
     );
 };
 
-export default TableListFormConfig;
+export default TableListMaintenance;

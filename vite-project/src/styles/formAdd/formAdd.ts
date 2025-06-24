@@ -111,11 +111,57 @@ const FormAddMasterDataStyle = makeStyles(({
     formAddSettingWitdh: {
         width: "600px"
     },
-    textArea : {
+    textArea: {
         height: "200px"
-    }
+    },
+    //
+    newField: {
+        display: "grid",
+        gridTemplateColumns: "repeat(2, 1fr)",
+        gap: "8px",
+        marginTop: "8px"
+    },
+    fileInput: {
+        width: "100%",
+    },
+    contentCardFooter: {
+        width: "100%",
+        height: "40px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginTop: "8px"
+    },
+    contentCardFooterLine: {
+        width: "45%",
+        height: "10%",
+        borderBottom: `2px solid ${mainColor}`,
+    },
+    contentCardFooterBtn: {
+        color: mainColor,
+        backgroundColor: "none",
+    },
 }))
-export {FormAddMasterDataStyle}
+export {FormAddMasterDataStyle};
+
+const FormRevoke = makeStyles(({
+        itemInfo: {
+            width: "100%",
+            height: '36px',
+            borderBottom: `1px solid ${tokens.colorNeutralBackground3Pressed}`,
+            borderTop: `1px solid ${tokens.colorNeutralBackground3Pressed}`,
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "8px",
+        },
+        itemInfoIcon : {
+            width: '50%',
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+        }
+    }))
+export  {FormRevoke};
 
 const FormAddNewInventoryDate = makeStyles(({
     addnewInvenDate: {

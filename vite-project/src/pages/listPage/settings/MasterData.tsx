@@ -22,19 +22,19 @@ const MasterData = () => {
     const [curentUrl, setCurrentUrl] = useState<string>("/taisan/settings/master-data/group");
     //titelToolBar
     const titleToolBar = useRef<TabToolBar[]>([
-        {value: "nhomTaiSan", url: "/taisan/settings/master-data/group", label: "Nhóm tài sản",
+        {value: "group", url: "/taisan/settings/master-data/group", label: "Nhóm tài sản",
             action: () => {nav("/taisan/settings/master-data/group")
                                 setCurrentUrl("/taisan/settings/master-data/group")
         }},
-        {value: "loaiTaiSan", url: "/taisan/settings/master-data/type", label: "Loại tài sản",
+        {value: "type", url: "/taisan/settings/master-data/type", label: "Loại tài sản",
             action: () => {nav("/taisan/settings/master-data/type")
                 setCurrentUrl("/taisan/settings/master-data/type")
         }},
-        {value: "tinhTrang", url: "/taisan/settings/master-data/status", label: "Tình trạng",
+        {value: "status", url: "/taisan/settings/master-data/status", label: "Tình trạng",
             action: () => {nav("/taisan/settings/master-data/status")
                                 setCurrentUrl("/taisan/settings/master-data/status")
         }},
-        {value: "trangThai", url: "/taisan/settings/master-data/state", label: "Trạng thái",
+        {value: "state", url: "/taisan/settings/master-data/state", label: "Trạng thái",
             action: () => {nav("/taisan/settings/master-data/state")
                                 setCurrentUrl("/taisan/settings/master-data/state")
         }},

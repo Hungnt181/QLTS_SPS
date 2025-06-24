@@ -8,6 +8,7 @@ export interface TypeTaiSan {
     diaDiem: string;
     boPhan: string;
     nguyenGia: number;
+    soLuong: string;
     trangThai: string;
     nguoiQuanLy: string;
     nguoiSuDung: string;
@@ -15,6 +16,12 @@ export interface TypeTaiSan {
     hanBaoHanh: string;
     hanBaoDuong: string;
     tinhTrang: string;
+    chucVuQL: string;
+    chucVuSD: string;
+    taiLieu: string;
+    ngayMua: string;
+    lichSuBaoTri: string;
+    lichSuKiemKe: string;
 }
 
 export interface TypeGroupAsset {
@@ -124,5 +131,55 @@ export interface FormConfigItem {
     name: string;
     fields: (Field | AssetCategoryField)[];
     description: string;
+}
+/// revoke
+export interface TaiSan {
+    id: string;
+    tenTaiSan: string;
+    maTaiSan: string;
+    nguoiSuDung: string;
+    soLuong: string;
+}
+
+export interface RevokeAssetItem {
+    id: string;
+    taiSan: TaiSan;
+    nguoiThuHoi: string;
+    soLuongThuHoi: string;
+    ngayThuHoi: string;
+    lyDo: string;
+}
+//assign
+export interface AssignAssetItem {
+    id: string;
+    taiSan: TaiSan;
+    nguoiCapPhat: string;
+    soLuongCapPhat: string;
+    ngayCapPhat: string;
+    nguoiSuDung: string;
+    ghiChu: string;
+}
+
+//repair
+export interface RepairAssetItem {
+    id: string;
+    taiSan: TypeTaiSan;
+    ngaySuaChua: string;
+    // chiPhiDuKien: string;
+    ngayHoanThanh: string;
+    chiPhiThucTe: string;
+    ghiChu: string;
+    moTa: string;
+}
+
+//maintenance
+export interface MaintenanceAssetItem {
+    id: string;
+    taiSan: TypeTaiSan;
+    loaiBaoDuong: string;
+    ngayBaoDuong: string;
+    ngayHoanThanh: string;
+    chiPhiThucTe: string;
+    moTa: string;
 }
 
