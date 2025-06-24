@@ -14,7 +14,6 @@ const dashboardStyle = makeStyles(({
 
     toolBar: {
         display: "fixed",
-
     },
 
     contentContainer: {
