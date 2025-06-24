@@ -79,16 +79,16 @@ const InventoryDetailStyle = makeStyles(({
     },
 
     text: {
-        fontSize: "12px",
+        fontSize: "14px",
         fontWeight: "400",
-        lineHeight: "16px",
+        lineHeight: "18px",
         color: tokens.colorNeutralForeground3,
         width: "150px",
     },
 
     info: {
         fontSize: "14px",
-        lineHeight: "16px",
+        lineHeight: "18px",
         fontWeight: "400",
         color: tokens.colorNeutralForeground3,
     },
