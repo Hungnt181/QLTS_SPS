@@ -36,6 +36,7 @@ import InventoryList from "../layouts/tableList/inventoryList.tsx";
 import InventoryDetail from "../pages/inventoryDetail/inventoryDetail.tsx";
 import AddNewInventoryDate from "../layouts/FormAdd/AddNewInventoryDate.tsx";
 import AddNewInvenBoard from "../layouts/FormAdd/AddNewInvenBoard.tsx";
+import AssetDetailNew from "../pages/assetDetail/assetDetail_new.tsx";
 
 // import FormAdvancedInfoDetail from "../pages/listPage/settings/Detail/FromAdvancedInfoDetail.tsx";
 
@@ -211,6 +212,10 @@ const router = createBrowserRouter([
         ],
       },
       //deatail list tài sản
+      {
+        path: "taisan/list/new-detail/:id",
+        element: <AssetDetailNew />
+      },
       {
         path: "taisan/list/detail/:id",
         element: <AssetDetail />,
