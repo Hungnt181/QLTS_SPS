@@ -78,7 +78,6 @@ const assetDetailStyle = makeStyles(({
     titleIcon: {
         width: "32px",
         height: "32px",
-        display: "inline-block",
         color: tokens.colorNeutralForeground4
     },
 
