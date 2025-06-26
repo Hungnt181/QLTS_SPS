@@ -97,7 +97,7 @@ const AddNewInventoryDate = () => {
 
         localStorage.setItem('data', JSON.stringify(allData))
         alert('Thêm mới thành công')
-        nav('/taisan/inventory', { state: { reload: true } })
+        nav('/asset/inventory', { state: { reload: true } })
     }
 
 
@@ -252,7 +252,7 @@ const AddNewInventoryDate = () => {
                             <div className={style.Formbutton}>
                                 <DialogTrigger disableButtonEnhancement>
                                     <Button icon={<ChevronLeft16Regular />} className={style.closeBtn}
-                                        appearance="secondary" onClick={() => nav('/taisan/inventory')}>Quay lại</Button>
+                                        appearance="secondary" onClick={() => nav('/asset/inventory')}>Quay lại</Button>
                                 </DialogTrigger>
                                 <Button appearance="primary" onClick={() => addNewInventoryDate()}>Thêm mới</Button>
                             </div>

@@ -18,7 +18,7 @@ const FormConfig = () => {
     const style = masterDataStyle()
     //titelToolBar
     const titleToolBar = useRef<TabToolBar[]>([
-        {value: "danhSach", url: "#", label: "Danh sách"},
+        // {value: "danhSach", url: "#", label: "Danh sách"},
         // {value: "add", url: "#", label: "", icon: <Add20Regular/>},
     ]);
 
@@ -27,7 +27,6 @@ const FormConfig = () => {
     return (
         <div className={style.masterData}>
             <ToolBar titleToolBar={titleToolBar}></ToolBar>
-            <SubToolBarFormConfig></SubToolBarFormConfig>
             <Outlet></Outlet>
         </div>
     );

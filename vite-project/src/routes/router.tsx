@@ -15,7 +15,6 @@ import TableStatus from "../layouts/tableList/tableStatus.tsx";
 import AddNewStatus from "../layouts/FormAdd/formAddNewStatus.tsx";
 import TableState from "../layouts/tableList/tableState.tsx";
 import AddNewState from "../layouts/FormAdd/formAddNewState.tsx";
-import MyLisstAsset from "../pages/listPage/list/MyListAsset.tsx";
 import FormConfig from "../pages/listPage/settings/FormConfig.tsx";
 import Dashboard from "../layouts/dashboard/dashboard.tsx";
 import TableListFormConfig from "../layouts/tableList/tableListFormConfig.tsx";
@@ -46,10 +45,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/taisan/dashboard" replace />,
+        element: <Navigate to="/asset/dashboard" replace />,
       },
       {
-        path: "taisan",
+        path: "asset",
         element: <ListPages />,
         children: [
           {
@@ -95,7 +94,7 @@ const router = createBrowserRouter([
           },
 
           {
-            path: "/taisan/inventory",
+            path: "/asset/inventory",
             element: <InventoryList />,
             children: [
               {
@@ -135,7 +134,7 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: (
-                  <Navigate to="/taisan/settings/master-data/group" replace />
+                  <Navigate to="/asset/settings/master-data/group" replace />
                 ),
               },
               {
@@ -188,7 +187,7 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: (
-                  <Navigate to="/taisan/settings/form-config/list" replace />
+                  <Navigate to="/asset/settings/form-config/list" replace />
                 ),
               },
               {
@@ -212,7 +211,7 @@ const router = createBrowserRouter([
       },
       //deatail list tài sản
       {
-        path: "taisan/list/detail/:id",
+        path: "asset/list/detail/:id",
         element: <AssetDetail />,
         children: [
           {
@@ -235,18 +234,18 @@ const router = createBrowserRouter([
       },
       //deatail formConfigtaif sản
       {
-        path: "taisan/settings/form-config/detail/:id",
+        path: "asset/settings/form-config/detail/:id",
         element: <FormConfigDetail />,
       },
       // deatail formConfig ttnc tài sản
       {
-        path: "taisan/settings/advanced-info/detail/:_id",
+        path: "asset/settings/advanced-info/detail/:_id",
         element: <FormAdvancedInfoDetail />,
       },
 
       // detail Kiểm kê
       {
-        path: "taisan/inventory-detail/:maSoPhieu",
+        path: "asset/inventory-detail/:maSoPhieu",
         element: <InventoryDetail />,
         children: [
           {

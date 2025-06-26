@@ -3,7 +3,7 @@ import { makeStyles, tokens } from "@fluentui/react-components";
 var mainColor = tokens.colorNeutralBackground1
 const dashboardStyle = makeStyles(({
     dashboardPage: {
-        width: "calc(100vw - 388px)",
+        width: "calc(100vw - 403px)",
         height: "calc(100vh - 50px)",
         position: "relative",
         overflowY: "auto",

@@ -2,7 +2,7 @@ import { makeStyles } from "@fluentui/react-components";
 
 const inventoryListStyle = makeStyles({
     inventoryPage: {
-        width: "calc(100vw - 388px)",
+        width: "calc(100vw - 403px)",
         height: "calc(100vh - 50px)",
         position: "relative",
         overflow: "hidden",

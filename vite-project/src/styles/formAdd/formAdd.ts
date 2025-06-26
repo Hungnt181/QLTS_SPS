@@ -7,16 +7,19 @@ const AddNewAssetStyle = makeStyles(({
     },
     formAdd: {
         minHeight: "600px",
-        height: "80vh"
+        height: "80vh",
+        padding: '0 6px 0'
     },
     editWdith: {
-        maxWidth: "60vw",
-        minWidth: "600px",
+        maxWidth: "60rem",
+        padding: '0px !important'
     },
     Formbutton: {
-        width: "200%",
+        width: "100%",
         display: "flex",
         justifyContent: "space-between",
+        padding: '20px !important',
+        gridColumn: 'span 2'
     },
     closeBtn: {
         border: "none",
@@ -35,7 +38,7 @@ const AddNewAssetStyle = makeStyles(({
         display: "flex",
         justifyContent: "space-between",
         flexDirection: "row-reverse",
-        padding: "0",
+        padding: "0 20px",
         "& button": {
             minHeight: "20px !important",
             paddingLeft: "0px"
@@ -51,7 +54,27 @@ const AddNewAssetStyle = makeStyles(({
     },
 
     formContent: {
-        margin: "0",
+        width: "calc(100% - 6px)",
+        margin: '0',
+        display: "flex",
+        flexDirection: "column",
+        gap: "24px",
+        overflowY: "auto",
+        "&::-webkit-scrollbar": {
+            width: "6px",
+        },
+        "&::-webkit-scrollbar-track": {
+            background: "transparent",
+        },
+        "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "rgba(0, 0, 0, 0.2)",
+            borderRadius: "3px",
+            "&:hover": {
+                backgroundColor: "rgba(0, 0, 0, 0.4)",
+            }
+        },
+        scrollbarWidth: "thin",
+        scrollbarColor: "rgba(0, 0, 0, 0.2) transparent",
     },
 
     formSectionTitle: {
@@ -63,7 +86,7 @@ const AddNewAssetStyle = makeStyles(({
     },
     formDiv: {
         width: "100%",
-        marginTop: "12px"
+        marginTop: "12px",
     },
     formLabel: {
         fontSize: "12px",
@@ -121,6 +144,16 @@ const FormAddMasterDataStyle = makeStyles(({
         gap: "8px",
         marginTop: "8px"
     },
+    formSection: {
+        display: "flex",
+        justifyContent: "space-between",
+        flexDirection: "row-reverse",
+        padding: "0",
+        "& button": {
+            minHeight: "20px !important",
+            paddingLeft: "0px"
+        }
+    },
     fileInput: {
         width: "100%",
     },
@@ -141,27 +174,33 @@ const FormAddMasterDataStyle = makeStyles(({
         color: mainColor,
         backgroundColor: "none",
     },
+    Formbutton: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "space-between",
+        gridColumn: 'span 2'
+    },
 }))
 export {FormAddMasterDataStyle};
 
 const FormRevoke = makeStyles(({
-        itemInfo: {
-            width: "100%",
-            height: '36px',
-            borderBottom: `1px solid ${tokens.colorNeutralBackground3Pressed}`,
-            borderTop: `1px solid ${tokens.colorNeutralBackground3Pressed}`,
-            display: "flex",
-            alignItems: "center",
-            marginBottom: "8px",
-        },
-        itemInfoIcon : {
-            width: '50%',
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-        }
-    }))
-export  {FormRevoke};
+    itemInfo: {
+        width: "100%",
+        height: '36px',
+        borderBottom: `1px solid ${tokens.colorNeutralBackground3Pressed}`,
+        borderTop: `1px solid ${tokens.colorNeutralBackground3Pressed}`,
+        display: "flex",
+        alignItems: "center",
+        marginBottom: "8px",
+    },
+    itemInfoIcon: {
+        width: '50%',
+        display: "flex",
+        alignItems: "center",
+        gap: "8px",
+    }
+}))
+export {FormRevoke};
 
 const FormAddNewInventoryDate = makeStyles(({
     addnewInvenDate: {
@@ -176,7 +215,7 @@ const FormAddNewInventoryDate = makeStyles(({
         minWidth: "600px",
     },
     Formbutton: {
-        width: "200%",
+        width: "100%",
         display: "flex",
         justifyContent: "space-between",
     },
@@ -230,7 +269,7 @@ const FormAddNewInventoryDate = makeStyles(({
         lineHeight: "24px",
         fontWeight: "600",
         margin: "0 ",
-        display: "block"
+        display: "block",
     },
     formDiv: {
         width: "100%",
@@ -280,13 +319,13 @@ const FormAddNewInventoryDate = makeStyles(({
     list: {
         marginTop: "12px",
         height: "auto",
-        
+
     },
 }))
-export  {FormAddNewInventoryDate}
+export {FormAddNewInventoryDate}
 
-const FormAddNewInvenBoard = makeStyles (({
-    
+const FormAddNewInvenBoard = makeStyles(({
+
     formAdd: {
         minHeight: "500px",
         height: "80vh"
@@ -343,7 +382,7 @@ const FormAddNewInvenBoard = makeStyles (({
         }
     },
 
-    textArea : {
+    textArea: {
         height: "200px"
     }
 }))
