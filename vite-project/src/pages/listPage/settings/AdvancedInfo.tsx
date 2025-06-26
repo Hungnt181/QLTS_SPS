@@ -22,7 +22,7 @@ const AdvancedInfo = () => {
     ]);
 
     const onOpenAdd = () => {
-        nav(`/taisan/settings/advanced-info/w-create`);
+        nav(`/asset/settings/advanced-info/w-create`);
     }
     // state cho Filter
 

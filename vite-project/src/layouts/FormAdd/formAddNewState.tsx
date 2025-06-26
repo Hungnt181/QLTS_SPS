@@ -41,7 +41,7 @@ const AddNewState = () => {
         })
         localStorage.setItem('data', JSON.stringify(allData))
         alert("Thêm mới thành công")
-        nav ("/taisan/settings/master-data/state", {state: { reload: true}})
+        nav ("/asset/settings/master-data/state", {state: { reload: true}})
     }
 
     return (
@@ -93,7 +93,7 @@ const AddNewState = () => {
                             <div className={style.Formbutton}>
                                 <DialogTrigger disableButtonEnhancement>
                                     <Button icon={<ChevronLeft16Regular/>} className={style.closeBtn}
-                                            appearance="secondary" onClick={() => nav("/taisan/settings/master-data/state")}>Quay lại</Button>
+                                            appearance="secondary" onClick={() => nav("/asset/settings/master-data/state")}>Quay lại</Button>
                                 </DialogTrigger>
                                 <Button appearance="primary" onClick={() => addNewItem()}>Thêm mới</Button>
                             </div>

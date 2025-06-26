@@ -55,16 +55,16 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
     // Tạo mapping giữa URL prefix và item value (sắp xếp theo độ dài giảm dần)
     const URL_PREFIX_TO_ITEM_MAP: Array<{prefix: string, value: string}> = [
         // Routes dài hơn phải đặt trước để match chính xác
-        { prefix: '/taisan/settings/master-data', value: '8' },
-        { prefix: '/taisan/settings/form-config', value: '9' },
-        { prefix: '/taisan/settings/advanced-info', value: '10' },
-        { prefix: '/taisan/dashboard', value: '1' },
-        { prefix: '/taisan/my-asset', value: '11' },
-        { prefix: '/taisan/list', value: '12' },
-        { prefix: '/taisan/maintenance', value: '3' },
-        { prefix: '/taisan/repair', value: '4' },
-        { prefix: '/taisan/liquidation', value: '5' },
-        { prefix: '/taisan/inventory', value: '6' },
+        { prefix: '/asset/settings/master-data', value: '8' },
+        { prefix: '/asset/settings/form-config', value: '9' },
+        { prefix: '/asset/settings/advanced-info', value: '10' },
+        { prefix: '/asset/dashboard', value: '1' },
+        { prefix: '/asset/my-asset', value: '11' },
+        { prefix: '/asset/list', value: '12' },
+        { prefix: '/asset/maintenance', value: '3' },
+        { prefix: '/asset/repair', value: '4' },
+        { prefix: '/asset/liquidation', value: '5' },
+        { prefix: '/asset/inventory', value: '6' },
     ];
 
 // Function để lấy item value từ current URL (sử dụng prefix matching)
@@ -100,7 +100,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                 navItem: {
                     value: "1", icon: [<Grid20Regular/>, <Grid20Filled/>], children: "Tổng quan",
                     action: () => {
-                        nav("/taisan/dashboard");
+                        nav("/asset/dashboard");
                         setSelectedItem("1")
                     }
                 },
@@ -116,7 +116,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                             value: "11", children: "Tài sản của tôi",
                             icon: [<DatabaseMultiple20Regular/>, <DatabaseMultiple20Filled/>],
                             action: () => {
-                                nav("/taisan/my-asset");
+                                nav("/asset/my-asset");
                                 setSelectedItem("11")
                             }
                         }
@@ -127,7 +127,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                             children: "Danh sách quản lý",
                             icon: [<DocumentData20Regular/>, <DocumentData20Filled/>],
                             action: () => {
-                                nav("/taisan/list");
+                                nav("/asset/list");
                                 setSelectedItem("12")
                             }
                         }
@@ -142,7 +142,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                     icon: [<History20Regular/>, <History20Filled/>],
                     children: "Bảo dưỡng",
                     action: () => {
-                        nav("/taisan/maintenance");
+                        nav("/asset/maintenance");
                         setSelectedItem("3")
                     }
                 },
@@ -155,7 +155,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                     icon: [<BoxEdit20Regular/>, <BoxEdit20Filled/>],
                     children: "Sửa chữa",
                     action: () => {
-                        nav("/taisan/repair");
+                        nav("/asset/repair");
                         setSelectedItem("4")
                     }
                 },
@@ -168,7 +168,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
         //             icon: [<Warning20Regular/>, <Warning20Filled/>],
         //             children: "Mất-Hủy-Thanh lý",
         //             action: () => {
-        //                 nav("/taisan/liquidation");
+        //                 nav("/asset/liquidation");
         //                 setSelectedItem("5")
         //             }
         //         },
@@ -181,7 +181,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                     icon: [<DocumentEdit20Regular/>, <DocumentEdit20Filled/>],
                     children: "Kiểm kê",
                     action: () => {
-                        nav("/taisan/inventory");
+                        nav("/asset/inventory");
                         setSelectedItem("6")
                     }
                 },
@@ -197,7 +197,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                             value: "8", children: "Master Data",
                             icon: [<DatabaseMultiple20Regular/>, <DatabaseMultiple20Filled/>],
                             action: () => {
-                                nav("/taisan/settings/master-data");
+                                nav("/asset/settings/master-data");
                                 setSelectedItem("8")
                             }
                         }
@@ -208,7 +208,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                             children: "Cấu hình biểu mẫu",
                             icon: [<DocumentData20Regular/>, <DocumentData20Filled/>],
                             action: () => {
-                                nav("/taisan/settings/form-config");
+                                nav("/asset/settings/form-config");
                                 setSelectedItem("9")
                             }
                         }
@@ -219,7 +219,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                             children: "Thông tin nâng cao",
                             icon: [<Clipboard3Day20Regular/>, <Clipboard3Day20Filled/>],
                             action: () => {
-                                nav("/taisan/settings/advanced-info");
+                                nav("/asset/settings/advanced-info");
                                 setSelectedItem("10")
                             }
                         }

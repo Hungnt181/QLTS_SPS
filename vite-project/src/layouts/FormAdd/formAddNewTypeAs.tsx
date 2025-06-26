@@ -81,7 +81,7 @@ const AddNewTypeAs = () => {
         })
         localStorage.setItem('data', JSON.stringify(allData))
         alert("Thêm mới thành công")
-        nav("/taisan/settings/master-data/type", {state: {reload: true} })
+        nav("/asset/settings/master-data/type", {state: {reload: true} })
     }
 
     return (
@@ -156,7 +156,7 @@ const AddNewTypeAs = () => {
                         <DialogActions className={style.Formbutton}>
                             <div className={style.Formbutton}>
                                 <DialogTrigger disableButtonEnhancement>
-                                    <Button icon={<ChevronLeft16Regular/> } className={style.closeBtn} appearance="secondary" onClick={() => nav("/taisan/settings/master-data/type")}>
+                                    <Button icon={<ChevronLeft16Regular/> } className={style.closeBtn} appearance="secondary" onClick={() => nav("/asset/settings/master-data/type")}>
                                         Quay lại       
                                     </Button>
                                 </DialogTrigger>

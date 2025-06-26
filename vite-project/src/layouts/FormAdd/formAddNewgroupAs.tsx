@@ -43,7 +43,7 @@ const AddNewGroupAs = () => {
         });
         localStorage.setItem('data', JSON.stringify(allData));
         alert(`Thêm mới thành công.`);
-        nav("/taisan/settings/master-data/group", { state: { reload: true } })
+        nav("/asset/settings/master-data/group", { state: { reload: true } })
     }
     return (
         <div className={style.addnewAsset}>
@@ -102,7 +102,7 @@ const AddNewGroupAs = () => {
                             <div className={style.Formbutton}>
                                 <DialogTrigger disableButtonEnhancement>
                                     <Button icon={<ChevronLeft16Regular/>} className={style.closeBtn}
-                                            appearance="secondary" onClick={() => nav("/taisan/settings/master-data/group")}>Quay lại</Button>
+                                            appearance="secondary" onClick={() => nav("/asset/settings/master-data/group")}>Quay lại</Button>
                                 </DialogTrigger>
                                 <Button appearance="primary" onClick={() => addNewItem()}>Thêm mới</Button>
                             </div>

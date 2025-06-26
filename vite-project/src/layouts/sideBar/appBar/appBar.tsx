@@ -52,9 +52,9 @@ const AppBar = () => {
     {
       icon: [<WebAsset24Regular />, <WebAsset24Filled />],
       title: "Tài sản",
-      url: "/taisan",
+      url: "/asset",
       action: () => {
-        nav("/taisan");
+        nav("/asset");
       },
     },
     // {

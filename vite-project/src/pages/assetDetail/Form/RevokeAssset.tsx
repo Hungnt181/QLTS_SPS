@@ -103,7 +103,7 @@ const RevokeAsset = () => {
         ))
         localStorage.setItem('data', JSON.stringify(allData));
         alert(`Thu hồi thành công`);
-        nav(`/taisan/list/detail/${id}`, {state: {reload: true}})
+        nav(`/asset/list/detail/${id}`, {state: {reload: true}})
     }
     const handleDateChange = (field: keyof typeof formData) => (date: Date | null | undefined) => {
         setFormData((prev) => ({
@@ -232,7 +232,7 @@ const RevokeAsset = () => {
                             <div className={style.Formbutton}>
                                 <DialogTrigger disableButtonEnhancement>
                                     <Button icon={<ChevronLeft16Regular/>} className={style.closeBtn}
-                                            appearance="secondary" onClick={() => nav(`/taisan/list/detail/${id}`)}>Quay
+                                            appearance="secondary" onClick={() => nav(`/asset/list/detail/${id}`)}>Quay
                                         lại</Button>
                                 </DialogTrigger>
                                 <Button appearance="primary" onClick={() => addNewItem()}>Thu hồi</Button>

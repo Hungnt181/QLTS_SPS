@@ -41,7 +41,7 @@ const RepairList = () => {
     // state cho Form Add New Asset
     // const [open, setOpen] = useState(false);
     const onOpenAdd = () => {
-        nav(`/taisan/repair/completed/${selectedId}`);
+        nav(`/asset/repair/completed/${selectedId}`);
     }
 
     return (

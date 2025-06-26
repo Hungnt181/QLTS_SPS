@@ -217,7 +217,7 @@ const TableList = () => {
                                         checkboxIndicator={{"aria-label": "Select row"}}
                                     />
                                     <TableCell className={style.hoverNameItem}
-                                               onClick={() => nav(`/taisan/list/detail/${item?.id}`)}>
+                                               onClick={() => nav(`/asset/list/detail/${item?.id}`)}>
                                         {item?.tenTaiSan}
                                     </TableCell>
                                     <TableCell>

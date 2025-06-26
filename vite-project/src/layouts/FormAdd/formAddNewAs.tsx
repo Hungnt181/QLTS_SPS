@@ -69,7 +69,7 @@ const AddNewAsset = () => {
     });
     localStorage.setItem("data", JSON.stringify(allData));
     alert(`Thêm mới thành công.`);
-    nav("/taisan/list", { state: { reload: true } });
+    nav("/asset/list", { state: { reload: true } });
   };
 
   // Cập nhật hàm handleInputChange để xử lý dynamic fields
@@ -400,7 +400,7 @@ const AddNewAsset = () => {
                     icon={<ChevronLeft16Regular />}
                     className={style.closeBtn}
                     appearance="secondary"
-                    onClick={() => nav("/taisan/list")}
+                    onClick={() => nav("/asset/list")}
                   >
                     Quay lại
                   </Button>

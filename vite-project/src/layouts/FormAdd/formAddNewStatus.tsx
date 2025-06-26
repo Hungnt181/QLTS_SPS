@@ -16,8 +16,6 @@ import AddNewAssetStyle, {FormAddMasterDataStyle} from "../../styles/formAdd/for
 import {useNavigate} from "react-router-dom";
 import {ChevronLeft16Regular} from "@fluentui/react-icons";
 import {useState} from "react";
-import axios from "axios";
-import type { StatusList } from "../../types/table.ts";
 
 const AddNewStatus = () => {
     const style = AddNewAssetStyle()
@@ -43,7 +41,7 @@ const AddNewStatus = () => {
         })
         localStorage.setItem('data', JSON.stringify(allData))
         alert("Thêm mới thành công")
-        nav ("/taisan/settings/master-data/status", {state: { reload: true}})
+        nav ("/asset/settings/master-data/status", {state: { reload: true}})
     }
 
     return (
@@ -95,7 +93,7 @@ const AddNewStatus = () => {
                             <div className={style.Formbutton}>
                                 <DialogTrigger disableButtonEnhancement>
                                     <Button icon={<ChevronLeft16Regular/>} className={style.closeBtn}
-                                            appearance="secondary" onClick={() => nav("/taisan/settings/master-data/status")}>Quay lại</Button>
+                                            appearance="secondary" onClick={() => nav("/asset/settings/master-data/status")}>Quay lại</Button>
                                 </DialogTrigger>
                                 <Button appearance="primary" onClick={() => addNewItem()}>Thêm mới</Button>
                             </div>

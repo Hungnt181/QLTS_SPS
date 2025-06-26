@@ -107,7 +107,7 @@ const MaintenanceCompleted = () => {
         ))
         localStorage.setItem('data', JSON.stringify(allData));
         alert(`Hoàn thành bảo dưỡng`);
-        nav(`/taisan/maintenance`, {state: {reload: true}})
+        nav(`/asset/maintenance`, {state: {reload: true}})
     }
     const handleDateChange = (field: keyof typeof formData) => (date: Date | null | undefined) => {
         setFormData((prev) => ({
@@ -237,7 +237,7 @@ const MaintenanceCompleted = () => {
                             <div className={style.Formbutton}>
                                 <DialogTrigger disableButtonEnhancement>
                                     <Button icon={<ChevronLeft16Regular/>} className={style.closeBtn}
-                                            appearance="secondary" onClick={() => nav(`/taisan/maintenance`)}>Quay
+                                            appearance="secondary" onClick={() => nav(`/asset/maintenance`)}>Quay
                                         lại</Button>
                                 </DialogTrigger>
                                 <Button appearance="primary" onClick={() => addNewItem()}>Hoàn thành</Button>

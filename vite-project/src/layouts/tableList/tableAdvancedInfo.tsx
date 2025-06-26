@@ -169,7 +169,7 @@ const TableAdvancedInfo = ({tooltipProps} : TableGroupAssetProps) => {
                                         checkboxIndicator={{"aria-label": "Select row"}}
                                     />
                                     <TableCell className={style.hoverNameItem}
-                                               onClick={() => nav(`/taisan/settings/advanced-info/detail/${item?._id}`)}>
+                                               onClick={() => nav(`/asset/settings/advanced-info/detail/${item?._id}`)}>
                                         {item?.label}
                                     </TableCell>
                                     <TableCell >

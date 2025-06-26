@@ -117,11 +117,11 @@ const TableListFormConfig = ({tooltipProps} : TableGroupAssetProps) => {
     );
     const handleClick = (id: string) => {
         if (id === 'ttnc') {
-            nav(`/taisan/settings/advanced-info`);
+            nav(`/asset/settings/advanced-info`);
             window.location.reload();
             return;
         }
-        nav(`/taisan/settings/form-config/detail/${id}`);
+        nav(`/asset/settings/form-config/detail/${id}`);
     }
     return (
 

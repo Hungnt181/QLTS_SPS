@@ -40,7 +40,7 @@ const MaintenanceList = () => {
     // state cho Form Add New Asset
     // const [open, setOpen] = useState(false);
     const onOpenAdd = () => {
-        nav(`/taisan/maintenance/completed/${selectedId}`);
+        nav(`/asset/maintenance/completed/${selectedId}`);
     }
 
     return (
