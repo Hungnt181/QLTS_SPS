@@ -3,8 +3,14 @@ import {
     Box20Filled,
     Box20Regular,
     BoxEdit20Filled,
-    BoxEdit20Regular, Clipboard3Day20Filled, Clipboard3Day20Regular,
-    Compose20Regular, DatabaseMultiple20Filled, DatabaseMultiple20Regular, DocumentData20Filled, DocumentData20Regular,
+    BoxEdit20Regular,
+    Clipboard3Day20Filled,
+    Clipboard3Day20Regular,
+    Compose20Regular,
+    DatabaseMultiple20Filled,
+    DatabaseMultiple20Regular,
+    DocumentData20Filled,
+    DocumentData20Regular,
     DocumentEdit20Filled,
     DocumentEdit20Regular,
     Filter20Regular,
@@ -14,27 +20,30 @@ import {
     History20Regular,
     Settings20Filled,
     Settings20Regular,
-    Warning20Filled,
-    Warning20Regular
 } from "@fluentui/react-icons";
 import {
-    Nav, NavCategory, NavCategoryItem,
+    Nav,
+    NavCategory,
+    NavCategoryItem,
     type NavCategoryItemProps,
-    type NavCategoryProps, NavItem, NavSubItem, NavSubItemGroup,
+    type NavCategoryProps,
+    NavItem,
+    NavSubItem,
+    NavSubItemGroup,
     type SplitNavItemProps,
 } from "@fluentui/react-nav-preview";
 
 import {
     mergeClasses,
     Tooltip,
-    type TooltipProps
+    type TooltipProps,
 } from "@fluentui/react-components";
 import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 
 type MenuBar = {
     tooltipProps?: TooltipProps;
-}
+};
 
 type SplitNavItemNestedProps = {
     splitNavItem?: SplitNavItemProps;
@@ -50,31 +59,30 @@ type SplitNavItemNestedProps = {
     };
 };
 
-
 const MenuBar = ({tooltipProps}: MenuBar) => {
     // Tạo mapping giữa URL prefix và item value (sắp xếp theo độ dài giảm dần)
-    const URL_PREFIX_TO_ITEM_MAP: Array<{prefix: string, value: string}> = [
+    const URL_PREFIX_TO_ITEM_MAP: Array<{ prefix: string; value: string }> = [
         // Routes dài hơn phải đặt trước để match chính xác
-        { prefix: '/asset/settings/master-data', value: '8' },
-        { prefix: '/asset/settings/form-config', value: '9' },
-        { prefix: '/asset/settings/advanced-info', value: '10' },
-        { prefix: '/asset/dashboard', value: '1' },
-        { prefix: '/asset/my-asset', value: '11' },
-        { prefix: '/asset/list', value: '12' },
-        { prefix: '/asset/maintenance', value: '3' },
-        { prefix: '/asset/repair', value: '4' },
-        { prefix: '/asset/liquidation', value: '5' },
-        { prefix: '/asset/inventory', value: '6' },
+        {prefix: "/asset/settings/master-data", value: "8"},
+        {prefix: "/asset/settings/form-config", value: "9"},
+        {prefix: "/asset/settings/advanced-info", value: "10"},
+        {prefix: "/asset/dashboard", value: "1"},
+        {prefix: "/asset/my-asset", value: "11"},
+        {prefix: "/asset/list", value: "12"},
+        {prefix: "/asset/maintenance", value: "3"},
+        {prefix: "/asset/repair", value: "4"},
+        {prefix: "/asset/liquidation", value: "5"},
+        {prefix: "/asset/inventory", value: "6"},
     ];
 
-// Function để lấy item value từ current URL (sử dụng prefix matching)
+    // Function để lấy item value từ current URL (sử dụng prefix matching)
     const getSelectedItemFromUrl = (pathname: string): string => {
         // Tìm prefix đầu tiên khớp với pathname
-        const matchedItem = URL_PREFIX_TO_ITEM_MAP.find(item =>
+        const matchedItem = URL_PREFIX_TO_ITEM_MAP.find((item) =>
             pathname.startsWith(item.prefix)
         );
 
-        return matchedItem?.value || '1'; // Default là '1' nếu không tìm thấy
+        return matchedItem?.value || "1"; // Default là '1' nếu không tìm thấy
     };
     const nav = useNavigate();
     const location = useLocation();
@@ -88,7 +96,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
         const currentItem = getSelectedItemFromUrl(location.pathname);
         setSelectedItem(currentItem);
     }, [location.pathname]);
-    const style = menuBarStyle()
+    const style = menuBarStyle();
 
     // const [selectedItem, setSelectedItem] = useState("12")
     // const nav = useNavigate()
@@ -98,28 +106,37 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
         {
             splitNavItem: {
                 navItem: {
-                    value: "1", icon: [<Grid20Regular/>, <Grid20Filled/>], children: "Tổng quan",
+                    value: "1",
+                    icon: [<Grid20Regular/>, <Grid20Filled/>],
+                    children: "Tổng quan",
                     action: () => {
                         nav("/asset/dashboard");
-                        setSelectedItem("1")
-                    }
+                        setSelectedItem("1");
+                    },
                 },
             },
         },
         {
             splitNavItem: {
                 navCategory: {value: "2"},
-                navCategoryItem: {icon: [<Box20Regular/>, <Box20Filled/>], children: "Tài sản"},
+                navCategoryItem: {
+                    icon: [<Box20Regular/>, <Box20Filled/>],
+                    children: "Tài sản",
+                },
                 navSubItems: [
                     {
                         navItem: {
-                            value: "11", children: "Tài sản của tôi",
-                            icon: [<DatabaseMultiple20Regular/>, <DatabaseMultiple20Filled/>],
+                            value: "11",
+                            children: "Tài sản của tôi",
+                            icon: [
+                                <DatabaseMultiple20Regular/>,
+                                <DatabaseMultiple20Filled/>,
+                            ],
                             action: () => {
                                 nav("/asset/my-asset");
-                                setSelectedItem("11")
-                            }
-                        }
+                                setSelectedItem("11");
+                            },
+                        },
                     },
                     {
                         navItem: {
@@ -128,9 +145,9 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                             icon: [<DocumentData20Regular/>, <DocumentData20Filled/>],
                             action: () => {
                                 nav("/asset/list");
-                                setSelectedItem("12")
-                            }
-                        }
+                                setSelectedItem("12");
+                            },
+                        },
                     },
                 ],
             },
@@ -143,8 +160,8 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                     children: "Bảo dưỡng",
                     action: () => {
                         nav("/asset/maintenance");
-                        setSelectedItem("3")
-                    }
+                        setSelectedItem("3");
+                    },
                 },
             },
         },
@@ -156,8 +173,8 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                     children: "Sửa chữa",
                     action: () => {
                         nav("/asset/repair");
-                        setSelectedItem("4")
-                    }
+                        setSelectedItem("4");
+                    },
                 },
             },
         },
@@ -182,25 +199,32 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                     children: "Kiểm kê",
                     action: () => {
                         nav("/asset/inventory");
-                        setSelectedItem("6")
-                    }
+                        setSelectedItem("6");
+                    },
                 },
             },
         },
         {
             splitNavItem: {
                 navCategory: {value: "7"},
-                navCategoryItem: {icon: [<Settings20Regular/>, <Settings20Filled/>], children: "Cấu hình"},
+                navCategoryItem: {
+                    icon: [<Settings20Regular/>, <Settings20Filled/>],
+                    children: "Cấu hình",
+                },
                 navSubItems: [
                     {
                         navItem: {
-                            value: "8", children: "Master Data",
-                            icon: [<DatabaseMultiple20Regular/>, <DatabaseMultiple20Filled/>],
+                            value: "8",
+                            children: "Master Data",
+                            icon: [
+                                <DatabaseMultiple20Regular/>,
+                                <DatabaseMultiple20Filled/>,
+                            ],
                             action: () => {
                                 nav("/asset/settings/master-data");
-                                setSelectedItem("8")
-                            }
-                        }
+                                setSelectedItem("8");
+                            },
+                        },
                     },
                     {
                         navItem: {
@@ -209,9 +233,9 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                             icon: [<DocumentData20Regular/>, <DocumentData20Filled/>],
                             action: () => {
                                 nav("/asset/settings/form-config");
-                                setSelectedItem("9")
-                            }
-                        }
+                                setSelectedItem("9");
+                            },
+                        },
                     },
                     {
                         navItem: {
@@ -220,9 +244,9 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                             icon: [<Clipboard3Day20Regular/>, <Clipboard3Day20Filled/>],
                             action: () => {
                                 nav("/asset/settings/advanced-info");
-                                setSelectedItem("10")
-                            }
-                        }
+                                setSelectedItem("10");
+                            },
+                        },
                     },
                 ],
             },
@@ -232,9 +256,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
         <div className={style.menuBar}>
             {/*Header*/}
             <div className={style.menuBarHeader}>
-                <div className={style.menuBarHeaderTitle}>
-                    Tài sản
-                </div>
+                <div className={style.menuBarHeaderTitle}>Tài sản</div>
                 <div className={style.menuBarHeaderIcon}>
                     <div>
                         <Tooltip content="Tìm kiếm" relationship="label" {...tooltipProps}>
@@ -242,7 +264,11 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                         </Tooltip>
                     </div>
                     <div>
-                        <Tooltip content="Thêm mới tài sản" relationship="label" {...tooltipProps}>
+                        <Tooltip
+                            content="Thêm mới tài sản"
+                            relationship="label"
+                            {...tooltipProps}
+                        >
                             <Compose20Regular/>
                         </Tooltip>
                     </div>
@@ -253,18 +279,25 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                 <Nav
                     defaultSelectedValue={selectedItem}
                     defaultSelectedCategoryValue={
-                        ["8", "9", "10"].includes(selectedItem) ? "7" :
-                            ["11", "12"].includes(selectedItem) ? "2" :
-                                ""
+                        ["8", "9", "10"].includes(selectedItem)
+                            ? "7"
+                            : ["11", "12"].includes(selectedItem)
+                                ? "2"
+                                : ""
                     }
+                    defaultOpenCategories={["7", "2"]}
                 >
                     {splitNavItemNestedProps.map((item: SplitNavItemNestedProps, index) =>
                         item?.splitNavItem?.navCategory ? (
-                            <NavCategory value={ item?.splitNavItem?.navCategory?.value} key={ item?.splitNavItem?.navCategory?.value}>
-                                <NavCategoryItem icon={
-                                    item?.splitNavItem?.navCategoryItem?.icon[0]
-                                }  >
-                                    { item?.splitNavItem?.navCategoryItem?.children}
+                            <NavCategory
+                                value={item?.splitNavItem?.navCategory?.value}
+                                key={item?.splitNavItem?.navCategory?.value}
+                            >
+                                <NavCategoryItem
+                                    icon={item?.splitNavItem?.navCategoryItem?.icon[0]}
+                                    className={style.navCategory}
+                                >
+                                    {item?.splitNavItem?.navCategoryItem?.children}
                                 </NavCategoryItem>
 
                                 <NavSubItemGroup>
@@ -273,6 +306,7 @@ const MenuBar = ({tooltipProps}: MenuBar) => {
                                             key={subItem?.navItem?.value}
                                             value={subItem?.navItem?.value}
                                             onClick={subItem?.navItem?.action}
+                                            className={style.navCategory}
                                         >
                                             {subItem.navItem.children}
                                         </NavSubItem>

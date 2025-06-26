@@ -359,7 +359,7 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
             <div className={style.content}>
                 {formConfigData.map((item: FormConfigItem) =>
                     item.id === id ? (
-                        <Card className={style.contentCard} key={item.id}>
+                        <div className={style.contentCard} key={item.id}>
                             <div className={style.contentCardHeader}>
                                 <Label className={style.contentCardHeaderWidth}>
                                     Tên nhóm biểu mẫu
@@ -502,7 +502,7 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
 
                                 </div>
                             </CardFooter>
-                        </Card>
+                        </div>
                     ) : null
                 )}
 

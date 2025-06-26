@@ -22,7 +22,7 @@ const MaintenanceList = () => {
     const [disabled, setDisabled] = useState(true);
     //titelToolBar
     const titleToolBar = useRef<TabToolBar[]>([
-        {value: "danhSach", url: "#", label: "Danh sách"},
+        // {value: "danhSach", url: "#", label: "Danh sách"},
     ]);
     // state cho Filters
     const onOpen = () => {

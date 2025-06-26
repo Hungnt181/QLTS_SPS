@@ -130,7 +130,7 @@ const MaintenanceAsset = () => {
                                 collapsible
                             >
                                 <AccordionItem value="1">
-                                    <AccordionHeader className={style.formSection} expandIconPosition={"end"}
+                                    <AccordionHeader className={style2.formSection} expandIconPosition={"end"}
                                                      size={"extra-large"}><h4 className={style.formSectionTitle}>Thông
                                         tin chung</h4>
                                     </AccordionHeader>
@@ -203,7 +203,7 @@ const MaintenanceAsset = () => {
                                     </AccordionPanel>
                                 </AccordionItem>
                                 <AccordionItem value="2">
-                                    <AccordionHeader className={style.formSection} expandIconPosition={"end"}
+                                    <AccordionHeader className={style2.formSection} expandIconPosition={"end"}
                                                      size={"extra-large"}><h4 className={style.formSectionTitle}>Thông
                                         tin bảo dưỡng</h4>
                                     </AccordionHeader>
@@ -254,15 +254,13 @@ const MaintenanceAsset = () => {
                             </Accordion>
 
                         </DialogContent>
-                        <DialogActions className={style.Formbutton}>
-                            <div className={style.Formbutton}>
+                        <DialogActions className={style2.Formbutton}>
                                 <DialogTrigger disableButtonEnhancement>
                                     <Button icon={<ChevronLeft16Regular/>} className={style.closeBtn}
                                             appearance="secondary" onClick={() => nav(`/asset/list/detail/${id}`)}>Quay
                                         lại</Button>
                                 </DialogTrigger>
                                 <Button appearance="primary" onClick={() => addNewItem()}>Bảo dưỡng</Button>
-                            </div>
                         </DialogActions>
                     </DialogBody>
                 </DialogSurface>

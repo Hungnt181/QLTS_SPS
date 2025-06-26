@@ -21,7 +21,7 @@ const AssetList = () => {
     const [isOpen, setIsOpen] = useState(false);
     //titelToolBar
     const titleToolBar = useRef<TabToolBar[]>([
-        {value: "danhSach", url: "#", label: "Danh sách"},
+        // {value: "danhSach", url: "#", label: "Danh sách"},
     ]);
     // state cho Filters
     const onOpen = () => {
