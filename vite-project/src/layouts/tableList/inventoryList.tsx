@@ -228,7 +228,7 @@ const InventoryList: React.FC<TableInventoryProps> = ({ tooltipProps }) => {
                                             checked={selected}
                                             checkboxIndicator={{ "aria-label": "chọn cột" }}
                                         />
-                                        <TableCell className={style.hoverNameItem} onClick={() => nav(`/taisan/inventory-detail/${item?.maSoPhieu}`)}>
+                                        <TableCell className={style.hoverNameItem} onClick={() => nav(`/asset/inventory-detail/${item?.maSoPhieu}`)}>
                                             <div key={item?.id}>{item?.noidung}</div>
                                         </TableCell>
                                         <TableCell>

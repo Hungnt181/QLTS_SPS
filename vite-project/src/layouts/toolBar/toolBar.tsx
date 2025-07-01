@@ -24,11 +24,11 @@ const ToolBar = ({tabListProps,titleToolBar}: ToolBarTab, ) => {
     // Tạo mapping giữa URL prefix và item value (sắp xếp theo độ dài giảm dần)
     const URL_PREFIX_TO_ITEM_MAP: Array<{prefix: string, value: string}> = [
         // Routes dài hơn phải đặt trước để match chính xác
-        { prefix: '/taisan/settings/master-data/group', value: 'group' },
-        { prefix: '/taisan/settings/master-data/type', value: 'type' },
-        { prefix: '/taisan/settings/master-data/status', value: 'status' },
-        { prefix: '/taisan/settings/master-data/state', value: 'state' },
-        { prefix: '/taisan/settings/master-data/add', value: 'add' },
+        { prefix: '/asset/settings/master-data/group', value: 'group' },
+        { prefix: '/asset/settings/master-data/type', value: 'type' },
+        { prefix: '/asset/settings/master-data/status', value: 'status' },
+        { prefix: '/asset/settings/master-data/state', value: 'state' },
+        { prefix: '/asset/settings/master-data/add', value: 'add' },
     ];
 
 // Function để lấy item value từ current URL (sử dụng prefix matching)

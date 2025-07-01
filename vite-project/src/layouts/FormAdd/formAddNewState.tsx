@@ -41,7 +41,7 @@ const AddNewState = () => {
         })
         localStorage.setItem('data', JSON.stringify(allData))
         alert("Thêm mới thành công")
-        nav ("/taisan/settings/master-data/state", {state: { reload: true}})
+        nav ("/asset/settings/master-data/state", {state: { reload: true}})
     }
 
     return (
@@ -53,9 +53,9 @@ const AddNewState = () => {
                         <DialogContent>
                             <Accordion openItems={openItems} onToggle={handleToggle} multiple collapsible>
                                 <AccordionItem value="1">
-                                    <AccordionHeader className={style.formSection} expandIconPosition={"end"}
+                                    <AccordionHeader className={style1.formSection} expandIconPosition={"end"}
                                     size={"extra-large"}>
-                                        <h4>Thông tin chung</h4>
+                                        <h4 className={style.formSectionTitle}>Thông tin chung</h4>
                                     </AccordionHeader>
 
                                     <AccordionPanel className={style.formContent}>
@@ -89,14 +89,12 @@ const AddNewState = () => {
                             </Accordion>
                         </DialogContent>
 
-                        <DialogActions className={style.Formbutton}>
-                            <div className={style.Formbutton}>
+                        <DialogActions className={style1.Formbutton}>
                                 <DialogTrigger disableButtonEnhancement>
                                     <Button icon={<ChevronLeft16Regular/>} className={style.closeBtn}
-                                            appearance="secondary" onClick={() => nav("/taisan/settings/master-data/state")}>Quay lại</Button>
+                                            appearance="secondary" onClick={() => nav("/asset/settings/master-data/state")}>Quay lại</Button>
                                 </DialogTrigger>
                                 <Button appearance="primary" onClick={() => addNewItem()}>Thêm mới</Button>
-                            </div>
                         </DialogActions>
                     </DialogBody>
                 </DialogSurface>

@@ -271,13 +271,13 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
                 formConfigData.fields.push(formData);
                 localStorage.setItem("data", JSON.stringify(allData));
                 alert("Thêm mới thành công.");
-                nav("/taisan/settings/form-config", {state: {reload: true}});
+                nav("/asset/settings/form-config", {state: {reload: true}});
             }
         } else {
             // Lưu dữ liệu vào localStorage
             localStorage.setItem('data', JSON.stringify(allData));
             alert(`Cập nhật thành công.`);
-            nav("/taisan/settings/form-config", {state: {reload: true}});
+            nav("/asset/settings/form-config", {state: {reload: true}});
         }
     };
 
@@ -344,12 +344,12 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
             <div className={style.toolBar}>
                 <div className={style.toolBarStart}>
                     <Button className={style.toolBarStartBtn} icon={<ChevronLeft24Regular/>}
-                            onClick={() => nav('/taisan/settings/form-config/list')}>
+                            onClick={() => nav('/asset/settings/form-config/list')}>
                         <h4 className={style.toolBarH4}>Cấu hình biểu mẫu</h4>
                     </Button>
                 </div>
                 <div className={style.toolBarEnd}>
-                    <Button onClick={() => nav('/taisan/settings/form-config/list')} className={style.toolBarEndBtn}
+                    <Button onClick={() => nav('/asset/settings/form-config/list')} className={style.toolBarEndBtn}
                             icon={<Dismiss20Regular/>}>Hủy</Button>
                     <Button onClick={handleSaveFormData} appearance="primary" icon={<Checkmark20Regular/>}>Cập nhật cấu
                         hình</Button>
@@ -359,7 +359,7 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
             <div className={style.content}>
                 {formConfigData.map((item: FormConfigItem) =>
                     item.id === id ? (
-                        <Card className={style.contentCard} key={item.id}>
+                        <div className={style.contentCard} key={item.id}>
                             <div className={style.contentCardHeader}>
                                 <Label className={style.contentCardHeaderWidth}>
                                     Tên nhóm biểu mẫu
@@ -502,7 +502,7 @@ const FormConfigDetail = (props: Partial<DropdownProps>) => {
 
                                 </div>
                             </CardFooter>
-                        </Card>
+                        </div>
                     ) : null
                 )}
 

@@ -66,9 +66,9 @@ const AddNewInvenBoard = ({ mode }: AddNewInvenBoardProps) => {
         localStorage.setItem('data', JSON.stringify(allData))
         alert("Thêm thành công")
         if (mode === "detail") {
-            nav(`/taisan/inventory-detail/${maSoPhieu}`, { state: { reload: true } })
+            nav(`/asset/inventory-detail/${maSoPhieu}`, { state: { reload: true } })
         } else {
-            nav(`/taisan/inventory/w-create`, { state: { reload: true } })
+            nav(`/asset/inventory/w-create`, { state: { reload: true } })
         }
     }
 

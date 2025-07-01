@@ -22,7 +22,7 @@ const MaintenanceList = () => {
     const [disabled, setDisabled] = useState(true);
     //titelToolBar
     const titleToolBar = useRef<TabToolBar[]>([
-        {value: "danhSach", url: "#", label: "Danh sách"},
+        // {value: "danhSach", url: "#", label: "Danh sách"},
     ]);
     // state cho Filters
     const onOpen = () => {
@@ -40,7 +40,7 @@ const MaintenanceList = () => {
     // state cho Form Add New Asset
     // const [open, setOpen] = useState(false);
     const onOpenAdd = () => {
-        nav(`/taisan/maintenance/completed/${selectedId}`);
+        nav(`/asset/maintenance/completed/${selectedId}`);
     }
 
     return (

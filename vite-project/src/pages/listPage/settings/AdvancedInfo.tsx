@@ -17,12 +17,12 @@ const AdvancedInfo = () => {
     const nav = useNavigate();
     //titelToolBar
     const titleToolBar = useRef<TabToolBar[]>([
-        {value: "danhSach", url: "#", label: "Danh sách"},
+        // {value: "danhSach", url: "#", label: "Danh sách"},
         // {value: "add", url: "#", label: "", icon: <Add20Regular/>},
     ]);
 
     const onOpenAdd = () => {
-        nav(`/taisan/settings/advanced-info/w-create`);
+        nav(`/asset/settings/advanced-info/w-create`);
     }
     // state cho Filter
 

@@ -54,7 +54,7 @@ const AddNewAdvancedInfo = (props: Partial<DropdownProps>) => {
     //     );
     //     localStorage.setItem('data', JSON.stringify(allData));
     //     alert(`Thêm mới thành công.`);
-    //     nav("/taisan/settings/advanced-info", { state: { reload: true } })
+    //     nav("/asset/settings/advanced-info", { state: { reload: true } })
     // }
 
 
@@ -141,7 +141,7 @@ const AddNewAdvancedInfo = (props: Partial<DropdownProps>) => {
         advancedData.fields[0].options.push(formData);
         localStorage.setItem('data', JSON.stringify(allData));
         alert(`Thêm mới thành công.`);
-        nav("/taisan/settings/advanced-info", {state: {reload: true}})
+        nav("/asset/settings/advanced-info", {state: {reload: true}})
     }
     return (
         <div className={style.addnewAsset}>
@@ -315,7 +315,7 @@ const AddNewAdvancedInfo = (props: Partial<DropdownProps>) => {
                                 <DialogTrigger disableButtonEnhancement>
                                     <Button icon={<ChevronLeft16Regular/>} className={style.closeBtn}
                                             appearance="secondary"
-                                            onClick={() => nav("/taisan/settings/advanced-info")}>Quay lại</Button>
+                                            onClick={() => nav("/asset/settings/advanced-info")}>Quay lại</Button>
                                 </DialogTrigger>
                                 <Button appearance="primary" onClick={() => addNewItem()}>Thêm mới</Button>
                             </div>

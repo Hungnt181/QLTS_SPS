@@ -103,7 +103,7 @@ const RevokeAsset = () => {
         ))
         localStorage.setItem('data', JSON.stringify(allData));
         alert(`Thu hồi thành công`);
-        nav(`/taisan/list/detail/${id}`, {state: {reload: true}})
+        nav(`/asset/list/detail/${id}`, {state: {reload: true}})
     }
     const handleDateChange = (field: keyof typeof formData) => (date: Date | null | undefined) => {
         setFormData((prev) => ({
@@ -125,7 +125,7 @@ const RevokeAsset = () => {
                                 collapsible
                             >
                                 <AccordionItem value="1">
-                                    <AccordionHeader className={style.formSection} expandIconPosition={"end"}
+                                    <AccordionHeader className={style2.formSection} expandIconPosition={"end"}
                                                      size={"extra-large"}><h4 className={style.formSectionTitle}>Thông
                                         tin chung</h4>
                                     </AccordionHeader>
@@ -166,7 +166,7 @@ const RevokeAsset = () => {
                                     </AccordionPanel>
                                 </AccordionItem>
                                 <AccordionItem value="2">
-                                    <AccordionHeader className={style.formSection} expandIconPosition={"end"}
+                                    <AccordionHeader className={style2.formSection} expandIconPosition={"end"}
                                                      size={"extra-large"}><h4 className={style.formSectionTitle}>Thông
                                         tin thu hồi</h4>
                                     </AccordionHeader>
@@ -228,15 +228,13 @@ const RevokeAsset = () => {
                             </Accordion>
 
                         </DialogContent>
-                        <DialogActions className={style.Formbutton}>
-                            <div className={style.Formbutton}>
+                        <DialogActions className={style2.Formbutton}>
                                 <DialogTrigger disableButtonEnhancement>
                                     <Button icon={<ChevronLeft16Regular/>} className={style.closeBtn}
-                                            appearance="secondary" onClick={() => nav(`/taisan/list/detail/${id}`)}>Quay
+                                            appearance="secondary" onClick={() => nav(`/asset/list/detail/${id}`)}>Quay
                                         lại</Button>
                                 </DialogTrigger>
                                 <Button appearance="primary" onClick={() => addNewItem()}>Thu hồi</Button>
-                            </div>
                         </DialogActions>
                     </DialogBody>
                 </DialogSurface>
