@@ -24,7 +24,7 @@ const dashboardStyle = makeStyles(({
         overflowX: "hidden",
         scrollbarColor: "rgba(0, 0, 0, 0.2)",
         scrollbarWidth: "thin",
-    }, 
+    },
 
     general: {
         display: "flex",
@@ -102,8 +102,20 @@ const dashboardStyle = makeStyles(({
     },
 
     chart: {
+        flex: "1 1 100%",
         padding: "12px 24px",
         gap: "10px",
+        minWidth: 0,
+        "@media (min-width: 768px)": {
+            flex: "1 1 48%",
+        },
+    },
+
+    responsiveChart: {
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "16px",
+        justifyContent: "space-between",
     },
 
     chartTitle: {

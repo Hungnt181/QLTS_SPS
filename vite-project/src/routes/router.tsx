@@ -215,6 +215,7 @@ const router = createBrowserRouter([
         path: "taisan/list/new-detail/:id",
         element: <AssetDetailNew />
       },
+
       {
         path: "asset/list/detail/:id",
         element: <AssetDetail />,
