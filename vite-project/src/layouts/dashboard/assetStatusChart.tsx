@@ -26,21 +26,25 @@ const AssetStatusStackedBar = () => {
         label: "Đang sử dụng",
         data: [60, 50, 80, 90, 75, 40],
         backgroundColor: "#1E3A8A", // navy blue
+        barThickness: 40
       },
       {
         label: "Chưa sử dụng",
         data: [20, 10, 15, 10, 5, 20],
         backgroundColor: "#93C5FD", // light blue
+        barThickness: 40
       },
       {
         label: "Hỏng, sửa chữa, bảo dưỡng",
         data: [15, 25, 30, 20, 15, 10],
         backgroundColor: "#A1A1AA", // gray
+        barThickness: 40
       },
       {
         label: "Mất, huỷ, thanh lý",
         data: [5, 15, 10, 5, 5, 10],
         backgroundColor: "#E5E7EB", // light gray
+        barThickness: 40
       }
     ]
   };
@@ -71,7 +75,11 @@ const AssetStatusStackedBar = () => {
     }
   };
 
-  return <Bar data={data} options={options} />;
+  return (
+    <div >
+      <Bar data={data} options={options} />
+    </div>
+  );
 };
 
 export default AssetStatusStackedBar;
