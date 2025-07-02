@@ -212,8 +212,8 @@ const router = createBrowserRouter([
       },
       //deatail list tài sản
       {
-        path: "taisan/list/new-detail/:id",
-        element: <AssetDetailNew />
+        path: "asset/list/new-detail/:id",
+        element: <AssetDetailNew />,
       },
 
       {

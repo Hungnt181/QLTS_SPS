@@ -20,13 +20,13 @@ export const AssetActionToolbar = ({ asset }: Props) => {
             label: "Thu hồi",
             icon: <PersonArrowLeft20Regular />,
             disabled: !isDisabled,
-            onclick: () => nav(`/asset/list/detail/${id}/revoke`)
+            onclick: () => nav(`/asset/list/new-detail/${id}/revoke`)
         },
         {
             label: "Cấp phát",
             icon: <PersonArrowRight20Regular />,
             disabled: isDisabled,
-            onClick: () => nav(`/asset/list/detail/${id}/assign`)
+            onClick: () => nav(`/asset/list/new-detail/${id}/assign`)
         },
         {
             label: "Chỉnh sửa",
@@ -37,13 +37,13 @@ export const AssetActionToolbar = ({ asset }: Props) => {
             label: "Sửa chữa",
             icon: <BoxEdit20Regular />,
             disabled: asset?.trangThai === "Đang sửa chữa",
-            onClick: () => nav(`/asset/list/detail/${id}/repair`)
+            onClick: () => nav(`/asset/list/new-detail/${id}/repair`)
         },
         {
             label: "Bảo dưỡng",
             icon: <History20Regular />,
             disabled: ["Đang sửa chữa", "Đang bảo dưỡng"].includes(asset?.trangThai ?? ""),
-            onClick: () => nav(`/asset/list/detail/${id}/maintenance`)
+            onClick: () => nav(`/asset/list/new-detail/${id}/maintenance`)
         },
     ]
 

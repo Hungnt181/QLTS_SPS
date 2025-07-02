@@ -18,7 +18,7 @@ const AssetDetailHeader = ({ asset, showHistory, setShowHistory }: Props) => {
     const style = AssetDetailNewStyle()
     const [isDisabled, setIsDisabled] = useState(false);
     const handleClose = () => {
-        nav("/taisan/list")
+        nav("/asset/list")
     }
     useEffect(() => {
         if (asset?.nguoiSuDung != "") {
@@ -50,9 +50,7 @@ const AssetDetailHeader = ({ asset, showHistory, setShowHistory }: Props) => {
                 </div>
             </div>
 
-            <div className={style.right}>
-                <div></div>
-            </div>
+            
             <Outlet />
         </div>
     )
