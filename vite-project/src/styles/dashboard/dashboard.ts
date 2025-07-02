@@ -114,8 +114,19 @@ const dashboardStyle = makeStyles(({
     responsiveChart: {
         display: "flex",
         flexWrap: "wrap",
-        gap: "16px",
+        gap: "8px",
         justifyContent: "space-between",
+        [`& > div`]: {
+            flex: "1 1 100%",
+        },
+        [`@media (min-width: 1440px)`]: {
+            flexWrap: "nowrap", // không xuống dòng
+            justifyContent: "space-between",
+
+            [`& > div`]: {
+                flex: "1 1 50%", // mỗi chart chiếm ~nửa chiều rộng
+            },
+        },
     },
 
     chartTitle: {
