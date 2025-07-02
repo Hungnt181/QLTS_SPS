@@ -4,6 +4,7 @@ import { Button, Label, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger, Tool
 import { useMediaQuery } from "react-responsive"
 import { BoxEdit20Regular, EditSettings20Regular, History20Regular, MoreHorizontal20Regular, PersonArrowLeft20Regular, PersonArrowRight20Regular } from "@fluentui/react-icons";
 import AssetDetailNewStyle from "../../../styles/listPages/assetDetail/assetDetailNew";
+import { useEffect, useState } from "react";
 
 interface Props {
     asset: TypeTaiSan | null;
@@ -13,14 +14,22 @@ export const AssetActionToolbar = ({ asset }: Props) => {
     const nav = useNavigate()
     const { id } = useParams()
     const style = AssetDetailNewStyle()
-    const isDisabled = !!asset?.nguoiSuDung
+    const [isDisabled, setIsDisabled] = useState(false)
     const isSmallScreen = useMediaQuery({ maxWidth: 1300 })
+    useEffect(() => {
+        if (asset?.nguoiSuDung != "") {
+            setIsDisabled(true);
+        } else {
+            setIsDisabled(false);
+        }
+    }, [asset]);
+
     const actions = [
         {
             label: "Thu hồi",
             icon: <PersonArrowLeft20Regular />,
             disabled: !isDisabled,
-            onclick: () => nav(`/asset/list/detail/${id}/revoke`)
+            onClick: () => nav(`/asset/list/detail/${id}/revoke`)
         },
         {
             label: "Cấp phát",
