@@ -60,7 +60,7 @@ const AddNewAsset = () => {
   const [formData, setFormData] = useState(createInitialFormData());
 
   const addNewItem = async () => {
-    console.log("formData", formData);
+    // console.log("formData", formData);
     const data = localStorage.getItem("data");
     const allData = data ? JSON.parse(data) : { dataTable: [] };
     allData.dataTable.push({
@@ -69,7 +69,7 @@ const AddNewAsset = () => {
     });
     localStorage.setItem("data", JSON.stringify(allData));
     alert(`Thêm mới thành công.`);
-    nav("/taisan/list", { state: { reload: true } });
+    nav("/asset/list", { state: { reload: true } });
   };
 
   // Cập nhật hàm handleInputChange để xử lý dynamic fields
@@ -362,8 +362,8 @@ const AddNewAsset = () => {
     <div className={style.addnewAsset}>
       <Dialog open={true}>
         <DialogSurface className={style.editWdith}>
+          <DialogTitle style={{padding: '20px'}}>Thêm mới tài sản</DialogTitle>
           <DialogBody className={style.formAdd}>
-            <DialogTitle>Thêm mới tài sản</DialogTitle>
             <DialogContent>
               <Accordion
                 openItems={openItems}
@@ -387,20 +387,19 @@ const AddNewAsset = () => {
                       <h4 className={style.formSectionTitle}>{section.name}</h4>
                     </AccordionHeader>
                     <AccordionPanel className={style.formContent}>
-                      <div>{renderSection(section, sectionIndex)}</div>
+                      <div style={{padding: '0 8px 0 20px'}}>{renderSection(section, sectionIndex)}</div>
                     </AccordionPanel>
                   </AccordionItem>
                 ))}
               </Accordion>
             </DialogContent>
             <DialogActions className={style.Formbutton}>
-              <div className={style.Formbutton}>
                 <DialogTrigger disableButtonEnhancement>
                   <Button
                     icon={<ChevronLeft16Regular />}
                     className={style.closeBtn}
                     appearance="secondary"
-                    onClick={() => nav("/taisan/list")}
+                    onClick={() => nav("/asset/list")}
                   >
                     Quay lại
                   </Button>
@@ -408,7 +407,6 @@ const AddNewAsset = () => {
                 <Button appearance="primary" onClick={() => addNewItem()}>
                   Thêm mới
                 </Button>
-              </div>
             </DialogActions>
           </DialogBody>
         </DialogSurface>

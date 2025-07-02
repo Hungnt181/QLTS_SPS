@@ -77,7 +77,7 @@ const InventoryDetail: React.FC<TableInvenBoardProps> = ({ tooltipProps }) => {
                     <ToolbarButton className={style.toolbarBtn}
                         appearance="subtle"
                         icon={<Dismiss24Regular className={style.toolbarIcon} />}
-                        onClick={() => nav('/taisan/inventory')}
+                        onClick={() => nav('/asset/inventory')}
                     >
                     </ToolbarButton>
                     <div className={style.toolbarTitle}>

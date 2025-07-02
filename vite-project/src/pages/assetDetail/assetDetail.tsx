@@ -37,6 +37,7 @@ import {
   GroupReturn20Regular,
 } from "@fluentui/react-icons";
 import { Button } from "@fluentui/react-components";
+import { AssetActionToolbar } from "./assetDetailToolbar/assetActionToolbar.tsx";
 
 const AssetDetail = () => {
   // const [assetDetail, setAssetDetail] = useState<TypeTaiSan | null> (null)
@@ -120,7 +121,7 @@ const AssetDetail = () => {
             <div className={style.title}>
               <button
                 className={style.buttonIcon}
-                onClick={() => navigate("/taisan/list")}
+                onClick={() => navigate("/asset/list")}
               >
                 <DismissSquare24Regular className={style.titleIcon} />
               </button>
@@ -129,11 +130,11 @@ const AssetDetail = () => {
               </Text>
             </div>
 
-            <div className={style.actionButton}>
+            {/* <div className={style.actionButton}>
               <Button
                 className={style.button}
                 disabled={!isDisabled}
-                onClick={() => navigate(`/taisan/list/detail/${id}/revoke`)}
+                onClick={() => navigate(`/asset/list/detail/${id}/revoke`)}
               >
                 <PersonArrowLeft20Regular className={style.icon} />
                 <span className={style.buttonTitle}>Thu hồi</span>
@@ -141,7 +142,7 @@ const AssetDetail = () => {
               <Button
                 className={style.button}
                 disabled={isDisabled}
-                onClick={() => navigate(`/taisan/list/detail/${id}/assign`)}
+                onClick={() => navigate(`/asset/list/detail/${id}/assign`)}
               >
                 <PersonArrowRight20Regular className={style.icon} />
                 <span className={style.buttonTitle}>Cấp phát</span>
@@ -153,7 +154,7 @@ const AssetDetail = () => {
               <Button
                 className={style.button}
                 disabled={asset?.trangThai === "Đang sửa chữa"}
-                onClick={() => navigate(`/taisan/list/detail/${id}/repair`)}
+                onClick={() => navigate(`/asset/list/detail/${id}/repair`)}
               >
                 <BoxEdit20Regular className={style.icon} />
                 <span className={style.buttonTitle}>Sửa chữa</span>
@@ -165,12 +166,15 @@ const AssetDetail = () => {
                   asset?.trangThai === "Đang sửa chữa"
                 }
                 onClick={() =>
-                  navigate(`/taisan/list/detail/${id}/maintenance`)
+                  navigate(`/asset/list/detail/${id}/maintenance`)
                 }
               >
                 <History20Regular className={style.icon} />
                 <span className={style.buttonTitle}>Bảo dưỡng</span>
               </Button>
+            </div> */}
+            <div>
+              <AssetActionToolbar asset={asset} />
             </div>
 
             <div className={style.rightActionButton}>

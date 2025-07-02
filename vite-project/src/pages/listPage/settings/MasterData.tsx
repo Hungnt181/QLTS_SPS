@@ -19,24 +19,24 @@ type TabToolBar = {
 const MasterData = () => {
     const style = masterDataStyle()
     const nav = useNavigate();
-    const [curentUrl, setCurrentUrl] = useState<string>("/taisan/settings/master-data/group");
+    const [curentUrl, setCurrentUrl] = useState<string>("/asset/settings/master-data/group");
     //titelToolBar
     const titleToolBar = useRef<TabToolBar[]>([
-        {value: "group", url: "/taisan/settings/master-data/group", label: "Nhóm tài sản",
-            action: () => {nav("/taisan/settings/master-data/group")
-                                setCurrentUrl("/taisan/settings/master-data/group")
+        {value: "group", url: "/asset/settings/master-data/group", label: "Nhóm tài sản",
+            action: () => {nav("/asset/settings/master-data/group")
+                                setCurrentUrl("/asset/settings/master-data/group")
         }},
-        {value: "type", url: "/taisan/settings/master-data/type", label: "Loại tài sản",
-            action: () => {nav("/taisan/settings/master-data/type")
-                setCurrentUrl("/taisan/settings/master-data/type")
+        {value: "type", url: "/asset/settings/master-data/type", label: "Loại tài sản",
+            action: () => {nav("/asset/settings/master-data/type")
+                setCurrentUrl("/asset/settings/master-data/type")
         }},
-        {value: "status", url: "/taisan/settings/master-data/status", label: "Tình trạng",
-            action: () => {nav("/taisan/settings/master-data/status")
-                                setCurrentUrl("/taisan/settings/master-data/status")
+        {value: "status", url: "/asset/settings/master-data/status", label: "Tình trạng",
+            action: () => {nav("/asset/settings/master-data/status")
+                                setCurrentUrl("/asset/settings/master-data/status")
         }},
-        {value: "state", url: "/taisan/settings/master-data/state", label: "Trạng thái",
-            action: () => {nav("/taisan/settings/master-data/state")
-                                setCurrentUrl("/taisan/settings/master-data/state")
+        {value: "state", url: "/asset/settings/master-data/state", label: "Trạng thái",
+            action: () => {nav("/asset/settings/master-data/state")
+                                setCurrentUrl("/asset/settings/master-data/state")
         }},
         {value: "add", url: "#", label: "", icon: <Add20Regular/>},
     ]);

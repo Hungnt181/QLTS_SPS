@@ -9,6 +9,12 @@ const data = [
   { name: "T4", value: 21 },
   { name: "T5", value: 19 },
   { name: "T6", value: 30 },
+  { name: "T7", value: 40 },
+  { name: "T8", value: 42 },
+  { name: "T9", value: 44 },
+  { name: "T10", value: 50 },
+  { name: "T11", value: 21 },
+  { name: "T12", value: 22 },
 ];
 
 const FlucChart = () => {
@@ -24,7 +30,8 @@ const FlucChart = () => {
           <YAxis label={{ value: 'Tổng giá trị (tỷ)', angle: -90, position: 'insideLeft' }} />
           <Tooltip />
           <Legend />
-          <Bar dataKey="value" fill="#5b60e4" />
+          <Bar dataKey="value" fill="#5b60e4" barSize={40} />
+          
         </BarChart>
       </ResponsiveContainer>
     </div>
