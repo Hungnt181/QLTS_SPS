@@ -28,12 +28,14 @@ const dashboardStyle = makeStyles(({
 
     general: {
         display: "flex",
-        gap: "12px",
+        gap: "24px",
         padding: "12px 24px"
     },
 
     generalContent: {
         maxHeight: "173px",
+        width: "auto",
+        boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
         padding: "12px 0px",
@@ -47,12 +49,11 @@ const dashboardStyle = makeStyles(({
 
     generalContentTitle: {
         width: "100%",
-        height: "20px",
         display: "flex",
         padding: "0px 8px",
-        alignItems: "flex-start",
-        flex: "1 0 0",
+        alignItems: "center",
         gap: "8px",
+        boxSizing: "border-box",
     },
     genIcon: {
         display: "flex",
@@ -64,6 +65,8 @@ const dashboardStyle = makeStyles(({
     },
 
     generalTitle: {
+        flex: "1",
+        whiteSpace: "wrap",
         overflow: "hidden",
         lineHeight: "18px",
         fontSize: "14px",
