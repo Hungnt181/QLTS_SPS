@@ -82,7 +82,7 @@ const AddNewAssetStyle = makeStyles(({
         lineHeight: "24px",
         fontWeight: "600",
         margin: "0 ",
-        display: "block"
+        display: "block",
     },
     formDiv: {
         width: "100%",
@@ -179,6 +179,14 @@ const FormAddMasterDataStyle = makeStyles(({
         display: "flex",
         justifyContent: "space-between",
         gridColumn: 'span 2'
+    },
+      formSectionTitle: {
+        fontSize: "16px",
+        lineHeight: "24px",
+        fontWeight: "600",
+        margin: "0 ",
+        display: "block",
+        padding: "0px",
     },
 }))
 export {FormAddMasterDataStyle};
