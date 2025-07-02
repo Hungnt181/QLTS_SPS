@@ -4,6 +4,7 @@ import { Button, Label, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger, Tool
 import { useMediaQuery } from "react-responsive"
 import { BoxEdit20Regular, EditSettings20Regular, History20Regular, MoreHorizontal20Regular, PersonArrowLeft20Regular, PersonArrowRight20Regular } from "@fluentui/react-icons";
 import AssetDetailNewStyle from "../../../styles/listPages/assetDetail/assetDetailNew";
+import { useEffect, useState } from "react";
 
 interface Props {
     asset: TypeTaiSan | null;
@@ -13,20 +14,28 @@ export const AssetActionToolbar = ({ asset }: Props) => {
     const nav = useNavigate()
     const { id } = useParams()
     const style = AssetDetailNewStyle()
-    const isDisabled = !!asset?.nguoiSuDung
-    const isSmallScreen = useMediaQuery({ maxWidth: 1285 })
+    const [isDisabled, setIsDisabled] = useState(false)
+    const isSmallScreen = useMediaQuery({ maxWidth: 1300 })
+    useEffect(() => {
+        if (asset?.nguoiSuDung != "") {
+            setIsDisabled(true);
+        } else {
+            setIsDisabled(false);
+        }
+    }, [asset]);
+
     const actions = [
         {
             label: "Thu hồi",
             icon: <PersonArrowLeft20Regular />,
             disabled: !isDisabled,
-            onclick: () => nav(`/asset/list/new-detail/${id}/revoke`)
+            onClick: () => nav(`/asset/list/detail/${id}/revoke`)
         },
         {
             label: "Cấp phát",
             icon: <PersonArrowRight20Regular />,
             disabled: isDisabled,
-            onClick: () => nav(`/asset/list/new-detail/${id}/assign`)
+            onClick: () => nav(`/asset/list/detail/${id}/assign`)
         },
         {
             label: "Chỉnh sửa",
@@ -37,13 +46,13 @@ export const AssetActionToolbar = ({ asset }: Props) => {
             label: "Sửa chữa",
             icon: <BoxEdit20Regular />,
             disabled: asset?.trangThai === "Đang sửa chữa",
-            onClick: () => nav(`/asset/list/new-detail/${id}/repair`)
+            onClick: () => nav(`/asset/list/detail/${id}/repair`)
         },
         {
             label: "Bảo dưỡng",
             icon: <History20Regular />,
             disabled: ["Đang sửa chữa", "Đang bảo dưỡng"].includes(asset?.trangThai ?? ""),
-            onClick: () => nav(`/asset/list/new-detail/${id}/maintenance`)
+            onClick: () => nav(`/asset/list/detail/${id}/maintenance`)
         },
     ]
 

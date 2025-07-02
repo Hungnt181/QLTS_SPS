@@ -4,7 +4,7 @@ var mainColor = tokens.colorNeutralBackground1
 const assetDetailStyle = makeStyles(({
     detailPage: {
         display: "flex",
-        alignItems:'start',
+        alignItems: 'start',
         // width: "100%",
 
         // zIndex: 1,
@@ -26,7 +26,7 @@ const assetDetailStyle = makeStyles(({
         flexDirection: "column",
     },
 
-    actionBar: { 
+    actionBar: {
         display: "flex",
         margin: "0",
         justifyContent: "space-between",
@@ -84,8 +84,14 @@ const assetDetailStyle = makeStyles(({
     actionButton: {
         display: "flex",
         alignItems: "center",
+        flexWrap: "wrap",
         gap: "12px",
-        marginTop: "3px"
+        marginTop: "3px",
+        flexDirection: "row",
+        "@media (max-width: 1199px)": {
+            flexDirection: "column",
+            alignItems: "stretch", // full width buttons
+        }
     },
 
     icon: {
@@ -109,6 +115,12 @@ const assetDetailStyle = makeStyles(({
         gap: "8px",
         border: "none",
         backgroundColor: "#fff",
+
+        // responsive: nhỏ hơn 1200px thì giảm padding và gap
+        "@media (max-width: 1199px)": {
+            padding: "6px",   // tăng một chút để không quá nhỏ
+            gap: "0px",       // không cần khoảng cách khi không có chữ
+        }
     },
 
     iconButton: {
@@ -282,7 +294,7 @@ const assetDetailStyle = makeStyles(({
         color: "#616161",
         textAlign: "left",
         position: "relative",
-        marginRight: '20px' 
+        marginRight: '20px'
     },
 
     timeContainer: {
@@ -341,7 +353,7 @@ const assetDetailStyle = makeStyles(({
         padding: "16px 12px 12px 12px",
         borderRadius: "0 4px 4px 0",
         backgroundColor: "#fff",
-        display: "block",       
+        display: "block",
     },
 
     info: {

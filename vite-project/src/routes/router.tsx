@@ -211,10 +211,10 @@ const router = createBrowserRouter([
         ],
       },
       //deatail list tài sản
-      {
-        path: "asset/list/new-detail/:id",
-        element: <AssetDetailNew />,
-      },
+      // {
+      //   path: "asset/list/new-detail/:id",
+      //   element: <AssetDetailNew />,
+      // },
 
       {
         path: "asset/list/detail/:id",
