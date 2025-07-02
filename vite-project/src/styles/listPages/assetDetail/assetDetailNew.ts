@@ -1,4 +1,3 @@
-import { FontWeights } from "@fluentui/react";
 import { makeStyles, tokens } from "@fluentui/react-components";
 const AssetDetailNewStyle = makeStyles(({
     detailPage: {

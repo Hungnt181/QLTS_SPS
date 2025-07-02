@@ -14,7 +14,7 @@ export const AssetActionToolbar = ({ asset }: Props) => {
     const { id } = useParams()
     const style = AssetDetailNewStyle()
     const isDisabled = !!asset?.nguoiSuDung
-    const isSmallScreen = useMediaQuery({ maxWidth: 1285 })
+    const isSmallScreen = useMediaQuery({ maxWidth: 1300 })
     const actions = [
         {
             label: "Thu hồi",

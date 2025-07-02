@@ -37,6 +37,7 @@ import {
   GroupReturn20Regular,
 } from "@fluentui/react-icons";
 import { Button } from "@fluentui/react-components";
+import { AssetActionToolbar } from "./assetDetailToolbar/assetActionToolbar.tsx";
 
 const AssetDetail = () => {
   // const [assetDetail, setAssetDetail] = useState<TypeTaiSan | null> (null)
@@ -129,7 +130,7 @@ const AssetDetail = () => {
               </Text>
             </div>
 
-            <div className={style.actionButton}>
+            {/* <div className={style.actionButton}>
               <Button
                 className={style.button}
                 disabled={!isDisabled}
@@ -171,6 +172,9 @@ const AssetDetail = () => {
                 <History20Regular className={style.icon} />
                 <span className={style.buttonTitle}>Bảo dưỡng</span>
               </Button>
+            </div> */}
+            <div>
+              <AssetActionToolbar asset={asset} />
             </div>
 
             <div className={style.rightActionButton}>
