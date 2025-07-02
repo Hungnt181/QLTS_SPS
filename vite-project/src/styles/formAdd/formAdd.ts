@@ -217,7 +217,7 @@ const FormAddNewInventoryDate = makeStyles(({
     Formbutton: {
         width: "100%",
         display: "flex",
-        justifyContent: "space-between",
+        justifyContent: "flex-end",
     },
     closeBtn: {
         border: "none",
@@ -366,7 +366,7 @@ const FormAddNewInvenBoard = makeStyles(({
     },
 
     Formbutton: {
-        width: "200%",
+        width: "100%",
         display: "flex",
         justifyContent: "space-between",
     },
