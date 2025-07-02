@@ -122,7 +122,7 @@ const dashboardStyle = makeStyles(({
         [`& > div`]: {
             flex: "1 1 100%",
         },
-        [`@media (min-width: 1440px)`]: {
+        [`@media (min-width: 1550px)`]: {
             flexWrap: "nowrap", // không xuống dòng
             justifyContent: "space-between",
 
