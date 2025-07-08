@@ -9,6 +9,7 @@ import InvenBoardList from "../../pages/inventoryDetail/invenBoardList";
 import AssetInvenList from "../../pages/inventoryDetail/assetInvenList";
 import { DatePicker, type DatePickerProps } from "@fluentui/react-datepicker-compat";
 import InventoryDetailStyle from "../../styles/inventory/inventoryDetailStyle";
+import { useAddNewInvenForm } from "./AddNewInvenForm";
 
 
 const AddNewInventoryDate = () => {
@@ -20,93 +21,88 @@ const AddNewInventoryDate = () => {
         setOpenItems(data.openItems)
     }
 
-    // const dropdownId = useId("dropdown-default");
-    // const options = [
-    //     "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
-    //     "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
-    // ];
+    const {
+        formData,
+        setFormData,
+        handleDateChange,
+        addNewInventoryDate,
+    } = useAddNewInvenForm()
+    
 
-    // const handleDropdownChange = (_event: any, data: any) => {
-    //     setFormData({
-    //     ...formData,
-    //     kiKiemKe: data.optionText,
-    //     });
-    // };
+    // const generateMaSoPhieu = () => {
+    //     const data = localStorage.getItem('data')
+    //     const allData = data ? JSON.parse(data) : { InventoryList: [] }
+    //     const count = allData.InventoryList.length + 1
+    //     return `KK${String(count).padStart(4, '0')}` // VD: KK0001
+    // }
 
-    const generateMaSoPhieu = () => {
-        const data = localStorage.getItem('data')
-        const allData = data ? JSON.parse(data) : { InventoryList: [] }
-        const count = allData.InventoryList.length + 1
-        return `KK${String(count).padStart(4, '0')}` // VD: KK0001
-    }
+    // const [formData, setFormData] = useState({
+    //     noidung: "",
+    //     maSoPhieu: "",
+    //     kiKiemKeThang: "",
+    //     kiKiemKeNam: "",
+    //     kiKiemKe: "",
+    //     hanKiemKe: "",
+    //     diaDiem: "",
+    //     phongBan: "",
+    //     nhomTaiSan: "",
+    //     loaiTaiSan: "",
+    //     trangThai: "Chưa kiểm kê",
+    //     tienDo: "0%",
+    //     truongBanKiemKe: "",
+    //     vaiTro: "Trưởng ban",
+    // })
 
-    const [formData, setFormData] = useState({
-        noidung: "",
-        maSoPhieu: "",
-        kiKiemKeThang: "",
-        kiKiemKeNam: "",
-        kiKiemKe: "",
-        hanKiemKe: "",
-        diaDiem: "",
-        phongBan: "",
-        nhomTaiSan: "",
-        loaiTaiSan: "",
-        trangThai: "Chưa kiểm kê",
-        tienDo: "0%",
-        truongBanKiemKe: "",
-        vaiTro: "Trưởng ban",
-    })
+    // useEffect(() => {
+    //     const maSoPhieu = generateMaSoPhieu();
 
-    useEffect(() => {
-        const maSoPhieu = generateMaSoPhieu();
+    //     const data = localStorage.getItem('data')
+    //     const allData = data ? JSON.parse(data) : { InvenBoardData: {} }
+    //     const tempList = allData.InvenBoardData?.temp || []
 
-        const data = localStorage.getItem('data')
-        const allData = data ? JSON.parse(data) : { InvenBoardData: {} }
-        const tempList = allData.InvenBoardData?.temp || []
+    //     const truongBan = tempList.find((item: any) => item.vaiTro === "Trưởng ban")
 
-        const truongBan = tempList.find((item: any) => item.vaiTro === "Trưởng ban")
-
-        console.log("Trưởng ban kiểm kê:", truongBan);
+    //     console.log("Trưởng ban kiểm kê:", truongBan);
 
 
-        setFormData((prev) => ({
-            ...prev,
-            maSoPhieu,
-            truongBanKiemKe: truongBan?.hoTen || "",
-            chucVu: truongBan?.chucVu || "",
-        }));
-    }, []);
+    //     setFormData((prev) => ({
+    //         ...prev,
+    //         maSoPhieu,
+    //         truongBanKiemKe: truongBan?.hoTen || "",
+    //         chucVu: truongBan?.chucVu || "",
+    //     }));
+    // }, []);
 
-    const addNewInventoryDate = async () => {
-        const data = localStorage.getItem('data')
-        const allData = data ? JSON.parse(data) : { InventoryList: [], InvenBoardData: {} }
-        const kiKiemKeText = `${formData.kiKiemKeThang}/${formData.kiKiemKeNam}`
-
-
-        allData.InventoryList.push({
-            id: formData.maSoPhieu,
-            ...formData,
-            kiKiemKe: kiKiemKeText,
-        })
-
-        if (!allData.InvenBoardData) allData.InvenBoardData = {}
-        if (allData.InvenBoardData.temp && allData.InvenBoardData.temp.length > 0) {
-            allData.InvenBoardData[formData.maSoPhieu] = allData.InvenBoardData.temp
-            delete allData.InvenBoardData.temp
-        }
-
-        localStorage.setItem('data', JSON.stringify(allData))
-        alert('Thêm mới thành công')
-        nav('/asset/inventory', { state: { reload: true } })
-    }
+    // const addNewInventoryDate = async () => {
+    //     const data = localStorage.getItem('data')
+    //     const allData = data ? JSON.parse(data) : { InventoryList: [], InvenBoardData: {} }
+    //     const kiKiemKeText = `${formData.kiKiemKeThang}/${formData.kiKiemKeNam}`
 
 
-    const handleDateChange = (field: keyof typeof formData) => (date: Date | null | undefined) => {
-        setFormData((prev) => ({
-            ...prev,
-            [field]: date ? date.toLocaleDateString("vi-VN") : ""
-        }))
-    }
+    //     allData.InventoryList.push({
+    //         id: formData.maSoPhieu,
+    //         ...formData,
+    //         kiKiemKe: kiKiemKeText,
+    //     })
+
+    //     if (!allData.InvenBoardData) allData.InvenBoardData = {}
+    //     if (allData.InvenBoardData.temp && allData.InvenBoardData.temp.length > 0) {
+    //         allData.InvenBoardData[formData.maSoPhieu] = allData.InvenBoardData.temp
+    //         delete allData.InvenBoardData.temp
+    //     }
+
+    //     localStorage.setItem('data', JSON.stringify(allData))
+    //     alert('Thêm mới thành công')
+    //     nav('/asset/inventory', { state: { reload: true } })
+    // }
+
+
+    // const handleDateChange = (field: keyof typeof formData) => (date: Date | null | undefined) => {
+    //     setFormData((prev) => ({
+    //         ...prev,
+    //         [field]: date ? date.toLocaleDateString("vi-VN") : ""
+    //     }))
+    // }
 
     return (
         <div className={style.addnewInvenDate}>

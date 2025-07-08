@@ -20,6 +20,29 @@ const AssetDetailHeader = ({ asset, showHistory, setShowHistory }: Props) => {
     const handleClose = () => {
         nav("/asset/list")
     }
+
+    const handleAction = (action: string) => {
+        switch (action) {
+            case "Thu hồi":
+                nav(`/asset/list/detail/${id}/revoke`);
+                break;
+            case "Cấp phát":
+                nav(`/asset/list/detail/${id}/assign`);
+                break;
+            case "Chỉnh sửa":
+                alert("Mở form chỉnh sửa");
+                break;
+            case "Sửa chữa":
+                nav(`/asset/list/detail/${id}/repair`);
+                break;
+            case "Bảo dưỡng":
+                nav(`/asset/list/detail/${id}/maintenance`);
+                break;
+            default:
+                break;
+        }
+    };
+
     useEffect(() => {
         if (asset?.nguoiSuDung != "") {
             setIsDisabled(true);
@@ -35,7 +58,7 @@ const AssetDetailHeader = ({ asset, showHistory, setShowHistory }: Props) => {
                     <h2 className={style.title}>Chi tiết tài sản</h2>
                 </div>
                 <div className={style.actionBtn}>
-                    <AssetActionToolbar asset={asset} />
+                    <AssetActionToolbar asset={asset} onAction={handleAction} />
                 </div>
                 <div className={style.iconBtn}>
                     <Button className={style.btn} size="small" icon={<Print20Regular />} />
@@ -50,7 +73,7 @@ const AssetDetailHeader = ({ asset, showHistory, setShowHistory }: Props) => {
                 </div>
             </div>
 
-            
+
             <Outlet />
         </div>
     )

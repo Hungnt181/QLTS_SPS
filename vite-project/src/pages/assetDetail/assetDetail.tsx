@@ -24,10 +24,6 @@ import {
   Status20Regular,
   PulseSquare20Regular,
   CalendarEdit20Regular,
-  PersonArrowLeft20Regular,
-  PersonArrowRight20Regular,
-  EditSettings20Regular,
-  BoxEdit20Regular,
   History20Regular,
   DismissSquare24Regular,
   Print20Regular,
@@ -113,6 +109,28 @@ const AssetDetail = () => {
     <div>Không tìm thấy thông tin tài sản</div>;
   }
 
+  const handleAction = (action: string) => {
+    switch (action) {
+      case "Thu hồi":
+        navigate(`/asset/list/detail/${id}/revoke`);
+        break;
+      case "Cấp phát":
+        navigate(`/asset/list/detail/${id}/assign`);
+        break;
+      case "Chỉnh sửa":
+        alert("Mở form chỉnh sửa");
+        break;
+      case "Sửa chữa":
+        navigate(`/asset/list/detail/${id}/repair`);
+        break;
+      case "Bảo dưỡng":
+        navigate(`/asset/list/detail/${id}/maintenance`);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className={style.detailPage}>
       <div className={style.leftElements}>
@@ -174,7 +192,7 @@ const AssetDetail = () => {
               </Button>
             </div> */}
             <div>
-              <AssetActionToolbar asset={asset} />
+              <AssetActionToolbar asset={asset} onAction={handleAction} />
             </div>
 
             <div className={style.rightActionButton}>
@@ -424,71 +442,71 @@ const AssetDetail = () => {
         <div className={style.historyTable}>
           {Array.isArray(assetRevoke)
             ? assetRevoke.map((item: RevokeAssetItem) => (
-                <div key={item?.id} className={style.history}>
-                  <div className={style.time}>
-                    <Text>{item?.ngayThuHoi}</Text>
-                  </div>
+              <div key={item?.id} className={style.history}>
+                <div className={style.time}>
+                  <Text>{item?.ngayThuHoi}</Text>
+                </div>
 
-                  <div className={style.timeContainer}>
-                    <div className={style.timeLine}>
-                      <div className={style.activities}>
-                        <div className={style.statusText}>Đã thu hồi</div>
-                        <div className={style.info}>
-                          <div className={style.text}>
-                            <Persona
-                              size={PersonaSize.size32}
-                              className={style.persona}
-                            />
-                            <span className={style.name}>
-                              {item?.nguoiThuHoi}
-                            </span>
-                            <span className={style.chucVu}>
-                              Nhân viên thực tập - Phòng Công Nghệ 1 - SPSVN
-                            </span>
-                          </div>
+                <div className={style.timeContainer}>
+                  <div className={style.timeLine}>
+                    <div className={style.activities}>
+                      <div className={style.statusText}>Đã thu hồi</div>
+                      <div className={style.info}>
+                        <div className={style.text}>
+                          <Persona
+                            size={PersonaSize.size32}
+                            className={style.persona}
+                          />
+                          <span className={style.name}>
+                            {item?.nguoiThuHoi}
+                          </span>
+                          <span className={style.chucVu}>
+                            Nhân viên thực tập - Phòng Công Nghệ 1 - SPSVN
+                          </span>
                         </div>
-                        <div className={style.iconWrapper}>
-                          <GroupReturn20Regular />
-                        </div>
+                      </div>
+                      <div className={style.iconWrapper}>
+                        <GroupReturn20Regular />
                       </div>
                     </div>
                   </div>
                 </div>
-              ))
+              </div>
+            ))
             : null}
           {Array.isArray(assetAssign)
             ? assetAssign.map((item: AssignAssetItem) => (
-                <div key={item?.id} className={style.history}>
-                  <div className={style.time}>
-                    <Text>{item?.ngayCapPhat}</Text>
-                  </div>
+              <div key={item?.id} className={style.history}>
+                <div className={style.time}>
+                  <Text>{item?.ngayCapPhat}</Text>
+                </div>
 
-                  <div className={style.timeContainer}>
-                    <div className={style.timeLine}>
-                      <div className={style.activities}>
-                        <div className={style.statusText}>Đã cấp phát</div>
-                        <div className={style.info}>
-                          <div className={style.text}>
-                            <Persona
-                              size={PersonaSize.size32}
-                              className={style.persona}
-                            />
-                            <span className={style.name}>
-                              {item?.nguoiCapPhat}
-                            </span>
-                            <span className={style.chucVu}>
-                              Nhân viên thực tập - Phòng Công Nghệ 1 - SPSVN
-                            </span>
-                          </div>
+                <div className={style.timeContainer}>
+                  <div className={style.timeLine}>
+                    <div className={style.activities}>
+                      <div className={style.statusText}>Đã cấp phát</div>
+                      <div className={style.info}>
+                        <div className={style.text}>
+                          <Persona
+                            size={PersonaSize.size32}
+                            className={style.persona}
+                          />
+                          <span className={style.name}>
+                            {item?.nguoiCapPhat}
+                          </span>
+                          <span className={style.chucVu}>
+                            Nhân viên thực tập - Phòng Công Nghệ 1 - SPSVN
+                          </span>
                         </div>
-                        <div className={style.iconWrapper}>
-                          <GroupReturn20Regular />
-                        </div>
+                      </div>
+                      <div className={style.iconWrapper}>
+                        <GroupReturn20Regular />
                       </div>
                     </div>
                   </div>
                 </div>
-              ))
+              </div>
+            ))
             : null}
           <div className={style.history}>
             <div className={style.time}>
@@ -518,7 +536,7 @@ const AssetDetail = () => {
               </div>
             </div>
           </div>
-          {}
+          { }
         </div>
       </div>
       <Outlet></Outlet>
